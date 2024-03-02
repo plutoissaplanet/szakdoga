@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdysesl382wpi"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_c44fo"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_c44fo")
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 47.0
+offset_top = 142.0
+offset_right = 250.0
+offset_bottom = 233.0
+text = "Start"
+
+[node name="CharMaker" type="Button" parent="."]
+offset_left = 46.0
+offset_top = 262.0
+offset_right = 249.0
+offset_bottom = 353.0
+text = "Karakter készítő"
+
+[node name="LeaderB" type="Button" parent="."]
+offset_left = 49.0
+offset_top = 375.0
+offset_right = 252.0
+offset_bottom = 466.0
+text = "Leaderboard"
+
+[node name="Exit" type="Button" parent="."]
+offset_left = 48.0
+offset_top = 499.0
+offset_right = 251.0
+offset_bottom = 590.0
+text = "Kilépés"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CharMaker" to="." method="_on_char_maker_pressed"]
+[connection signal="pressed" from="LeaderB" to="." method="_on_leader_b_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

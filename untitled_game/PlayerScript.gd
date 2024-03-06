@@ -21,16 +21,17 @@ func _physics_process(_delta):
 	
 	var move_w = Input.is_action_pressed("w_up")
 	var move_a = Input.is_action_pressed("a_left")
-	var	move_s= Input.is_action_pressed("s_down")
+	var move_s= Input.is_action_pressed("s_down")
 	var move_d = Input.is_action_pressed("d_right")
 	
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var input_direction_wasd = Input.get_vector("a_left", "d_right", "w_up","s_down")
-	var direction = Input.get_axis("a_left", "d_right")
+	var direction_wasd = Input.get_axis("a_left", "d_right")
+	var direction = Input.get_axis("move_left", "move_right")
 	#Alapjáraton a RUN animáció-beli framek jobbra néznek, az alábbi 4 sor azt csinálja, hogy ha balra megy akkor megfordul a Player
-	if direction == -1:
+	if direction == -1 || direction_wasd == -1:
 		character.flip_h=true
-	elif direction == 1:
+	elif direction == 1 || direction_wasd == 1:
 		character.flip_h= false
 	
 	

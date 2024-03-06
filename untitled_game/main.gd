@@ -12,7 +12,7 @@ func _process(delta):
 
 
 func _on_start_button_pressed():
-	get_tree().change_scene_to_file("res://Rooms/room1.tscn")
+	get_tree().change_scene_to_file("res://Rooms/Easy/map1_easy.tscn")
 
 
 func _on_char_maker_pressed():

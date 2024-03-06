@@ -194,7 +194,7 @@ animation = &"Right"
 frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.375, 2.375)
+zoom = Vector2(2.905, 2.905)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

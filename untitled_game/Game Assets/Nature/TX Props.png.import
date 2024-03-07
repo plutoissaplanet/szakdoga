@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djavfjuyfo4bu"
-path="res://.godot/imported/TX Player.png-f5ed9c94a5c22d31cf8bae9c9e7a8e8a.ctex"
+uid="uid://p0ppq4kvgqhe"
+path="res://.godot/imported/TX Props.png-a5d84bac7df62b76068f034f90334026.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rooms/GameAssets/Nature/TX Player.png"
-dest_files=["res://.godot/imported/TX Player.png-f5ed9c94a5c22d31cf8bae9c9e7a8e8a.ctex"]
+source_file="res://Game Assets/Nature/TX Props.png"
+dest_files=["res://.godot/imported/TX Props.png-a5d84bac7df62b76068f034f90334026.ctex"]
 
 [params]
 

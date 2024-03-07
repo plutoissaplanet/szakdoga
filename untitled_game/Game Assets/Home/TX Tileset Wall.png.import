@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n1qayoraav2w"
-path="res://.godot/imported/TopDownHouse_FloorsAndWalls2.png-a9a3c59d7f2e53374fd3355a6b4a5813.ctex"
+uid="uid://x0hso8yh18hl"
+path="res://.godot/imported/TX Tileset Wall.png-858748565be913cf44428a9277f77e2a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rooms/GameAssets/Home/TopDownHouse_FloorsAndWalls2.png"
-dest_files=["res://.godot/imported/TopDownHouse_FloorsAndWalls2.png-a9a3c59d7f2e53374fd3355a6b4a5813.ctex"]
+source_file="res://Game Assets/Home/TX Tileset Wall.png"
+dest_files=["res://.godot/imported/TX Tileset Wall.png-858748565be913cf44428a9277f77e2a.ctex"]
 
 [params]
 

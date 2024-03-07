@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eih62v3bu65u"
-path="res://.godot/imported/TX Struct.png-44941a8b6e6777679b9c79879a6cf335.ctex"
+uid="uid://djavfjuyfo4bu"
+path="res://.godot/imported/TX Player.png-272af8cae3bb5f66722116bd6191e7f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rooms/GameAssets/Home/TX Struct.png"
-dest_files=["res://.godot/imported/TX Struct.png-44941a8b6e6777679b9c79879a6cf335.ctex"]
+source_file="res://Game Assets/Nature/TX Player.png"
+dest_files=["res://.godot/imported/TX Player.png-272af8cae3bb5f66722116bd6191e7f2.ctex"]
 
 [params]
 

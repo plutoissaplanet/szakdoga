@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcte1tiel5mwj"]
+
+[ext_resource type="Script" path="res://MainMenuThings/level_chooser.gd" id="1_hn7od"]
+
+[node name="LevelChooser" type="Node2D"]
+script = ExtResource("1_hn7od")
+
+[node name="EasyButton" type="Button" parent="."]
+offset_left = 492.0
+offset_top = 182.0
+offset_right = 652.0
+offset_bottom = 240.0
+text = "Könnyű"
+
+[node name="MediumButton" type="Button" parent="."]
+offset_left = 493.0
+offset_top = 287.0
+offset_right = 653.0
+offset_bottom = 345.0
+text = "Közepes"
+
+[node name="HardButton" type="Button" parent="."]
+offset_left = 492.0
+offset_top = 390.0
+offset_right = 652.0
+offset_bottom = 448.0
+text = "Nehéz"
+
+[connection signal="pressed" from="EasyButton" to="." method="_on_EasyButton_pressed"]
+[connection signal="pressed" from="MediumButton" to="." method="_on_MediumButton_pressed"]
+[connection signal="pressed" from="HardButton" to="." method="_on_HardButton_pressed"]

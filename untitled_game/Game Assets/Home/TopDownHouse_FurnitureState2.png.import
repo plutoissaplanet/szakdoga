@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0u05nqdwnh4j"
-path="res://.godot/imported/TX Tileset Stone Ground.png-d1d8e72c3ab6e0da64588be63bd616b8.ctex"
+uid="uid://48eq3tmmft7o"
+path="res://.godot/imported/TopDownHouse_FurnitureState2.png-a04b1825d5cbe5dfe3ccb71f48d13c1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rooms/GameAssets/Home/TX Tileset Stone Ground.png"
-dest_files=["res://.godot/imported/TX Tileset Stone Ground.png-d1d8e72c3ab6e0da64588be63bd616b8.ctex"]
+source_file="res://Game Assets/Home/TopDownHouse_FurnitureState2.png"
+dest_files=["res://.godot/imported/TopDownHouse_FurnitureState2.png-a04b1825d5cbe5dfe3ccb71f48d13c1d.ctex"]
 
 [params]
 

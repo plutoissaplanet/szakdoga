@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv3knvlljdbi8"
-path="res://.godot/imported/TX Tileset Grass.png-f69a236f5bf2f8bffb6c5e6546d41654.ctex"
+uid="uid://bweh6025qao7c"
+path="res://.godot/imported/TopDownHouse_DoorsAndWindows.png-3f94dc1e4ca403cea548415460ef0db3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rooms/GameAssets/Nature/TX Tileset Grass.png"
-dest_files=["res://.godot/imported/TX Tileset Grass.png-f69a236f5bf2f8bffb6c5e6546d41654.ctex"]
+source_file="res://Game Assets/Home/TopDownHouse_DoorsAndWindows.png"
+dest_files=["res://.godot/imported/TopDownHouse_DoorsAndWindows.png-3f94dc1e4ca403cea548415460ef0db3.ctex"]
 
 [params]
 

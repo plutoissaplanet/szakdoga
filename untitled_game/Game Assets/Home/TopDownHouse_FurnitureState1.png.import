@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x88jh6owud4w"
-path="res://.godot/imported/TX Shadow.png-c9ec52e2c0a7a1f4c869846ccedd1af5.ctex"
+uid="uid://clff1w4x8yhfq"
+path="res://.godot/imported/TopDownHouse_FurnitureState1.png-9398ba836ac03bcfae59beca126f5dea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rooms/GameAssets/Nature/TX Shadow.png"
-dest_files=["res://.godot/imported/TX Shadow.png-c9ec52e2c0a7a1f4c869846ccedd1af5.ctex"]
+source_file="res://Game Assets/Home/TopDownHouse_FurnitureState1.png"
+dest_files=["res://.godot/imported/TopDownHouse_FurnitureState1.png-9398ba836ac03bcfae59beca126f5dea.ctex"]
 
 [params]
 

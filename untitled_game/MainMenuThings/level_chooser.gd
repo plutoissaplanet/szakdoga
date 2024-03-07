@@ -32,10 +32,19 @@ func change_rooms(path):
 
 func _on_EasyButton_pressed():
 	change_rooms("res://Rooms/easy/")
-
+	#get_tree().change_scene_to_file("res://Rooms/easy/2.tscn")
+	
 func _on_MediumButton_pressed():
 	change_rooms("res://Rooms/medium/")
 
 func _on_HardButton_pressed():
 	change_rooms("res://Rooms/hard/")
 
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://Rooms/easy/1.tscn")
+
+
+func _on_button_2_pressed():
+	get_tree().change_scene_to_file("res://Rooms/easy/2.tscn")

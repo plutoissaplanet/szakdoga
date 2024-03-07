@@ -26,6 +26,22 @@ offset_right = 652.0
 offset_bottom = 448.0
 text = "Nehéz"
 
+[node name="Button" type="Button" parent="."]
+offset_left = 60.0
+offset_top = 391.0
+offset_right = 200.0
+offset_bottom = 439.0
+text = "map 1"
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 49.0
+offset_top = 473.0
+offset_right = 205.0
+offset_bottom = 527.0
+text = "map 2"
+
 [connection signal="pressed" from="EasyButton" to="." method="_on_EasyButton_pressed"]
 [connection signal="pressed" from="MediumButton" to="." method="_on_MediumButton_pressed"]
 [connection signal="pressed" from="HardButton" to="." method="_on_HardButton_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

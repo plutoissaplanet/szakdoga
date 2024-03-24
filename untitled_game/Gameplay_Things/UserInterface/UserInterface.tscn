@@ -1,0 +1,177 @@
+[gd_scene load_steps=7 format=3 uid="uid://baj1vg4d2x82b"]
+
+[ext_resource type="Script" path="res://Gameplay_Things/UserInterface/UserInterface.gd" id="1_2i8pr"]
+[ext_resource type="PackedScene" uid="uid://b4auxcsdiujju" path="res://Gameplay_Things/Inventory/Inventory_UI.tscn" id="1_a5lw5"]
+[ext_resource type="Texture2D" uid="uid://b5n42d1ixw5le" path="res://Game Assets/generalButton.png" id="2_24fag"]
+[ext_resource type="Texture2D" uid="uid://tugxce5mxk28" path="res://Game Assets/UI.png" id="4_200f8"]
+[ext_resource type="Texture2D" uid="uid://8pj23egb8wbc" path="res://Game Assets/UI_button.png" id="5_3nvmd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lyb8v"]
+bg_color = Color(0.533333, 0.309804, 0.196078, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.427451, 0.227451, 0.14902, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 11
+
+[node name="UserInterface" type="Control"]
+z_index = 2
+layout_mode = 3
+anchor_right = 0.339
+anchor_bottom = 0.367
+offset_right = 0.471985
+offset_bottom = 4.18399
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2i8pr")
+
+[node name="InventoryUi" parent="." instance=ExtResource("1_a5lw5")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.5
+offset_top = -70.5
+offset_right = 70.5
+offset_bottom = 70.5
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "X"
+icon = ExtResource("2_24fag")
+flat = true
+icon_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="."]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 32.0
+offset_bottom = 66.0
+icon = ExtResource("2_24fag")
+flat = true
+
+[node name="ExitPanel" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 53.0
+offset_right = 372.0
+offset_bottom = 265.0
+texture = ExtResource("4_200f8")
+
+[node name="BackButton" type="Button" parent="ExitPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 158.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Vissza"
+icon = ExtResource("5_3nvmd")
+flat = true
+icon_alignment = 1
+
+[node name="SaveButton" type="Button" parent="ExitPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 74.0
+offset_right = 158.0
+offset_bottom = 131.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Játék mentése"
+icon = ExtResource("5_3nvmd")
+flat = true
+icon_alignment = 1
+
+[node name="QuitButton" type="Button" parent="ExitPanel"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 131.0
+offset_right = 159.0
+offset_bottom = 188.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Kilépés "
+icon = ExtResource("5_3nvmd")
+flat = true
+icon_alignment = 1
+
+[node name="SettingsPanel" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.427
+anchor_top = 0.174
+anchor_right = 0.926
+anchor_bottom = 1.05
+offset_left = 42.043
+offset_top = 13.892
+offset_right = 10.934
+offset_bottom = -48.1
+theme_override_styles/panel = SubResource("StyleBoxFlat_lyb8v")
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel"]
+layout_mode = 2
+
+[node name="Hangirányító" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Hangirányító"
+
+[node name="Zene" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Zene"
+
+[node name="MusicSetter" type="HScrollBar" parent="SettingsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="volume" type="Label" parent="SettingsPanel/VBoxContainer/MusicSetter"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = -7.0
+offset_right = 199.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 12
+
+[node name="HangEffektek" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Hang Effektek"
+
+[node name="SoundEffectSetter" type="HScrollBar" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="volume2" type="Label" parent="SettingsPanel/VBoxContainer/SoundEffectSetter"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = -7.0
+offset_right = 199.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 12
+
+[node name="SettingsBack" type="Button" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Vissza"
+icon = ExtResource("5_3nvmd")
+flat = true
+clip_text = true
+icon_alignment = 1
+
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="ExitPanel/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ExitPanel/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="scrolling" from="SettingsPanel/VBoxContainer/MusicSetter" to="." method="_on_h_scroll_bar_scrolling"]
+[connection signal="scrolling" from="SettingsPanel/VBoxContainer/SoundEffectSetter" to="." method="_on_sound_effect_setter_scrolling"]
+[connection signal="pressed" from="SettingsPanel/VBoxContainer/SettingsBack" to="." method="_on_settings_back_pressed"]

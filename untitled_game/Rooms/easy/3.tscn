@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://wi872vvj4swc"]
+
+[node name="3" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 441.0
+offset_top = 191.0
+offset_right = 591.0
+offset_bottom = 282.0
+text = "level easy room 3"

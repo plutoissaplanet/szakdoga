@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn5qkl7bggueg"]
+
+[ext_resource type="Script" path="res://Gameplay_Things/Inventory/inventory_slots.gd" id="1_ybn20"]
+
+[node name="InventorySlots" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(29, 29)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ybn20")
+
+[node name="Display" type="Sprite2D" parent="."]

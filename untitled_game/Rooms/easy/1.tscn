@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cktwjw8quihi8"]
+[gd_scene load_steps=52 format=3 uid="uid://cktwjw8quihi8"]
 
 [ext_resource type="Script" path="res://Rooms/easy/easy_1.gd" id="1_xcacb"]
 [ext_resource type="Texture2D" uid="uid://dj77m42vdg8fd" path="res://Game Assets/Home/TopDownHouse_FloorsAndWalls.png" id="2_pdwyv"]
@@ -11,8 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://eih62v3bu65u" path="res://Game Assets/Home/TX Struct.png" id="9_aghvu"]
 [ext_resource type="Texture2D" uid="uid://x0hso8yh18hl" path="res://Game Assets/Home/TX Tileset Wall.png" id="10_yc8rm"]
 [ext_resource type="Texture2D" uid="uid://csw60lq5dy81w" path="res://Game Assets/Nature/TX Plant.png" id="11_tpovw"]
-[ext_resource type="PackedScene" uid="uid://by0flqyrw3k6e" path="res://Player.tscn" id="12_q5jk4"]
+[ext_resource type="PackedScene" uid="uid://by0flqyrw3k6e" path="res://Creatures/Player/Player.tscn" id="12_q5jk4"]
 [ext_resource type="Texture2D" uid="uid://cv7q5e07k1fip" path="res://Game Assets/Home/door_opener_dark.png" id="13_4nqpo"]
+[ext_resource type="PackedScene" uid="uid://c7bweksd01bnn" path="res://Creatures/Monsters/Skeleton.tscn" id="14_7hjpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gpm7m"]
 size = Vector2(517, 5)
@@ -2646,7 +2647,7 @@ layer_0/tile_data = PackedInt32Array(1507346, 131072, 12, 1572882, 131072, 13, 1
 
 [node name="Player" parent="." instance=ExtResource("12_q5jk4")]
 z_index = 1
-position = Vector2(539, 304)
+position = Vector2(539, 294)
 
 [node name="Door" type="StaticBody2D" parent="."]
 top_level = true
@@ -2673,12 +2674,16 @@ position = Vector2(1, 14)
 shape = SubResource("RectangleShape2D_a0k34")
 
 [node name="player_detector" type="Area2D" parent="Door"]
+position = Vector2(0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Door/player_detector"]
 position = Vector2(2, 14)
 rotation = 1.5708
 scale = Vector2(0.000821389, 96.739)
 shape = SubResource("RectangleShape2D_gwlm0")
+
+[node name="Skeleton" parent="." instance=ExtResource("14_7hjpc")]
+position = Vector2(586, 301)
 
 [connection signal="input_event" from="Door" to="." method="_on_static_body_2d_2_input_event"]
 [connection signal="gui_input" from="Door/Container" to="." method="_on_container_gui_input"]

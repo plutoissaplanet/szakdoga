@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy28sqbmrn3yv"]
+
+[ext_resource type="Script" path="res://MiniGames/Nanogram/nanogram_general.gd" id="1_x07r2"]
+
+[node name="nanogram_cells" type="Node2D"]
+script = ExtResource("1_x07r2")
+
+[node name="Container" type="Container" parent="."]
+offset_right = 357.0
+offset_bottom = 369.0
+
+[node name="Container" type="Container" parent="Container"]
+custom_minimum_size = Vector2(218, 218)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2

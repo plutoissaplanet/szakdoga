@@ -197,6 +197,7 @@ shape = SubResource("CapsuleShape2D_hvkcs")
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_obr1w")
 animation = &"Right"
+frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)

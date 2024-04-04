@@ -13,8 +13,14 @@ offset_bottom = 369.0
 custom_minimum_size = Vector2(218, 218)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
-layout_mode = 2
-
 [node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_direction = 3
 layout_mode = 2
+theme_override_constants/separation = 1
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 15

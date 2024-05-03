@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://pfdtii5y16x2"]
+
+[ext_resource type="Script" path="res://MiniGames/Wiring/proba.gd" id="1_5cfsp"]
+
+[node name="Proba" type="Node2D"]
+script = ExtResource("1_5cfsp")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 237.0
+offset_top = 123.0
+offset_right = 277.0
+offset_bottom = 163.0
+rotation = -6.28319
+pivot_offset = Vector2(0, 20)
+
+[node name="Panel2" type="Panel" parent="."]
+offset_left = 563.0
+offset_top = 113.0
+offset_right = 603.0
+offset_bottom = 153.0

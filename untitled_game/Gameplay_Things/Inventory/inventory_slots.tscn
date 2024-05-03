@@ -4,9 +4,14 @@
 
 [node name="InventorySlots" type="Panel"]
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(29, 29)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 4.0
+offset_bottom = 4.0
 script = ExtResource("1_ybn20")
 
-[node name="Display" type="Sprite2D" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 5.0
+offset_bottom = 5.0
+scale = Vector2(0.655, 0.655)
+
+[node name="Display" type="Sprite2D" parent="CenterContainer"]

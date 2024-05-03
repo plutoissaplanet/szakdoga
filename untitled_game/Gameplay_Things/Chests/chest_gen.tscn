@@ -1,3 +1,55 @@
-[gd_scene format=3 uid="uid://batxmdpoio7xe"]
+[gd_scene load_steps=6 format=3 uid="uid://batxmdpoio7xe"]
+
+[ext_resource type="Script" path="res://Gameplay_Things/Chests/chest_gen.gd" id="1_l6wyi"]
+[ext_resource type="Texture2D" uid="uid://cgdlmbl6qkqmp" path="res://Gameplay_Things/Chests/chest_closed.png" id="1_y5asc"]
+[ext_resource type="Texture2D" uid="uid://dm28fd1dcr3g" path="res://Gameplay_Things/Chests/ChestUI.png" id="3_82aph"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ejyeh"]
+size = Vector2(27, 7)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q821d"]
+radius = 30.0167
 
 [node name="ChestGen" type="Node2D"]
+script = ExtResource("1_l6wyi")
+
+[node name="Container" type="Container" parent="."]
+offset_right = 40.0
+offset_bottom = 32.0
+scale = Vector2(0.5, 0.5)
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Container"]
+position = Vector2(20, 16)
+scale = Vector2(0.321138, 0.321429)
+texture = ExtResource("1_y5asc")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Container"]
+position = Vector2(20, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/StaticBody2D"]
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_ejyeh")
+
+[node name="player_detector" type="Area2D" parent="Container"]
+position = Vector2(20, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/player_detector"]
+shape = SubResource("CircleShape2D_q821d")
+
+[node name="ChestUI" type="Container" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -24.0
+offset_right = 10.0
+offset_bottom = -16.0
+scale = Vector2(2.045, 2.045)
+
+[node name="Sprite2D" type="Sprite2D" parent="ChestUI"]
+position = Vector2(14.6699, 3.42298)
+scale = Vector2(0.6, 0.5625)
+texture = ExtResource("3_82aph")
+
+[connection signal="gui_input" from="Container" to="." method="_on_container_gui_input"]
+[connection signal="body_entered" from="Container/player_detector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="Container/player_detector" to="." method="_on_player_detector_body_exited"]

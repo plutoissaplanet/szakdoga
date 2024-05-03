@@ -7,6 +7,7 @@ extends Node2D
 @onready var container2 = get_node("Container/Container")
 @onready var hbox= get_node("Container/HBoxContainer")
 @onready var vbox= get_node("Container/VBoxContainer")
+signal solvedSignal
 
 
 @onready var riddle1 = [
@@ -73,6 +74,8 @@ extends Node2D
 @onready var riddle_rows = solutions[riddle_index].size()
 @onready var riddle_cols = solutions[riddle_index][0].size()
 
+@onready var solved = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var spacing = 2
@@ -123,6 +126,8 @@ func onClick(_event,i,j):
 func gameplay():
 	if  problem == solutions[riddle_index]:
 		print("success")
+		solved=true
+		solvedSignal.emit()
 
 
 func size_and_position():
@@ -137,7 +142,7 @@ func size_and_position():
 	container1.position=cont1_pos
 	container2.position=cont2_pos
 	
-	vbox.position=Vector2(cont2_pos.x-5, cont2_pos.y-5)
+	vbox.position=Vector2(cont2_pos.x-70, cont2_pos.y-5)
 	hbox.position=Vector2(cont2_pos.x, cont2_pos.y-100)
 	
 	print("cont1 pos: ", container1.position)

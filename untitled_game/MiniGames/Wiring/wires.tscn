@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bimklbx22w7m3"]
+
+[ext_resource type="Script" path="res://MiniGames/Wiring/wires_script.gd" id="1_njdvj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pwa3n"]
+
+[node name="Wires" type="Node2D"]
+script = ExtResource("1_njdvj")
+
+[node name="Container" type="Container" parent="."]
+offset_right = 1153.0
+offset_bottom = 649.0
+
+[node name="Area2D" type="Area2D" parent="Container"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/Area2D"]
+shape = SubResource("CircleShape2D_pwa3n")
+
+[connection signal="area_entered" from="Container/Area2D" to="." method="_on_area_2d_area_entered"]

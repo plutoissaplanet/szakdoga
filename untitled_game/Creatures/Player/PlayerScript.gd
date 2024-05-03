@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+class_name PLAYER
 
 const SPEED = 180.0
 
@@ -7,8 +8,10 @@ const SPEED = 180.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var character = get_node("AnimatedSprite2D")
 @onready var animation = get_node("AnimationPlayer")
-@export var inventory = Inventory
+@export var inventory : Inventory
 @export var stats = Statistics
+
+
 
 func _ready():
 	stats.HealthPoints = 100
@@ -55,4 +58,5 @@ func _physics_process(_delta):
 
 	move_and_slide()
 
-	
+func pick_stuff_up(item):
+	inventory.pickup(item)

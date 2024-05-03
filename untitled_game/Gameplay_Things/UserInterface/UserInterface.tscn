@@ -24,8 +24,8 @@ z_index = 2
 layout_mode = 3
 anchor_right = 0.339
 anchor_bottom = 0.367
-offset_right = 0.471985
-offset_bottom = 4.18399
+offset_right = 761.472
+offset_bottom = 408.184
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2i8pr")
@@ -62,10 +62,10 @@ flat = true
 
 [node name="ExitPanel" type="NinePatchRect" parent="."]
 layout_mode = 0
-offset_left = 205.0
-offset_top = 53.0
-offset_right = 372.0
-offset_bottom = 265.0
+offset_left = 501.0
+offset_top = 228.0
+offset_right = 668.0
+offset_bottom = 440.0
 texture = ExtResource("4_200f8")
 
 [node name="BackButton" type="Button" parent="ExitPanel"]

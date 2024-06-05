@@ -1,143 +1,58 @@
-[gd_scene load_steps=20 format=3 uid="uid://c7bweksd01bnn"]
+[gd_scene load_steps=14 format=3 uid="uid://cyyuhylexvsyn"]
 
-[ext_resource type="Script" path="res://Creatures/Monsters/Skeleton.gd" id="1_c77as"]
-[ext_resource type="Texture2D" uid="uid://cw2jy6pot7gmt" path="res://Creatures/Monsters/Skeleton Assets/emots/normal head idle/1.png" id="1_y00gr"]
-[ext_resource type="Texture2D" uid="uid://ddxskt46agcbm" path="res://Creatures/Monsters/Skeleton Assets/emots/normal head idle/2.png" id="2_3f6cx"]
-[ext_resource type="Texture2D" uid="uid://biclhkg4gcua5" path="res://Creatures/Monsters/Skeleton Assets/emots/normal head idle/3.png" id="3_y5n6y"]
-[ext_resource type="Texture2D" uid="uid://bmdrlimwu7mgk" path="res://Creatures/Monsters/Skeleton Assets/emots/normal head idle/4.png" id="4_43wpl"]
-[ext_resource type="Texture2D" uid="uid://dhfu2y4shdh7h" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/1.png" id="5_exkn6"]
-[ext_resource type="Texture2D" uid="uid://dp5khfck5hs00" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/2.png" id="6_onwib"]
-[ext_resource type="Texture2D" uid="uid://b8qpnfiyj3g37" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/3.png" id="7_mc6e2"]
-[ext_resource type="Texture2D" uid="uid://clgn8yd0txvfs" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/4.png" id="8_47x8v"]
-[ext_resource type="Texture2D" uid="uid://thmp7b7v5boi" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/5.png" id="9_7p5f6"]
-[ext_resource type="Texture2D" uid="uid://dyl0mhpo3doiq" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/6.png" id="10_i5w6e"]
+[ext_resource type="Script" path="res://Creatures/Monsters/Skeleton.gd" id="1_1qnvu"]
+[ext_resource type="Texture2D" uid="uid://dhfu2y4shdh7h" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/1.png" id="2_y3chf"]
+[ext_resource type="Texture2D" uid="uid://dp5khfck5hs00" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/2.png" id="4_l7k6w"]
+[ext_resource type="Texture2D" uid="uid://2lk5ofn132e1" path="res://Creatures/Monsters/Skeleton Assets/emots/evil head idle/1.png" id="4_r4uvj"]
+[ext_resource type="Texture2D" uid="uid://b8qpnfiyj3g37" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/3.png" id="5_e38i0"]
+[ext_resource type="Texture2D" uid="uid://clgn8yd0txvfs" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/4.png" id="6_h2d5r"]
+[ext_resource type="Texture2D" uid="uid://thmp7b7v5boi" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/5.png" id="7_qts6g"]
+[ext_resource type="Texture2D" uid="uid://dyl0mhpo3doiq" path="res://Creatures/Monsters/Skeleton Assets/body/body idle/6.png" id="8_wcshr"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fm218"]
-radius = 8.0
-height = 20.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7rs7y"]
-radius = 7.07107
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ek5pq"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8gg6n"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_y00gr")
+"texture": ExtResource("2_y3chf")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_3f6cx")
+"texture": ExtResource("4_l7k6w")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_y5n6y")
+"texture": ExtResource("5_e38i0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_43wpl")
+"texture": ExtResource("6_h2d5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qts6g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wcshr")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_kx40h"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_exkn6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_onwib")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_mc6e2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_47x8v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_7p5f6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_i5w6e")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}]
-
-[sub_resource type="Animation" id="Animation_pdufd"]
-resource_name = "HeadIdle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Head:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Head:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
-
-[sub_resource type="Animation" id="Animation_jtmuo"]
-resource_name = "Idle"
-length = 1.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Body:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.4, 0.7, 1, 1.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_b4iay"]
+[sub_resource type="Animation" id="Animation_74ao5"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:animation")
+tracks/0/path = NodePath("AnimatedSprite2D:sprite_frames")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"Idle"]
+"values": [SubResource("SpriteFrames_8gg6n")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body:frame")
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -146,62 +61,66 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Head:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+
+[sub_resource type="Animation" id="Animation_okspw"]
+resource_name = "skeli_idle_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:sprite_frames")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"Idle"]
+"values": [SubResource("SpriteFrames_8gg6n")]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Head:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dxre5"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ofe0p"]
 _data = {
-"HeadIdle": SubResource("Animation_pdufd"),
-"Idle": SubResource("Animation_jtmuo"),
-"RESET": SubResource("Animation_b4iay")
+"RESET": SubResource("Animation_74ao5"),
+"skeli_idle_animation": SubResource("Animation_okspw")
 }
 
-[node name="Skeleton" type="CharacterBody2D"]
-position = Vector2(97, 67)
-script = ExtResource("1_c77as")
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4e2v"]
+radius = 13.0
+height = 34.0
 
-[node name="BodyCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
-shape = SubResource("CapsuleShape2D_fm218")
+[node name="Skeleton" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+script = ExtResource("1_1qnvu")
 
-[node name="HeadCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -19)
-shape = SubResource("CircleShape2D_7rs7y")
-
-[node name="Head" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -18)
-sprite_frames = SubResource("SpriteFrames_ek5pq")
-animation = &"Idle"
-
-[node name="Body" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -5)
-scale = Vector2(1, 0.96875)
-sprite_frames = SubResource("SpriteFrames_kx40h")
-animation = &"Idle"
-
-[node name="BodyAnimation" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_dxre5")
+"": SubResource("AnimationLibrary_ofe0p")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_i4e2v")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, -14)
+texture = ExtResource("4_r4uvj")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 3.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8gg6n")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

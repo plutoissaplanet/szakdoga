@@ -1,33 +1,20 @@
 extends CharacterBody2D
 
+var state_machine=StateMachine.new()
+var player
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-@onready var animation = get_node("BodyAnimation")
+@onready var timer=get_node("Timer")
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+func _ready():
+	state_machine.player=player
+	state_machine.state=state_machine.MOVE
+	state_machine.set_stats(60, 10)
+	
+func _physics_process(delta):
+	state_machine.update(delta, self)
 
-func _process(_delta):
-	animation.play("Idle")
-	animation.play("HeadIdle")
-	#print(animation)
+func _on_timer_timeout():
+	state_machine.state=state_machine.ATTACK
+	timer.start()
 
-#func _physics_process(delta):
-	# Add the gravity.
-	#if not is_on_floor():
-	#	velocity.y += gravity * delta
-
-	# Handle jump.
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-	#	velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	#var direction = Input.get_axis("ui_left", "ui_right")
-	#if direction:
-	#	velocity.x = direction * SPEED
-	#else:
-	#	velocity.x = move_toward(velocity.x, 0, SPEED)
-
-	#move_and_slide()
+	

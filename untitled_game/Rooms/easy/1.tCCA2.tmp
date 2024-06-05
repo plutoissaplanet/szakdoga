@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cktwjw8quihi8"]
+[gd_scene load_steps=44 format=3 uid="uid://cktwjw8quihi8"]
 
 [ext_resource type="Script" path="res://Rooms/easy/easy_1.gd" id="1_xcacb"]
 [ext_resource type="Texture2D" uid="uid://dj77m42vdg8fd" path="res://Game Assets/Home/TopDownHouse_FloorsAndWalls.png" id="2_pdwyv"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://cwg43g6jby4li" path="res://Gameplay_Things/Doors/door.tscn" id="14_1f463"]
 [ext_resource type="PackedScene" uid="uid://ht5w7clnj0dr" path="res://Gameplay_Things/Items/DoneItems/ky_scene.tscn" id="15_ma1ws"]
 [ext_resource type="PackedScene" uid="uid://dyreos48cvyjc" path="res://Gameplay_Things/MiniGameLocations/nonogramLocation.tscn" id="16_0avp7"]
-[ext_resource type="PackedScene" uid="uid://kixawcxvarv4" path="res://Gameplay_Things/EnemySpawnPoints/enemy_spawnpoint.tscn" id="17_mr8o8"]
 [ext_resource type="PackedScene" uid="uid://batxmdpoio7xe" path="res://Gameplay_Things/Chests/chest_gen.tscn" id="17_vx414"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gpm7m"]
@@ -2557,7 +2556,7 @@ offset_bottom = 207.0
 position = Vector2(17, 21)
 
 [node name="KyScene" parent="." instance=ExtResource("15_ma1ws")]
-position = Vector2(610, 221)
+position = Vector2(492, 252)
 
 [node name="NonogramLocation" parent="." instance=ExtResource("16_0avp7")]
 z_index = 4
@@ -2565,8 +2564,5 @@ position = Vector2(374, 192)
 
 [node name="ChestGen" parent="." instance=ExtResource("17_vx414")]
 position = Vector2(598, 249)
-
-[node name="EnemySpawnpoint" parent="." instance=ExtResource("17_mr8o8")]
-position = Vector2(723, 257)
 
 [connection signal="gui_input" from="Container" to="." method="_on_container_gui_input"]

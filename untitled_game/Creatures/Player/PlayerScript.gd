@@ -6,21 +6,25 @@ const SPEED = 180.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var enemyArea = get_node("EnemyAttackArea")
+@onready var attackEnemy = get_node("AttackTheEnemyArea")
 @onready var character = get_node("AnimatedSprite2D")
 @onready var animation = get_node("AnimationPlayer")
 @export var inventory : Inventory
 @export var stats = Statistics
 
-
-
 func _ready():
 	stats.HealthPoints = 100
-	stats.AttackPoints= 20
-	print("HP: ",stats.HealthPoints)
-	print("AP: ",stats.AttackPoints)
-
-func _physics_process(_delta):
+	stats.AttackPoints= 30
 	
+func _process(delta):
+	var overlapping_bodies = attackEnemy.get_overlapping_bodies()
+	for body in overlapping_bodies:
+		if body.is_in_group("Enemy"):
+			if body.state_machine.stats.HealthPoints > 0:
+				attack_enemy(body)
+	
+func _physics_process(_delta):
 	#Fel-le nyilaakkal karaktermozgatás
 	var move_right = Input.is_action_pressed("move_right")
 	var move_left = Input.is_action_pressed("move_left")
@@ -57,6 +61,22 @@ func _physics_process(_delta):
 		animation.play("Idle")
 
 	move_and_slide()
-
+	
 func pick_stuff_up(item):
 	inventory.pickup(item)
+
+func _on_enemy_attack_area_body_entered(body):
+	if body.is_in_group("Enemy"):
+		body.timer.start()
+
+func _on_enemy_attack_area_body_exited(body):
+	if body.is_in_group("Enemy"):
+		body.timer.stop()
+		body.state_machine.state=body.state_machine.MOVE
+		
+func attack_enemy(body):
+	if Input.is_action_just_pressed("room_changer_click"):
+		print("enemy entered")
+		body.state_machine.enemy_hit(stats.AttackPoints, body)
+		print(body.state_machine.stats.HealthPoints)
+	

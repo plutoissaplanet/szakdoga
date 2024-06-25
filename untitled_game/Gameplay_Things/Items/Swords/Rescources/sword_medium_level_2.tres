@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SWORDS" load_steps=2 format=3 uid="uid://dq8bikcw825o7"]
+
+[ext_resource type="Script" path="res://Gameplay_Things/Items/General/item_swords.gd" id="1_gj8h1"]
+
+[resource]
+script = ExtResource("1_gj8h1")
+ATTACK_POINTS = 12
+ITEM_NAME = ""
+SHOW_STATS = ""

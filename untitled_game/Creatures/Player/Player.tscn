@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://by0flqyrw3k6e"]
+[gd_scene load_steps=26 format=3 uid="uid://by0flqyrw3k6e"]
 
 [ext_resource type="Texture2D" uid="uid://dxbanuh0lrbn6" path="res://Creatures/Player/global.png" id="1_07hea"]
 [ext_resource type="Script" path="res://Creatures/Player/PlayerScript.gd" id="1_ghq8m"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://curlgrndwhddm" path="res://Creatures/Player/idle.png" id="2_kitk1"]
 [ext_resource type="Resource" uid="uid://b5ut1sfqskntw" path="res://Creatures/stats.tres" id="3_2i1sq"]
 [ext_resource type="PackedScene" uid="uid://baj1vg4d2x82b" path="res://Gameplay_Things/UserInterface/UserInterface.tscn" id="5_04ay5"]
+[ext_resource type="PackedScene" uid="uid://0123bfmqcti6" path="res://Gameplay_Things/HealthBar/HealthBar.tscn" id="7_m3gb3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hvkcs"]
 radius = 4.99997
@@ -244,6 +245,13 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackTheEnemyArea"]
 shape = SubResource("CircleShape2D_g2tmx")
+
+[node name="HealthBar" parent="." instance=ExtResource("7_m3gb3")]
+anchors_preset = 15
+offset_left = -87.4722
+offset_top = 142.712
+offset_right = 88.5278
+offset_bottom = 158.712
 
 [connection signal="body_entered" from="EnemyAttackArea" to="." method="_on_enemy_attack_area_body_entered"]
 [connection signal="body_exited" from="EnemyAttackArea" to="." method="_on_enemy_attack_area_body_exited"]

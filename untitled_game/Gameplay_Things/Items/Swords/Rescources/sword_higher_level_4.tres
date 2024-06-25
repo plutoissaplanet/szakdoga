@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SWORDS" load_steps=3 format=3 uid="uid://dtjojp1ioa5jh"]
+
+[ext_resource type="Script" path="res://Gameplay_Things/Items/General/item_swords.gd" id="1_bmrwt"]
+[ext_resource type="Texture2D" uid="uid://bed0wq24exc1m" path="res://Gameplay_Things/Items/Swords/Assets/higher_level_4.png" id="1_xhsca"]
+
+[resource]
+script = ExtResource("1_bmrwt")
+ATTACK_POINTS = 35
+ITEM_NAME = "Sword"
+ITEM_TEXT = ExtResource("1_xhsca")
+SHOW_STATS = ""

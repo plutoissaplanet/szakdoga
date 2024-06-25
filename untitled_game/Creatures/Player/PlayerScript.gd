@@ -2,7 +2,9 @@ extends CharacterBody2D
 
 class_name PLAYER
 
-const SPEED = 180.0
+@export var SPEED = 180.0
+@export var MAX_HEALTH_POINTS = 100
+signal consumed_potion #this signal need to be hooked up to the potions in the inventory, so when the player wants to consume the potion, this signal is emitted
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -10,14 +12,19 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var attackEnemy = get_node("AttackTheEnemyArea")
 @onready var character = get_node("AnimatedSprite2D")
 @onready var animation = get_node("AnimationPlayer")
+@onready var health_bar = get_node("HealthBar/ProgressBar")
+@onready var player=get_node(".")
 @export var inventory : Inventory
 @export var stats = Statistics
 
 func _ready():
-	stats.HealthPoints = 100
+	stats.HealthPoints = 50
 	stats.AttackPoints= 30
+	health_bar.value=100
+	health_bar.player=player
 	
 func _process(delta):
+	health_bar.value=stats.HealthPoints
 	var overlapping_bodies = attackEnemy.get_overlapping_bodies()
 	for body in overlapping_bodies:
 		if body.is_in_group("Enemy"):
@@ -68,6 +75,7 @@ func pick_stuff_up(item):
 func _on_enemy_attack_area_body_entered(body):
 	if body.is_in_group("Enemy"):
 		body.timer.start()
+	
 
 func _on_enemy_attack_area_body_exited(body):
 	if body.is_in_group("Enemy"):

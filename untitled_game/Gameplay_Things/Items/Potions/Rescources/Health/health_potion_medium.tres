@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HEALTH_POTIONS" load_steps=3 format=3 uid="uid://baevk3xrgunnr"]
+
+[ext_resource type="Texture2D" uid="uid://c3aulrtppmg1i" path="res://Gameplay_Things/Items/Potions/Assets/Icons_12_1_75.png" id="1_nrj32"]
+[ext_resource type="Script" path="res://Gameplay_Things/Items/General/Potion Scripts/item_health_potions.gd" id="2_e2wfv"]
+
+[resource]
+script = ExtResource("2_e2wfv")
+HEALTH_RESTORED = 50
+ITEM_NAME = "Health Potion"
+ITEM_TEXT = ExtResource("1_nrj32")
+SHOW_STATS = ""

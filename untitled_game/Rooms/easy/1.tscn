@@ -2557,7 +2557,7 @@ offset_bottom = 207.0
 position = Vector2(17, 21)
 
 [node name="KyScene" parent="." instance=ExtResource("15_ma1ws")]
-position = Vector2(610, 221)
+position = Vector2(614, 224)
 
 [node name="NonogramLocation" parent="." instance=ExtResource("16_0avp7")]
 z_index = 4

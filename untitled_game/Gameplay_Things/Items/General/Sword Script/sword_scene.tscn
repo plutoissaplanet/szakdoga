@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://nhkh85670hxh"]
+
+[ext_resource type="Script" path="res://Gameplay_Things/Items/General/Sword Script/sword_scene.gd" id="1_o5gb4"]
+
+[node name="SwordScene" type="Sprite2D"]
+script = ExtResource("1_o5gb4")

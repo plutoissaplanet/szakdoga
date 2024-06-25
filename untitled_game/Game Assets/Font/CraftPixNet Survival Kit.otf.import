@@ -1,0 +1,33 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://c85eap4ne5fj8"
+path="res://.godot/imported/CraftPixNet Survival Kit.otf-15c08a90f13cfa3b126c716dcc37bc37.fontdata"
+
+[deps]
+
+source_file="res://Game Assets/Font/CraftPixNet Survival Kit.otf"
+dest_files=["res://.godot/imported/CraftPixNet Survival Kit.otf-15c08a90f13cfa3b126c716dcc37bc37.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}

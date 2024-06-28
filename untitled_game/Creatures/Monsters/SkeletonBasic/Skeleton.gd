@@ -13,7 +13,6 @@ func _ready():
 	state_machine.enemySprite=enemy
 	state_machine.animationTree = animationTree
 	state_machine.set_stats(60, 10)
-
 	enemy.scale.x=0.1
 	enemy.scale.y=0.1
 	

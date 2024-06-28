@@ -194,7 +194,6 @@ advance_condition = &"enemyWalking"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v3u7o"]
 switch_mode = 2
 advance_mode = 2
-advance_condition = &"enemyIsIdle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w7kin"]
 advance_mode = 2
@@ -231,7 +230,7 @@ states/Start/position = Vector2(261, 200)
 states/Walk/node = SubResource("AnimationNodeBlendSpace1D_2tw6e")
 states/Walk/position = Vector2(497, 200)
 transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_3gvl0"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_kw8mx"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_twpcv"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_iu0pn"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_ffuuw"), "Dead", "End", SubResource("AnimationNodeStateMachineTransition_0cgyj"), "Hurt", "Dead", SubResource("AnimationNodeStateMachineTransition_ld2bu"), "Walk", "Hurt", SubResource("AnimationNodeStateMachineTransition_nfqag"), "Hurt", "Walk", SubResource("AnimationNodeStateMachineTransition_5et0f"), "Hurt", "Idle", SubResource("AnimationNodeStateMachineTransition_v3u7o"), "Idle", "Hurt", SubResource("AnimationNodeStateMachineTransition_w7kin"), "Attack", "Hurt", SubResource("AnimationNodeStateMachineTransition_ksiqs"), "Hurt", "Attack", SubResource("AnimationNodeStateMachineTransition_ollsa"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_karri"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_yexxg")]
-graph_offset = Vector2(52, 1.35243)
+graph_offset = Vector2(52, -109.973)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1eew0"]
 animations = [{
@@ -471,6 +470,7 @@ animations = [{
 [node name="Skeleton" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 script = ExtResource("1_hw214")
+metadata/timer_started = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

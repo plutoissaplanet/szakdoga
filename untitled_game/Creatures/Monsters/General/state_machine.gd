@@ -28,7 +28,7 @@ func update(delta, enemy):
 			move(player, delta, enemy)
 		IDLE:
 			animationTree.set("parameters/conditions/enemyIsIdle", true)
-			animationTree.set("parameters/conditions/enemyIsAttacking", false)
+			#animationTree.set("parameters/conditions/enemyIsAttacking", false)
 			animationTree.set("parameters/conditions/enemyHurt", false)
 		HIT:
 			pass
@@ -51,19 +51,17 @@ func attack(target):
 	animationTree.set("parameters/conditions/enemyIsIdle", false)
 	target.stats.HealthPoints -= stats.AttackPoints
 	if target.stats.HealthPoints<=0:
-		print("player dead")
+		target.state=target.DEATH
 	animationTree.set("parameters/conditions/enemyIsAttacking", false)
+	
 
-
-		
 func enemy_hit(damage, obj):
-	animationTree.set("parameters/conditions/enemyIsIdle", false)
-	animationTree.set("parameters/conditions/enemyHurt", true)
-	animationTree.set("parameters/conditions/enemyIsIdle", true)
 	stats.HealthPoints-=damage
 	if stats.HealthPoints <=0:
 		print("enemy died")
 		enemy_death(obj)
+	state=IDLE
+
 	
 func enemy_death(enemy):
 	if animation != null:

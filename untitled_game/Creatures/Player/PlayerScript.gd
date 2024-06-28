@@ -74,17 +74,25 @@ func pick_stuff_up(item):
 
 func _on_enemy_attack_area_body_entered(body):
 	if body.is_in_group("Enemy"):
+		body.state_machine.SPEED=0;
 		body.timer.start()
-	
+		body.animationTree.set("parameters/conditions/enemyIsIdle", true)
+		body.animationTree.set("parameters/conditions/enemyWalking", false)
 
+	
 func _on_enemy_attack_area_body_exited(body):
 	if body.is_in_group("Enemy"):
 		body.timer.stop()
+		body.state_machine.SPEED=30.0;
 		body.state_machine.state=body.state_machine.MOVE
+		body.animationTree.set("parameters/conditions/enemyIsIdle", false)
+		body.animationTree.set("parameters/conditions/enemyWalking", true)
 		
 func attack_enemy(body):
 	if Input.is_action_just_pressed("room_changer_click"):
-		print("enemy entered")
+		body.timer.stop()
+		body.animationTree.set("parameters/conditions/enemyIsAttacking", false)
+		body.animationTree.set("parameters/conditions/enemyHurt", true)
 		body.state_machine.enemy_hit(stats.AttackPoints, body)
 		print(body.state_machine.stats.HealthPoints)
 	

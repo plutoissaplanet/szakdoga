@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SWORDS" load_steps=3 format=3 uid="uid://deccc2tcg2wq8"]
 
 [ext_resource type="Texture2D" uid="uid://cexvvnrahhx5o" path="res://Gameplay_Things/Items/Swords/Assets/higher_level_3.png" id="1_i7pkp"]
-[ext_resource type="Script" path="res://Gameplay_Things/Items/General/item_swords.gd" id="1_rr3lb"]
+[ext_resource type="Script" path="res://Gameplay_Things/Items/General/Sword Script/item_swords.gd" id="1_rr3lb"]
 
 [resource]
 script = ExtResource("1_rr3lb")

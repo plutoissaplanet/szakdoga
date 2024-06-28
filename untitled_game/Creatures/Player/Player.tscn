@@ -247,7 +247,6 @@ monitorable = false
 shape = SubResource("CircleShape2D_g2tmx")
 
 [node name="HealthBar" parent="." instance=ExtResource("7_m3gb3")]
-anchors_preset = 15
 offset_left = -87.4722
 offset_top = 142.712
 offset_right = 88.5278

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SPEED_POTION" load_steps=3 format=3 uid="uid://chg4flbmceaej"]
 
 [ext_resource type="Texture2D" uid="uid://dbic1p8w412u" path="res://Gameplay_Things/Items/Potions/Assets/Icons_12_2_88.png" id="1_626bd"]
-[ext_resource type="Script" path="res://Gameplay_Things/Items/General/Potion Scripts/item_speed_potion.gd" id="1_hys1m"]
+[ext_resource type="Script" path="res://Gameplay_Things/Items/General/Potion Script/item_speed_potion.gd" id="1_hys1m"]
 
 [resource]
 script = ExtResource("1_hys1m")

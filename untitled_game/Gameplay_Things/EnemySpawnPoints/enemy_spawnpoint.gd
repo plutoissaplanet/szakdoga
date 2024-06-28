@@ -1,8 +1,8 @@
 extends Marker2D
 
-const skeleton_enemy=preload("res://Creatures/Monsters/Skeleton.tscn")
+const skeleton_enemy=preload("res://Creatures/Monsters/SkeletonBasic/Skeleton.tscn")
 var player
-var maxEnemies
+var maxEnemiesS
 var room
 @onready var node = get_node(".")
 

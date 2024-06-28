@@ -7,6 +7,8 @@ var player
 var animation
 var SPEED = 30.0
 @export var stats = Statistics.new()
+@export var enemySprite: AnimatedSprite2D
+@export var animationTree: AnimationTree
 
 enum {
 	ATTACK,
@@ -16,9 +18,6 @@ enum {
 	HURT
 }
 
-#func print_init():
-	#print("State machineban vagy! ", state)
-	
 func update(delta, enemy):
 	if player == null:
 		print("Player object is null!")
@@ -27,9 +26,10 @@ func update(delta, enemy):
 	match state:
 		MOVE:
 			move(player, delta, enemy)
-
 		IDLE:
-			pass
+			animationTree.set("parameters/conditions/enemyIsIdle", true)
+			animationTree.set("parameters/conditions/enemyIsAttacking", false)
+			animationTree.set("parameters/conditions/enemyHurt", false)
 		HIT:
 			pass
 		ATTACK:
@@ -41,16 +41,25 @@ func move(target, delta, node):
 	var direction=(target_pos-node.position).normalized()
 	var new_pos = node.position + direction * SPEED * delta
 	node.position= new_pos
+	if direction.x < 0:
+		enemySprite.flip_h=true
+	else:
+		enemySprite.flip_h=false
+	
 
 func attack(target):
-	#print("enemy attack points:",stats.AttackPoints)
+	animationTree.set("parameters/conditions/enemyIsIdle", false)
 	target.stats.HealthPoints -= stats.AttackPoints
 	if target.stats.HealthPoints<=0:
 		print("player dead")
+	animationTree.set("parameters/conditions/enemyIsAttacking", false)
+
+
 		
 func enemy_hit(damage, obj):
-	if animation != null:
-		animation.play("enemy_hurt")
+	animationTree.set("parameters/conditions/enemyIsIdle", false)
+	animationTree.set("parameters/conditions/enemyHurt", true)
+	animationTree.set("parameters/conditions/enemyIsIdle", true)
 	stats.HealthPoints-=damage
 	if stats.HealthPoints <=0:
 		print("enemy died")
@@ -63,6 +72,6 @@ func enemy_death(enemy):
 	
 func set_stats(healthpoints, attackpoints):
 	stats.AttackPoints=attackpoints
-	stats.HealthPoints=healthpoints
+	stats.HealthPoints=healthpoints	
 
 

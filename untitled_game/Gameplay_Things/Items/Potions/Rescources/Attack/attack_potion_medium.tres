@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ATTACK_POTION" load_steps=3 format=3 uid="uid://ctnhfpurmiqfa"]
 
-[ext_resource type="Script" path="res://Gameplay_Things/Items/General/Potion Scripts/item_attack_potion.gd" id="1_46mac"]
+[ext_resource type="Script" path="res://Gameplay_Things/Items/General/Potion Script/item_attack_potion.gd" id="1_46mac"]
 [ext_resource type="Texture2D" uid="uid://dhks8t5qcw61v" path="res://Gameplay_Things/Items/Potions/Assets/Icons_12_3_93.png" id="1_dpebj"]
 
 [resource]

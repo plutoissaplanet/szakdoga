@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SWORDS" load_steps=2 format=3 uid="uid://cdjob0csn0tm0"]
 
-[ext_resource type="Script" path="res://Gameplay_Things/Items/General/item_swords.gd" id="1_mj84r"]
+[ext_resource type="Script" path="res://Gameplay_Things/Items/General/Sword Script/item_swords.gd" id="1_mj84r"]
 
 [resource]
 script = ExtResource("1_mj84r")

@@ -1,13 +1,11 @@
-[gd_scene load_steps=91 format=3 uid="uid://by0flqyrw3k6e"]
+[gd_scene load_steps=89 format=3 uid="uid://by0flqyrw3k6e"]
 
 [ext_resource type="Script" path="res://Creatures/Player/PlayerScript.gd" id="1_ghq8m"]
-[ext_resource type="Resource" uid="uid://dv5m6377ntvlw" path="res://Gameplay_Things/Inventory/PlayerInventory.tres" id="2_g3uuj"]
 [ext_resource type="Resource" uid="uid://b5ut1sfqskntw" path="res://Creatures/stats.tres" id="3_2i1sq"]
 [ext_resource type="Texture2D" uid="uid://ijjsc2twmi5l" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_000.png" id="4_ldtj1"]
-[ext_resource type="PackedScene" uid="uid://baj1vg4d2x82b" path="res://Gameplay_Things/UserInterface/UserInterface.tscn" id="5_04ay5"]
 [ext_resource type="Texture2D" uid="uid://j5grxt8pqqbe" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_001.png" id="5_8mqyq"]
 [ext_resource type="Texture2D" uid="uid://cgnvms3vmtbsn" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_002.png" id="6_nvboe"]
-[ext_resource type="PackedScene" uid="uid://0123bfmqcti6" path="res://Gameplay_Things/HealthBar/HealthBar.tscn" id="7_m3gb3"]
+[ext_resource type="PackedScene" uid="uid://0123bfmqcti6" path="res://GameplayThings/HealthBar/HealthBar.tscn" id="7_m3gb3"]
 [ext_resource type="Texture2D" uid="uid://cxltdli2q1rdi" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_003.png" id="7_tlu8g"]
 [ext_resource type="Texture2D" uid="uid://bqpch4kxsloec" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_004.png" id="8_inhne"]
 [ext_resource type="Texture2D" uid="uid://bht2n41iynf38" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_005.png" id="9_8605m"]
@@ -62,6 +60,7 @@
 [ext_resource type="Texture2D" uid="uid://4li4gkruvcmu" path="res://Creatures/Player/Assets/Knight/Walk/Walking_015.png" id="58_pbv6t"]
 [ext_resource type="Texture2D" uid="uid://bq13ow048l8ib" path="res://Creatures/Player/Assets/Knight/Walk/Walking_016.png" id="59_v422a"]
 [ext_resource type="Texture2D" uid="uid://cpsowdearq7uc" path="res://Creatures/Player/Assets/Knight/Walk/Walking_017.png" id="60_5hcvq"]
+[ext_resource type="PackedScene" uid="uid://cp8bsrcb5uhhu" path="res://GameplayThings/Inventory/Inventory.tscn" id="61_7s2nq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hvkcs"]
 radius = 4.99997
@@ -427,12 +426,8 @@ animation = &"Attack"
 blend_point_0/node = SubResource("AnimationNodeAnimation_10syb")
 blend_point_0/pos = 0.0
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jrxlp"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o17e6"]
 animation = &"Death"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_m82pm"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_jrxlp")
-blend_point_0/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2upwg"]
 animation = &"Idle"
@@ -455,21 +450,9 @@ advance_mode = 2
 advance_mode = 2
 advance_condition = &"isWalking"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1loiy"]
-advance_mode = 2
-advance_condition = &"isDead"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y27oi"]
 advance_mode = 2
 advance_condition = &"isAttacking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rq45f"]
-advance_mode = 2
-advance_condition = &"isDead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8w27c"]
-switch_mode = 2
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s65qu"]
 switch_mode = 2
@@ -480,14 +463,26 @@ advance_condition = &"isIdle"
 advance_mode = 2
 advance_condition = &"isIdle"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bo07k"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tqm3u"]
 advance_mode = 2
 advance_condition = &"isDead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hu8pf"]
+advance_mode = 2
+advance_condition = &"isDead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kss37"]
+advance_mode = 2
+advance_condition = &"isDead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5x0t3"]
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tak8o"]
 states/Attack/node = SubResource("AnimationNodeBlendSpace1D_7nqq3")
 states/Attack/position = Vector2(431, 217)
-states/Death/node = SubResource("AnimationNodeBlendSpace1D_m82pm")
+states/Death/node = SubResource("AnimationNodeAnimation_o17e6")
 states/Death/position = Vector2(675, 217)
 states/End/position = Vector2(926, 217)
 states/Idle/node = SubResource("AnimationNodeBlendSpace1D_n0kae")
@@ -495,13 +490,12 @@ states/Idle/position = Vector2(431, 100)
 states/Start/position = Vector2(195, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace1D_m5a3h")
 states/Walk/position = Vector2(675, 100)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d8aj0"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_hb37a"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_1loiy"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_y27oi"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_rq45f"), "Death", "End", SubResource("AnimationNodeStateMachineTransition_8w27c"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_s65qu"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_v7csm"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_bo07k")]
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d8aj0"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_hb37a"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_y27oi"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_s65qu"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_v7csm"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_tqm3u"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_hu8pf"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_kss37"), "Death", "End", SubResource("AnimationNodeStateMachineTransition_5x0t3")]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 1
 rotation = -0.00330515
 script = ExtResource("1_ghq8m")
-inventory = ExtResource("2_g3uuj")
 stats = ExtResource("3_2i1sq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -523,20 +517,6 @@ process_mode = 1
 libraries = {
 "": SubResource("AnimationLibrary_i55r2")
 }
-
-[node name="UserInterface" parent="." instance=ExtResource("5_04ay5")]
-visible = false
-custom_minimum_size = Vector2(99.655, 100)
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -287.446
-offset_top = -167.951
-offset_right = 869.554
-offset_bottom = 484.049
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(0.5, 0.5)
 
 [node name="EnemyAttackArea" type="Area2D" parent="." groups=["Player"]]
 position = Vector2(3.8147e-06, 9.53674e-07)
@@ -571,8 +551,12 @@ parameters/conditions/isDead = false
 parameters/conditions/isIdle = true
 parameters/conditions/isWalking = false
 parameters/Attack/blend_position = 0
-parameters/Death/blend_position = 0
 parameters/Idle/blend_position = -0.00287634
 parameters/Walk/blend_position = 0
+
+[node name="Inventory" parent="." instance=ExtResource("61_7s2nq")]
+z_index = 100
+position = Vector2(-39.282, -87.284)
+scale = Vector2(0.5, 0.5)
 
 [connection signal="body_exited" from="EnemyAttackArea" to="." method="_on_enemy_attack_area_body_exited"]

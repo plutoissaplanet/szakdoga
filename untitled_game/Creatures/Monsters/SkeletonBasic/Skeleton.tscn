@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=3 uid="uid://cyyuhylexvsyn"]
+[gd_scene load_steps=104 format=3 uid="uid://cyyuhylexvsyn"]
 
 [ext_resource type="Script" path="res://Creatures/Monsters/SkeletonBasic/Skeleton.gd" id="1_hw214"]
 [ext_resource type="Animation" uid="uid://egfu3erv3eg8" path="res://Creatures/Monsters/SkeletonBasic/Assets/Skeleton1/Animations/skeleton1_ walk.res" id="2_2ky4q"]
@@ -199,15 +199,6 @@ advance_mode = 2
 advance_mode = 2
 advance_condition = &"enemyHurt"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ksiqs"]
-advance_mode = 2
-advance_condition = &"enemyhurt"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ollsa"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"enemyIsAttacking"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_karri"]
 advance_mode = 2
 advance_condition = &"enemyIsIdle"
@@ -229,8 +220,8 @@ states/Idle/position = Vector2(753, 18.4672)
 states/Start/position = Vector2(261, 200)
 states/Walk/node = SubResource("AnimationNodeBlendSpace1D_2tw6e")
 states/Walk/position = Vector2(497, 200)
-transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_3gvl0"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_kw8mx"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_twpcv"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_iu0pn"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_ffuuw"), "Dead", "End", SubResource("AnimationNodeStateMachineTransition_0cgyj"), "Hurt", "Dead", SubResource("AnimationNodeStateMachineTransition_ld2bu"), "Walk", "Hurt", SubResource("AnimationNodeStateMachineTransition_nfqag"), "Hurt", "Walk", SubResource("AnimationNodeStateMachineTransition_5et0f"), "Hurt", "Idle", SubResource("AnimationNodeStateMachineTransition_v3u7o"), "Idle", "Hurt", SubResource("AnimationNodeStateMachineTransition_w7kin"), "Attack", "Hurt", SubResource("AnimationNodeStateMachineTransition_ksiqs"), "Hurt", "Attack", SubResource("AnimationNodeStateMachineTransition_ollsa"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_karri"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_yexxg")]
-graph_offset = Vector2(52, -109.973)
+transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_3gvl0"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_kw8mx"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_twpcv"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_iu0pn"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_ffuuw"), "Dead", "End", SubResource("AnimationNodeStateMachineTransition_0cgyj"), "Hurt", "Dead", SubResource("AnimationNodeStateMachineTransition_ld2bu"), "Walk", "Hurt", SubResource("AnimationNodeStateMachineTransition_nfqag"), "Hurt", "Walk", SubResource("AnimationNodeStateMachineTransition_5et0f"), "Hurt", "Idle", SubResource("AnimationNodeStateMachineTransition_v3u7o"), "Idle", "Hurt", SubResource("AnimationNodeStateMachineTransition_w7kin"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_karri"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_yexxg")]
+graph_offset = Vector2(52, -239.532)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1eew0"]
 animations = [{
@@ -496,9 +487,8 @@ parameters/conditions/enemyIsAttacking = false
 parameters/conditions/enemyIsDead = false
 parameters/conditions/enemyIsIdle = false
 parameters/conditions/enemyWalking = false
-parameters/conditions/enemyhurt = false
 parameters/Attack/blend_position = 0
-parameters/Dead/blend_position = 0
+parameters/Dead/blend_position = -0.000914931
 parameters/Hurt/blend_position = 0
 parameters/Idle/blend_position = 0
 parameters/Walk/blend_position = 0

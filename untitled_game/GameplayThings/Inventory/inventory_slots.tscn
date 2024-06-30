@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://csu1eicksfd50"]
+
+[sub_resource type="GDScript" id="GDScript_ga4xv"]
+script/source = "extends Panel
+
+@onready var item_visual: Sprite2D = $CenterContainer/Display
+
+func update(slot: InvSlot):
+	if !slot.item:
+		item_visual.visible = false
+	else:
+		item_visual.visible = true
+		item_visual.texture = slot.item.ITEM_TEXT
+"
+
+[node name="InventorySlots" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 30.0
+offset_bottom = 30.0
+script = SubResource("GDScript_ga4xv")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 5.0
+offset_bottom = 5.0
+scale = Vector2(0.655, 0.655)
+
+[node name="Display" type="Sprite2D" parent="CenterContainer"]

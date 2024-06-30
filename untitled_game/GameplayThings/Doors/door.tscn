@@ -1,0 +1,138 @@
+[gd_scene load_steps=14 format=3 uid="uid://cwg43g6jby4li"]
+
+[ext_resource type="Script" path="res://GameplayThings/Doors/door.gd" id="1_jy31v"]
+[ext_resource type="Texture2D" uid="uid://cv7q5e07k1fip" path="res://Game Assets/Home/door_opener_dark.png" id="1_p3cnh"]
+[ext_resource type="Texture2D" uid="uid://wws3o32pyp2i" path="res://Game Assets/Home/dooframe_dark.png" id="2_s6ber"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2rbsa"]
+size = Vector2(32, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brmy5"]
+atlas = ExtResource("1_p3cnh")
+region = Rect2(0, 0, 28, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcxx4"]
+atlas = ExtResource("1_p3cnh")
+region = Rect2(28, 0, 28, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vneqp"]
+atlas = ExtResource("1_p3cnh")
+region = Rect2(56, 0, 28, 53)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l7hgi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brmy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcxx4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vneqp")
+}],
+"loop": true,
+"name": &"door",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_a4kw4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [&"door"]
+}
+
+[sub_resource type="Animation" id="Animation_cte5g"]
+resource_name = "door_opening"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [&"door"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l8xk6"]
+_data = {
+"RESET": SubResource("Animation_a4kw4"),
+"door_opening": SubResource("Animation_cte5g")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ci34j"]
+size = Vector2(28, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bgw4v"]
+radius = 49.0102
+
+[node name="Door" type="StaticBody2D"]
+script = ExtResource("1_jy31v")
+
+[node name="DoorCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 14.42)
+shape = SubResource("RectangleShape2D_2rbsa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(1.07143, 1.0283)
+sprite_frames = SubResource("SpriteFrames_l7hgi")
+animation = &"door"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_l8xk6")
+}
+
+[node name="DoorFrame" type="Sprite2D" parent="."]
+texture = ExtResource("2_s6ber")
+
+[node name="player_detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
+position = Vector2(0, 12.75)
+shape = SubResource("RectangleShape2D_ci34j")
+
+[node name="near_the_door_detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="near_the_door_detector"]
+shape = SubResource("CircleShape2D_bgw4v")
+
+[connection signal="body_entered" from="near_the_door_detector" to="." method="_on_near_the_door_detector_body_entered"]
+[connection signal="body_exited" from="near_the_door_detector" to="." method="_on_near_the_door_detector_body_exited"]

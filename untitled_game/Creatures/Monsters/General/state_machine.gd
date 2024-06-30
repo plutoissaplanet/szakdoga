@@ -6,9 +6,13 @@ var state
 var player
 var animation
 var SPEED = 30.0
+var animationStateMachine: AnimationNodeStateMachine
+
 @export var stats = Statistics.new()
 @export var enemySprite: AnimatedSprite2D
 @export var animationTree: AnimationTree
+
+@onready var animationPlayer = $AnimationPlayer
 
 enum {
 	ATTACK,
@@ -20,7 +24,6 @@ enum {
 
 func update(delta, enemy):
 	if player == null:
-		print("Player object is null!")
 		return
 		
 	match state:
@@ -58,15 +61,17 @@ func attack(target):
 func enemy_hit(damage, obj):
 	stats.HealthPoints-=damage
 	if stats.HealthPoints <=0:
-		print("enemy died")
 		enemy_death(obj)
 	state=IDLE
 
 	
 func enemy_death(enemy):
-	if animation != null:
-		animation.play("enemy_death")
-	enemy.queue_free()
+	animationTree.set("parameters/conditions/enemyIsDead", true)
+	if animationTree.animation_finished:
+		enemy.queue_free()
+	
+
+
 	
 func set_stats(healthpoints, attackpoints):
 	stats.AttackPoints=attackpoints

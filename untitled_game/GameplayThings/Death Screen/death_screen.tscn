@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://d33hhjqanv3cc"]
+
+[ext_resource type="Script" path="res://GameplayThings/Death Screen/death_screen.gd" id="1_8cl50"]
+[ext_resource type="Texture2D" uid="uid://dqvxa8eadmub5" path="res://GameplayThings/Death Screen/Logo.png" id="1_l8yhx"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="2_5we5y"]
+[ext_resource type="Texture2D" uid="uid://dsxakb0yppd5a" path="res://Game Assets/GUI/Buttons/Button3.png" id="3_70nrj"]
+[ext_resource type="Texture2D" uid="uid://bnrc4beqgh7os" path="res://Game Assets/GUI/Buttons/Button4.png" id="4_1v5do"]
+
+[node name="DeathScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8cl50")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_l8yhx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = -69.0
+offset_top = -25.0
+offset_right = 118.0
+offset_bottom = 12.0
+theme_override_colors/default_color = Color(1, 0.835294, 0.411765, 1)
+theme_override_fonts/normal_font = ExtResource("2_5we5y")
+theme_override_font_sizes/normal_font_size = 34
+text = "YOU DIED"
+
+[node name="RetryButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = -45.0
+offset_top = 100.0
+offset_right = 45.0
+offset_bottom = 130.0
+texture_normal = ExtResource("3_70nrj")
+texture_pressed = ExtResource("4_1v5do")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="RetryButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 22.0
+offset_top = 1.0
+offset_right = 71.0
+offset_bottom = 25.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/normal_font = ExtResource("2_5we5y")
+theme_override_font_sizes/normal_font_size = 18
+text = "Retry"
+
+[node name="BackToMainMenuButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = -45.0
+offset_top = 138.0
+offset_right = 45.0
+offset_bottom = 166.0
+texture_normal = ExtResource("3_70nrj")
+texture_pressed = ExtResource("4_1v5do")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BackToMainMenuButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 93.0
+offset_bottom = 43.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/normal_font = ExtResource("2_5we5y")
+text = "Main Menu"
+
+[node name="ExitGameButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = -45.0
+offset_top = 178.0
+offset_right = 45.0
+offset_bottom = 208.0
+texture_normal = ExtResource("3_70nrj")
+texture_pressed = ExtResource("4_1v5do")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ExitGameButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 3.0
+offset_right = 87.0
+offset_bottom = 40.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/normal_font = ExtResource("2_5we5y")
+text = "Exit Game"
+
+[connection signal="pressed" from="RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="BackToMainMenuButton" to="." method="_on_back_to_main_menu_button_pressed"]
+[connection signal="pressed" from="ExitGameButton" to="." method="_on_exit_game_button_pressed"]

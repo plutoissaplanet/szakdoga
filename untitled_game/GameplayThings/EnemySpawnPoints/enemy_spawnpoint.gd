@@ -1,8 +1,8 @@
 extends Marker2D
 
-const skeleton_enemy=preload("res://Creatures/Monsters/SkeletonBasic/Skeleton.tscn")
+const skeletonEnemy=preload("res://Creatures/Monsters/Assets/Skeletons/Skeleton.tscn")
 var player
-var maxEnemiesS
+var maxEnemies
 var room
 @onready var node = get_node(".")
 
@@ -13,7 +13,9 @@ func spawn_monsters(r):
 	var randomNumberOfEnemies = 1#randi_range(1,2) #the 3 will need to be changed to maxenemies when making different levels of maps and for the editor mode.
 	for i in range(randomNumberOfEnemies):
 		#print("enemy spawned")
-		var enemyinstance=skeleton_enemy.instantiate()
+		var enemyinstance=skeletonEnemy.instantiate()
+		enemyinstance.animationPath="res://Creatures/Monsters/Animations/Ent/"
+		
 		var randomOffsetX = randf_range(-10, 10)
 		var randomOffsetY = randf_range(-10, 10)
 		enemyinstance.player=player

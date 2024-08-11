@@ -11,7 +11,7 @@ func _ready():
 	door.player_detector.body_entered.connect(_on_player_detector_body_entered)
 	nanogram.solvedSignal.connect(openChest)
 	spawn_node.player=player
-	spawn_node.room=get_node(".")
+	spawn_node.room=self
 	
 func _on_player_detector_body_entered(body):
 	var shared_wall=get_node("Room1/MapTiles")

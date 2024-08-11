@@ -1,269 +1,16 @@
-[gd_scene load_steps=89 format=3 uid="uid://by0flqyrw3k6e"]
+[gd_scene load_steps=33 format=3 uid="uid://by0flqyrw3k6e"]
 
 [ext_resource type="Script" path="res://Creatures/Player/PlayerScript.gd" id="1_ghq8m"]
 [ext_resource type="Resource" uid="uid://b5ut1sfqskntw" path="res://Creatures/stats.tres" id="3_2i1sq"]
-[ext_resource type="Texture2D" uid="uid://ijjsc2twmi5l" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_000.png" id="4_ldtj1"]
-[ext_resource type="Texture2D" uid="uid://j5grxt8pqqbe" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_001.png" id="5_8mqyq"]
-[ext_resource type="Texture2D" uid="uid://cgnvms3vmtbsn" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_002.png" id="6_nvboe"]
 [ext_resource type="PackedScene" uid="uid://0123bfmqcti6" path="res://GameplayThings/HealthBar/HealthBar.tscn" id="7_m3gb3"]
-[ext_resource type="Texture2D" uid="uid://cxltdli2q1rdi" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_003.png" id="7_tlu8g"]
-[ext_resource type="Texture2D" uid="uid://bqpch4kxsloec" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_004.png" id="8_inhne"]
-[ext_resource type="Texture2D" uid="uid://bht2n41iynf38" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_005.png" id="9_8605m"]
-[ext_resource type="Texture2D" uid="uid://ccq2quu8r5iuc" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_006.png" id="10_gxheq"]
-[ext_resource type="Texture2D" uid="uid://dygpvv73nm3ih" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_007.png" id="11_fpefq"]
-[ext_resource type="Texture2D" uid="uid://nohshl8e3o3j" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_008.png" id="12_sjcch"]
-[ext_resource type="Texture2D" uid="uid://cvm31ecvejrhx" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_009.png" id="13_k4bty"]
-[ext_resource type="Texture2D" uid="uid://b5xcrkwy3kx3y" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_010.png" id="14_3k3qk"]
-[ext_resource type="Texture2D" uid="uid://ced3s50dh1gvh" path="res://Creatures/Player/Assets/Knight/Attack/Attacking_011.png" id="15_d0jst"]
-[ext_resource type="Texture2D" uid="uid://dafpr31r6ncal" path="res://Creatures/Player/Assets/Knight/Death/Dying_000.png" id="16_hebfc"]
-[ext_resource type="Texture2D" uid="uid://djkbt06vts4wk" path="res://Creatures/Player/Assets/Knight/Death/Dying_001.png" id="17_10mis"]
-[ext_resource type="Texture2D" uid="uid://csmk5dr0ngf4n" path="res://Creatures/Player/Assets/Knight/Death/Dying_002.png" id="18_xgjem"]
-[ext_resource type="Texture2D" uid="uid://cku1npex1lupf" path="res://Creatures/Player/Assets/Knight/Death/Dying_003.png" id="19_dtgdq"]
-[ext_resource type="Texture2D" uid="uid://cvjytk7poyhd3" path="res://Creatures/Player/Assets/Knight/Death/Dying_004.png" id="20_n2vov"]
-[ext_resource type="Texture2D" uid="uid://bk1awqx488uw4" path="res://Creatures/Player/Assets/Knight/Death/Dying_005.png" id="21_dfik6"]
-[ext_resource type="Texture2D" uid="uid://d3wwg1rnvyanv" path="res://Creatures/Player/Assets/Knight/Death/Dying_006.png" id="22_evdl3"]
-[ext_resource type="Texture2D" uid="uid://drgqct7tuk0vq" path="res://Creatures/Player/Assets/Knight/Death/Dying_007.png" id="23_kfqdq"]
-[ext_resource type="Texture2D" uid="uid://dce5uis17v16a" path="res://Creatures/Player/Assets/Knight/Death/Dying_008.png" id="24_5haox"]
-[ext_resource type="Texture2D" uid="uid://dwv6x84j4qukb" path="res://Creatures/Player/Assets/Knight/Death/Dying_009.png" id="25_khsqs"]
-[ext_resource type="Texture2D" uid="uid://cfrb4fe8cbiyn" path="res://Creatures/Player/Assets/Knight/Death/Dying_010.png" id="26_v64m7"]
-[ext_resource type="Texture2D" uid="uid://dj74olrj6btko" path="res://Creatures/Player/Assets/Knight/Death/Dying_011.png" id="27_rv5sp"]
-[ext_resource type="Texture2D" uid="uid://bx5a63ao715ok" path="res://Creatures/Player/Assets/Knight/Death/Dying_012.png" id="28_ha04c"]
-[ext_resource type="Texture2D" uid="uid://dlmsjm8nfoglr" path="res://Creatures/Player/Assets/Knight/Death/Dying_013.png" id="29_hon8w"]
-[ext_resource type="Texture2D" uid="uid://doib1cbl1vgml" path="res://Creatures/Player/Assets/Knight/Death/Dying_014.png" id="30_c6q13"]
-[ext_resource type="Texture2D" uid="uid://c4y8m8leyboqk" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_000.png" id="31_ckpun"]
-[ext_resource type="Texture2D" uid="uid://du20f3vme58ce" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_001.png" id="32_212pc"]
-[ext_resource type="Texture2D" uid="uid://bt1q21jor7h5j" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_002.png" id="33_drf8k"]
-[ext_resource type="Texture2D" uid="uid://chs1ue0nlax03" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_003.png" id="34_82ath"]
-[ext_resource type="Texture2D" uid="uid://bm5241rukvmjh" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_004.png" id="35_p3ra5"]
-[ext_resource type="Texture2D" uid="uid://bxckr7k0mhq8p" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_005.png" id="36_xd6lq"]
-[ext_resource type="Texture2D" uid="uid://beyy2q45f5m5p" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_006.png" id="37_f4mvy"]
-[ext_resource type="Texture2D" uid="uid://d22wnsrihpe4a" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_007.png" id="38_4h8at"]
-[ext_resource type="Texture2D" uid="uid://b5lo7cjdksfif" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_008.png" id="39_bgrwj"]
-[ext_resource type="Texture2D" uid="uid://b4wmbs24boqxx" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_009.png" id="40_stb42"]
-[ext_resource type="Texture2D" uid="uid://c8wtqv4qiviv" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_010.png" id="41_135r3"]
-[ext_resource type="Texture2D" uid="uid://dcqqls1c2ewgl" path="res://Creatures/Player/Assets/Knight/Idle/Idle Blinking_011.png" id="42_2h4l7"]
-[ext_resource type="Texture2D" uid="uid://cdi4wge03yipk" path="res://Creatures/Player/Assets/Knight/Walk/Walking_000.png" id="43_5m8dt"]
-[ext_resource type="Texture2D" uid="uid://bjyf71wehaf2c" path="res://Creatures/Player/Assets/Knight/Walk/Walking_001.png" id="44_4ycdo"]
-[ext_resource type="Texture2D" uid="uid://bqm5o1e6k4sdy" path="res://Creatures/Player/Assets/Knight/Walk/Walking_002.png" id="45_0i1g5"]
-[ext_resource type="Texture2D" uid="uid://c7gks2etde3ad" path="res://Creatures/Player/Assets/Knight/Walk/Walking_003.png" id="46_1adlq"]
-[ext_resource type="Texture2D" uid="uid://drwgvct3ycqvr" path="res://Creatures/Player/Assets/Knight/Walk/Walking_004.png" id="47_vwxsw"]
-[ext_resource type="Texture2D" uid="uid://tvfufr0k2sle" path="res://Creatures/Player/Assets/Knight/Walk/Walking_005.png" id="48_eihpd"]
-[ext_resource type="Texture2D" uid="uid://bb5m7rjtv1i4t" path="res://Creatures/Player/Assets/Knight/Walk/Walking_006.png" id="49_lk5am"]
-[ext_resource type="Texture2D" uid="uid://bklo1tho16w8h" path="res://Creatures/Player/Assets/Knight/Walk/Walking_007.png" id="50_6q20j"]
-[ext_resource type="Texture2D" uid="uid://dxgquhra04v0y" path="res://Creatures/Player/Assets/Knight/Walk/Walking_008.png" id="51_c4abm"]
-[ext_resource type="Texture2D" uid="uid://c3v2a27gd0exv" path="res://Creatures/Player/Assets/Knight/Walk/Walking_009.png" id="52_6wx2w"]
-[ext_resource type="Texture2D" uid="uid://ky68tdb4wgo6" path="res://Creatures/Player/Assets/Knight/Walk/Walking_010.png" id="53_nfqx4"]
-[ext_resource type="Texture2D" uid="uid://cvfwsk4uanddo" path="res://Creatures/Player/Assets/Knight/Walk/Walking_011.png" id="54_rsg70"]
-[ext_resource type="Texture2D" uid="uid://56gubc4svut1" path="res://Creatures/Player/Assets/Knight/Walk/Walking_012.png" id="55_jmo7x"]
-[ext_resource type="Texture2D" uid="uid://db8cvj7hlky1o" path="res://Creatures/Player/Assets/Knight/Walk/Walking_013.png" id="56_ercqr"]
-[ext_resource type="Texture2D" uid="uid://3u5kucrrj11j" path="res://Creatures/Player/Assets/Knight/Walk/Walking_014.png" id="57_iae6j"]
-[ext_resource type="Texture2D" uid="uid://4li4gkruvcmu" path="res://Creatures/Player/Assets/Knight/Walk/Walking_015.png" id="58_pbv6t"]
-[ext_resource type="Texture2D" uid="uid://bq13ow048l8ib" path="res://Creatures/Player/Assets/Knight/Walk/Walking_016.png" id="59_v422a"]
-[ext_resource type="Texture2D" uid="uid://cpsowdearq7uc" path="res://Creatures/Player/Assets/Knight/Walk/Walking_017.png" id="60_5hcvq"]
 [ext_resource type="PackedScene" uid="uid://cp8bsrcb5uhhu" path="res://GameplayThings/Inventory/Inventory.tscn" id="61_7s2nq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hvkcs"]
 radius = 4.99997
 height = 14.0065
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_obr1w"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_ldtj1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_8mqyq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_nvboe")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_tlu8g")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_inhne")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_8605m")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_gxheq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_fpefq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_sjcch")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_k4bty")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_3k3qk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_d0jst")
-}],
-"loop": true,
-"name": &"attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("16_hebfc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_10mis")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_xgjem")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_dtgdq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_n2vov")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_dfik6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_evdl3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_kfqdq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_5haox")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_khsqs")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_v64m7")
-}, {
-"duration": 1.0,
-"texture": ExtResource("27_rv5sp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_ha04c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_hon8w")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_c6q13")
-}],
-"loop": true,
-"name": &"death",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("31_ckpun")
-}, {
-"duration": 1.0,
-"texture": ExtResource("32_212pc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("33_drf8k")
-}, {
-"duration": 1.0,
-"texture": ExtResource("34_82ath")
-}, {
-"duration": 1.0,
-"texture": ExtResource("35_p3ra5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("36_xd6lq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("37_f4mvy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("38_4h8at")
-}, {
-"duration": 1.0,
-"texture": ExtResource("39_bgrwj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("40_stb42")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_135r3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("42_2h4l7")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("43_5m8dt")
-}, {
-"duration": 1.0,
-"texture": ExtResource("44_4ycdo")
-}, {
-"duration": 1.0,
-"texture": ExtResource("45_0i1g5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("46_1adlq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("47_vwxsw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("48_eihpd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("49_lk5am")
-}, {
-"duration": 1.0,
-"texture": ExtResource("50_6q20j")
-}, {
-"duration": 1.0,
-"texture": ExtResource("51_c4abm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("52_6wx2w")
-}, {
-"duration": 1.0,
-"texture": ExtResource("53_nfqx4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("54_rsg70")
-}, {
-"duration": 1.0,
-"texture": ExtResource("55_jmo7x")
-}, {
-"duration": 1.0,
-"texture": ExtResource("56_ercqr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("57_iae6j")
-}, {
-"duration": 1.0,
-"texture": ExtResource("58_pbv6t")
-}, {
-"duration": 1.0,
-"texture": ExtResource("59_v422a")
-}, {
-"duration": 1.0,
-"texture": ExtResource("60_5hcvq")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
-
-[sub_resource type="Animation" id="Animation_likpj"]
-resource_name = "Attack"
-length = 0.5
-step = 0.02
+[sub_resource type="Animation" id="Animation_flcii"]
+resource_name = "new_animation"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -274,7 +21,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"attack"]
+"values": [&""]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -283,105 +30,17 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
-}
-
-[sub_resource type="Animation" id="Animation_oo1gv"]
-resource_name = "Death"
-length = 0.6
-step = 0.02
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"death"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.04, 0.08, 0.12, 0.16, 0.18, 0.2, 0.22, 0.24, 0.28, 0.32, 0.36, 0.4, 0.44, 0.48),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+"values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_hx61h"]
-resource_name = "Idle"
-loop_mode = 1
-step = 0.02
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56, 0.64, 0.72, 0.8, 0.88),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-}
-
-[sub_resource type="Animation" id="Animation_di4sm"]
+[sub_resource type="Animation" id="Animation_dmdyp"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Right"]
-}
-
-[sub_resource type="Animation" id="Animation_ilbfh"]
-resource_name = "Walk"
-length = 0.7
-loop_mode = 1
-step = 0.02
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -389,7 +48,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"walk"]
+"values": [&""]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -398,19 +57,16 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(-0.04, 0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4, 0.44, 0.48, 0.52, 0.56, 0.6, 0.64),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i55r2"]
 _data = {
-"Attack": SubResource("Animation_likpj"),
-"Death": SubResource("Animation_oo1gv"),
-"Idle": SubResource("Animation_hx61h"),
-"RESET": SubResource("Animation_di4sm"),
-"Walk": SubResource("Animation_ilbfh")
+"RESET": SubResource("Animation_dmdyp"),
+"new_animation": SubResource("Animation_flcii")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_excjj"]
@@ -419,78 +75,98 @@ radius = 16.0312
 [sub_resource type="CircleShape2D" id="CircleShape2D_h63ex"]
 radius = 17.7731
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_10syb"]
-animation = &"Attack"
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xxna4"]
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_7nqq3"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_10syb")
-blend_point_0/pos = 0.0
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_j1ygg"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o17e6"]
-animation = &"Death"
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_cr70l"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2upwg"]
-animation = &"Idle"
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_20v7o"]
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_n0kae"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_2upwg")
-blend_point_0/pos = 0.0
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_boqi8"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a063k"]
-animation = &"Walk"
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_qnnlf"]
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_m5a3h"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_a063k")
-blend_point_0/pos = 0.0
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d8aj0"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mhpdc"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hb37a"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qargs"]
 advance_mode = 2
-advance_condition = &"isWalking"
+advance_condition = &"playerWalk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y27oi"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q070f"]
 advance_mode = 2
-advance_condition = &"isAttacking"
+advance_condition = &"playerIdle"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s65qu"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4m080"]
 switch_mode = 2
 advance_mode = 2
-advance_condition = &"isIdle"
+advance_condition = &"playerWalk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v7csm"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0rx82"]
 advance_mode = 2
-advance_condition = &"isIdle"
+advance_condition = &"playerAttack"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tqm3u"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ou02o"]
+switch_mode = 2
 advance_mode = 2
-advance_condition = &"isDead"
+advance_condition = &"playerAttack"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hu8pf"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fl4ma"]
 advance_mode = 2
-advance_condition = &"isDead"
+advance_condition = &"playerHurt"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kss37"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hhpnf"]
 advance_mode = 2
-advance_condition = &"isDead"
+advance_condition = &"playerHurt"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5x0t3"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nl0cc"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerWalk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v2dn0"]
+advance_mode = 2
+advance_condition = &"playerHurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_luml1"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7h7g2"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerDead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1wj2a"]
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tak8o"]
-states/Attack/node = SubResource("AnimationNodeBlendSpace1D_7nqq3")
-states/Attack/position = Vector2(431, 217)
-states/Death/node = SubResource("AnimationNodeAnimation_o17e6")
-states/Death/position = Vector2(675, 217)
-states/End/position = Vector2(926, 217)
-states/Idle/node = SubResource("AnimationNodeBlendSpace1D_n0kae")
-states/Idle/position = Vector2(431, 100)
-states/Start/position = Vector2(195, 100)
-states/Walk/node = SubResource("AnimationNodeBlendSpace1D_m5a3h")
-states/Walk/position = Vector2(675, 100)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d8aj0"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_hb37a"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_y27oi"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_s65qu"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_v7csm"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_tqm3u"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_hu8pf"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_kss37"), "Death", "End", SubResource("AnimationNodeStateMachineTransition_5x0t3")]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n04na"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fqc6v"]
+advance_mode = 2
+advance_condition = &"playerAttack"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ykmuj"]
+states/End/position = Vector2(802, 69)
+states/Start/position = Vector2(277, 490)
+states/attack/node = SubResource("AnimationNodeBlendSpace1D_j1ygg")
+states/attack/position = Vector2(802, 264)
+states/death/node = SubResource("AnimationNodeBlendSpace1D_cr70l")
+states/death/position = Vector2(491, 69)
+states/hurt/node = SubResource("AnimationNodeBlendSpace1D_20v7o")
+states/hurt/position = Vector2(491, 264)
+states/idle/node = SubResource("AnimationNodeBlendSpace1D_boqi8")
+states/idle/position = Vector2(491, 490)
+states/walk/node = SubResource("AnimationNodeBlendSpace1D_qnnlf")
+states/walk/position = Vector2(802, 490)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_mhpdc"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_qargs"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_q070f"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_4m080"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_0rx82"), "hurt", "attack", SubResource("AnimationNodeStateMachineTransition_ou02o"), "attack", "hurt", SubResource("AnimationNodeStateMachineTransition_fl4ma"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_hhpnf"), "hurt", "walk", SubResource("AnimationNodeStateMachineTransition_nl0cc"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_v2dn0"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_luml1"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_7h7g2"), "death", "End", SubResource("AnimationNodeStateMachineTransition_1wj2a"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_n04na"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_fqc6v")]
+graph_offset = Vector2(0, 78.1541)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 1
@@ -505,9 +181,7 @@ shape = SubResource("CapsuleShape2D_hvkcs")
 texture_filter = 3
 position = Vector2(0, -6)
 scale = Vector2(0.1, 0.1)
-sprite_frames = SubResource("SpriteFrames_obr1w")
-animation = &"Right"
-frame = 1
+animation = &""
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -540,23 +214,25 @@ offset_top = 142.712
 offset_right = 88.5278
 offset_bottom = 158.712
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_i55r2")
-}
-tree_root = SubResource("AnimationNodeStateMachine_tak8o")
-anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/isAttacking = false
-parameters/conditions/isDead = false
-parameters/conditions/isIdle = true
-parameters/conditions/isWalking = false
-parameters/Attack/blend_position = 0
-parameters/Idle/blend_position = -0.00287634
-parameters/Walk/blend_position = 0
-
 [node name="Inventory" parent="." instance=ExtResource("61_7s2nq")]
 z_index = 100
 position = Vector2(-39.282, -87.284)
 scale = Vector2(0.5, 0.5)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xxna4")
+}
+tree_root = SubResource("AnimationNodeStateMachine_ykmuj")
+parameters/conditions/playerAttack = false
+parameters/conditions/playerDead = false
+parameters/conditions/playerHurt = false
+parameters/conditions/playerIdle = false
+parameters/conditions/playerWalk = false
+parameters/attack/blend_position = 0
+parameters/death/blend_position = 0
+parameters/hurt/blend_position = 0
+parameters/idle/blend_position = 0
+parameters/walk/blend_position = 0
 
 [connection signal="body_exited" from="EnemyAttackArea" to="." method="_on_enemy_attack_area_body_exited"]

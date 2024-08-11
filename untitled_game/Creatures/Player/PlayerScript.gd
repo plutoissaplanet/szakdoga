@@ -12,13 +12,15 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var enemyArea = get_node("EnemyAttackArea")
 @onready var attackEnemy = get_node("AttackTheEnemyArea")
 @onready var character = get_node("AnimatedSprite2D")
-@onready var animation = get_node("AnimationPlayer")
+@onready var animationPlayer = $AnimationPlayer
 @onready var healthBar = get_node("HealthBar/ProgressBar")
 @onready var animationTree = $AnimationTree
 @onready var inventory = $Inventory
 var animationMachine = AnimationMachine.new()
 var ENEMY_CONDITIONS
-var PLAYER_CONDITIONS
+var PLAYER_CONDITIONS = {
+	
+}
 var state
 var SPEED
 var totalHealth: int
@@ -35,6 +37,9 @@ enum {
 
 func _ready():
 	get_tree().paused=false
+	animationTree.active=true
+	_set_up_animations()
+
 	totalHealth = playerConfig.STARTER_HEALTH_POINTS
 	stats.HealthPoints = playerConfig.STARTER_HEALTH_POINTS
 	stats.AttackPoints= playerConfig.STARTER_ATTACK_PONTS
@@ -45,7 +50,6 @@ func _ready():
 	PLAYER_CONDITIONS=animationMachine.PLAYER_CONDITIONS
 	
 func _process(delta):
-	#print(stats.HealthPoints)
 	match (state):
 		WALK:
 			SPEED = 180.0
@@ -87,7 +91,13 @@ func _process(delta):
 				
 func _input(event):
 	pass
-			
+
+func _set_up_animations():
+	var animationMaker = ANIMATION_MAKER.new()
+	await animationMaker.make_animation('Player/Assets', 'Fairy', 'Fairy1', 1, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
+	animationMaker.add_points_to_blendspace(animationTree, 'playerLibrary/', animationPlayer )
+
+	
 func _physics_process(_delta):
 	var move_right = Input.is_action_pressed("move_right")
 	var move_left = Input.is_action_pressed("move_left")

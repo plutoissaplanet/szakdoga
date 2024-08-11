@@ -1,7 +1,7 @@
 [gd_scene load_steps=98 format=3 uid="uid://jh74dmr4frl8"]
 
 [ext_resource type="Script" path="res://Creatures/Monsters/Ent/ent.gd" id="1_bf0lw"]
-[ext_resource type="Texture2D" uid="uid://dp3hkye0aicwd" path="res://Creatures/Monsters/Ent/Assets/Attack/Ent_02_Attacking_000.png" id="2_oge3w"]
+[ext_resource type="Texture2D" uid="uid://dp3hkye0aicwd" path="res://Creatures/Monsters/Ent/Assets/Attack/Attacking_000.png" id="2_oge3w"]
 [ext_resource type="Texture2D" uid="uid://blws1y1f0vtd0" path="res://Creatures/Monsters/Ent/Assets/Attack/Ent_02_Attacking_001.png" id="3_jadmc"]
 [ext_resource type="Texture2D" uid="uid://dj346kc667twv" path="res://Creatures/Monsters/Ent/Assets/Attack/Ent_02_Attacking_002.png" id="4_bkw7k"]
 [ext_resource type="Texture2D" uid="uid://njm6vsglekij" path="res://Creatures/Monsters/Ent/Assets/Attack/Ent_02_Attacking_003.png" id="5_cvaue"]
@@ -40,7 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://c8sll7hpwt8k6" path="res://Creatures/Monsters/Ent/Assets/Hurt/Ent_02_Hurt_009.png" id="38_w35v2"]
 [ext_resource type="Texture2D" uid="uid://b2eh2ltn2rgi5" path="res://Creatures/Monsters/Ent/Assets/Hurt/Ent_02_Hurt_010.png" id="39_asmpe"]
 [ext_resource type="Texture2D" uid="uid://dd6vm8ut6kdip" path="res://Creatures/Monsters/Ent/Assets/Hurt/Ent_02_Hurt_011.png" id="40_q5fy7"]
-[ext_resource type="Texture2D" uid="uid://qr8n0rx43hln" path="res://Creatures/Monsters/Ent/Assets/Idle/Ent_02_Idle_000.png" id="41_ty8tg"]
+[ext_resource type="Texture2D" uid="uid://qr8n0rx43hln" path="res://Creatures/Monsters/Ent/Assets/Idle/Ent_Idle.png" id="41_ty8tg"]
 [ext_resource type="Texture2D" uid="uid://cwojm763j4gda" path="res://Creatures/Monsters/Ent/Assets/Idle/Ent_02_Idle_001.png" id="42_4wxco"]
 [ext_resource type="Texture2D" uid="uid://52owr7hy4ujg" path="res://Creatures/Monsters/Ent/Assets/Idle/Ent_02_Idle_002.png" id="43_uh1o2"]
 [ext_resource type="Texture2D" uid="uid://bguyr1drw4p2o" path="res://Creatures/Monsters/Ent/Assets/Idle/Ent_02_Idle_003.png" id="44_j6ri4"]

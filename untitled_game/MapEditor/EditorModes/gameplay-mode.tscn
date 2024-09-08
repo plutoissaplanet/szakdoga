@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://buh3brv1i0ibi"]
+
+[ext_resource type="Script" path="res://MapEditor/EditorModes/gameplay-mode.gd" id="1_omuac"]
+
+[node name="Gameplay-mode" type="Node2D"]
+script = ExtResource("1_omuac")

@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://wb843brcr06o"]
+
+[ext_resource type="Script" path="res://MapEditor/EditorModes/decorator-mode.gd" id="1_exevj"]
+[ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="2_mj8dh"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_0c21j"]
+
+[node name="Decorator-mode" type="Node2D"]
+script = ExtResource("1_exevj")
+
+[node name="WallsAndFlooring" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.101961)
+offset_left = 8.0
+offset_top = 236.0
+offset_right = 189.0
+offset_bottom = 639.0
+texture = ExtResource("2_mj8dh")
+expand_mode = 1
+
+[node name="WallsAndFlooringLabel" type="Label" parent="WallsAndFlooring"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.028
+anchor_top = 0.007
+anchor_right = 0.803
+anchor_bottom = 0.082
+offset_left = -0.104
+offset_top = 0.179
+offset_right = -0.0540009
+offset_bottom = -0.0460014
+theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 20
+text = "Walls and Flooring"
+
+[node name="Decorations" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.101961)
+offset_left = 1027.0
+offset_top = 11.0
+offset_right = 1208.0
+offset_bottom = 636.0
+texture = ExtResource("2_mj8dh")
+expand_mode = 1
+
+[node name="DecorationsLabel" type="Label" parent="Decorations"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.122
+anchor_right = 0.873
+anchor_bottom = 0.054
+offset_left = -0.0820007
+offset_top = 3.0
+offset_right = -0.0130005
+offset_bottom = -2.75
+theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 25
+text = "Decorations
+"

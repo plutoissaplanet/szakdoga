@@ -53,6 +53,7 @@ func move(target, delta, node):
 func attack(target):
 	animationTree.set("parameters/conditions/enemyIsIdle", false)
 	target.stats.HealthPoints -= stats.AttackPoints
+	target.state = HURT
 	if target.stats.HealthPoints<=0:
 		target.state=target.DEATH
 	animationTree.set("parameters/conditions/enemyIsAttacking", false)
@@ -61,17 +62,14 @@ func attack(target):
 func enemy_hit(damage, obj):
 	stats.HealthPoints-=damage
 	if stats.HealthPoints <=0:
+		animationTree.set("parameters/conditions/enemyIsDead", false)
 		enemy_death(obj)
 	state=IDLE
 
-	
 func enemy_death(enemy):
 	animationTree.set("parameters/conditions/enemyIsDead", true)
 	if animationTree.animation_finished:
 		enemy.queue_free()
-	
-
-
 	
 func set_stats(healthpoints, attackpoints):
 	stats.AttackPoints=attackpoints

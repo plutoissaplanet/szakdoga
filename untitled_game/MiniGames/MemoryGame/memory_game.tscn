@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2o4ha4eryu5"]
+
+[ext_resource type="Script" path="res://MiniGames/MemoryGame/memory_game.gd" id="1_uvyhc"]
+[ext_resource type="Texture2D" uid="uid://dsxakb0yppd5a" path="res://Game Assets/GUI/Buttons/Button3.png" id="2_583bo"]
+[ext_resource type="Texture2D" uid="uid://qtp5jl15i4wo" path="res://Game Assets/GUI/Buttons/Button2.png" id="3_oipic"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="5_84p6m"]
+
+[node name="MemoryGame" type="Node2D"]
+script = ExtResource("1_uvyhc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Container" type="Container" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Timer2" type="Timer" parent="."]
+one_shot = true
+
+[node name="RestartContainer" type="Container" parent="."]
+offset_right = 91.0
+offset_bottom = 28.0
+
+[node name="RestartButton" type="TextureButton" parent="RestartContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_583bo")
+texture_pressed = ExtResource("3_oipic")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="RestartContainer/RestartButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 2.0
+offset_right = 79.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("5_84p6m")
+text = "Restart"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="pressed" from="RestartContainer/RestartButton" to="." method="_on_restart_button_pressed"]

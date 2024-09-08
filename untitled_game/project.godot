@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 nodes="*res://nodes.gd"
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
+UserData="*res://Config Files/user_data.gd"
 
 [display]
 

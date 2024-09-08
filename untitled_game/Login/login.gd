@@ -5,7 +5,7 @@ extends Node
 @onready var backButton = $CanvasLayer/Back
 @onready var label = $CanvasLayer/Label
 @onready var usernameInput = $CanvasLayer/Username
-var databaseConfig= DB.new()
+var databaseConfig = DB.new()
 var DB_PATHS = databaseConfig.DB_PATHS
 var userDoc: FirestoreDocument
 var auth
@@ -38,7 +38,8 @@ func _set_user_in_users_collection(username: String, userID: String):
 		await Firebase.Firestore.collection(DB_PATHS.USERS).add(userID, {
 			'username': username,
 			'signUpTime': Time.get_date_dict_from_system(),
-			'character': ''
+			'character': '',
+			'characterSet': false
 		})
 		await Firebase.Firestore.collection(DB_PATHS.USED_USERNAMES).add(username, {'userID': userID})
 	else:
@@ -70,11 +71,17 @@ func _on_back_button_pressed():
 
 func login_succeeded(auth):
 	userDoc = await Firebase.Firestore.collection('users').get_doc(auth['localid'])
+	print(userDoc)
 	if userDoc:
+		UserData.username = userDoc.document.get('username')['stringValue']
 		if not userDoc.document.get('characterSet')['booleanValue']:
 			get_tree().change_scene_to_file("res://MainMenuThings/CharCreator.tscn")
+			UserData.userID = auth['localid']
 		else:
+			UserData.character = userDoc.document.get('character')['stringValue']
+			UserData.get_char_type(UserData.character)
 			get_tree().change_scene_to_file("res://main.tscn")
+
 
 func login_failed(error, message):
 	print(error)

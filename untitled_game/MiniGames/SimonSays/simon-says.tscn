@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dme8u1f8d6iii"]
+
+[ext_resource type="Script" path="res://MiniGames/SimonSays/simon-says.gd" id="1_f2qbc"]
+
+[node name="Simon-says" type="Node2D"]
+script = ExtResource("1_f2qbc")
+metadata/_edit_vertical_guides_ = [-97.0]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

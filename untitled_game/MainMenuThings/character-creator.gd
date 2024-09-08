@@ -1,41 +1,37 @@
 extends Node2D
 
-var sprites = {}
+var charConfig = CHARACTER_CONFIG.new()
+
+var sprites = charConfig.sprites
 var index = 0
 @onready var characterContainer = $CanvasLayer/CharacterContainer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var parallax = PARALLAX.new()
 	add_child(parallax)
-	_load_all_characters("res://Creatures/Player/Assets/öszgyömösz/")
 	_show_character(0)
-
-func _load_all_characters(path):
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var files = dir.get_next()
-		while files != "":
-			if not dir.current_is_dir():
-				if not files.ends_with(".import"):
-					var name = files.get_basename()
-					sprites[name] = files
-				files=dir.get_next()
-		dir.list_dir_end()
-
-func _show_character(i: int):
-	if characterContainer.get_child_count() > 0:
-		characterContainer.remove_child(characterContainer.get_child(0))
 	
+func _show_character(i: int):
+	print(characterContainer.get_child_count())
+	if characterContainer.get_child_count() > 0:
+		for n in characterContainer.get_children():
+			characterContainer.remove_child(n)
+			n.queue_free()
+
 	if characterContainer.get_child_count() == 0:
+		var animMaker = ANIMATION_MAKER.new()
 		var selectedCharacterKey = sprites.keys()[i]
-		var selectedCharacterTexture = sprites.get(selectedCharacterKey)
-		var selectedCharacterNode = Sprite2D.new()
-		selectedCharacterNode.texture = load("res://Creatures/Player/Assets/öszgyömösz/"+selectedCharacterTexture)
+		var selectedCharacterVariant = sprites.get(selectedCharacterKey)
+		var selectedCharacterNode = AnimatedSprite2D.new()
+		var animPlayer = AnimationPlayer.new()
+		characterContainer.add_child(animPlayer)
+		characterContainer.add_child(selectedCharacterNode)
+		animMaker.make_animation('Player/Assets',  selectedCharacterVariant, selectedCharacterKey +"/", 0.08,'',animPlayer, 'playerLibrary',selectedCharacterNode)
 		selectedCharacterNode.scale = Vector2(0.09, 0.09)
 		selectedCharacterNode.position = Vector2(characterContainer.size.x/2,characterContainer.size.y/2)
-		characterContainer.add_child(selectedCharacterNode)
-		print(selectedCharacterKey)
+		$CanvasLayer/CharacterName.text = selectedCharacterKey
+		animPlayer.play('playerLibrary/idle')
 		
 func _on_back_pressed():
 	if index == 0:
@@ -44,7 +40,6 @@ func _on_back_pressed():
 		index -= 1
 	_show_character(index)
 
-
 func _on_next_pressed():
 	if index == sprites.keys().size()-1:
 		index = 0
@@ -52,6 +47,11 @@ func _on_next_pressed():
 		index += 1
 	_show_character(index)
 
-
 func _on_save_pressed():
-	pass # Replace with function body.
+	var collection = await Firebase.Firestore.collection("users")
+	var document = await collection.get_doc(UserData.userID)
+	document.add_or_update_field("characterSet", true)
+	document.add_or_update_field("character", sprites.keys()[index])
+	await collection.update(document)
+	UserData.character = sprites.keys()[index]
+	get_tree().change_scene_to_file("res://main.tscn")

@@ -17,5 +17,3 @@ const PLAYER_CONDITIONS = {
 	"playerDead": "parameters/conditions/playerDead",
 	"playerAttack": "parameters/conditions/playerAttack"
 }
-
-

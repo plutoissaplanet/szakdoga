@@ -1,0 +1,187 @@
+extends Node2D
+
+
+var selectedPicturePath: String = ''
+var pictureLoaded: CompressedTexture2D
+var numberOfPieces: Vector2
+var puzzlePieces = {}
+var playerSequence = {}
+var outOfOrderPieces = {}
+var untouchedPuzzlePieces = {}
+var pictureFrame = TextureRect.new()
+var scaling = Vector2(0.6, 0.6)
+var pieceSizes: Vector2
+var outOfOrderPiecesNumber = 4
+var pieceInHand = false
+var pieceParent = null
+var placeParent = null
+var pieceRotation: float
+var pieceInHandRect: TextureRect
+
+
+var difficultySetting: Dictionary = {
+	'easy': Vector2(4,4),
+	'medium': Vector2(5,5),
+	'hard': Vector2(6,6)
+}
+
+@export var difficulty: String
+
+func _ready():
+	difficulty = 'easy'
+	_load_pictures()
+	pictureLoaded = load(selectedPicturePath)
+	pictureFrame.texture = pictureLoaded
+	pictureFrame.visible = false
+	add_child(pictureFrame)
+	_sizing_and_positioning()
+	_define_puzzle_pieces()
+	_deep_copy_puzzle_piece_dictionary()
+	_select_random_puzzle_pieces()
+
+
+func _load_pictures() -> void:
+	var path = "res://Game Assets/Minigames/Puzzle/"
+	var dir = DirAccess.open(path)
+	var randomPictureIndex = randi_range(0,20)
+	if dir:
+		dir.list_dir_begin()
+		if randomPictureIndex == 0:
+			var picture = dir.get_next()
+			if not dir.current_is_dir():
+				selectedPicturePath = path + picture
+		else:
+			var picture
+			while randomPictureIndex != 0:
+				picture = dir.get_next()
+				randomPictureIndex -= 1
+			if not dir.current_is_dir():
+				if not picture.ends_with('.jpg'):
+					picture = dir.get_next()
+				selectedPicturePath = path + picture
+		dir.list_dir_end()
+
+func _define_puzzle_pieces() -> void:
+
+	var area = pictureFrame.size.x * pictureFrame.size.y
+	numberOfPieces = difficultySetting.get(difficulty)
+	var pieceEdgeY = (pictureFrame.size.y) /numberOfPieces.y
+	var pieceEdgeX = (pictureFrame.size.x) / numberOfPieces.x 
+	pieceSizes = Vector2(pieceEdgeX, pieceEdgeY)
+	var scaledPieceSizes = pieceSizes * scaling
+
+	for i in range(numberOfPieces.x):
+		for j in range(numberOfPieces.y):
+			var x = i * pieceEdgeX
+			var y = j * pieceEdgeY
+			var atlasTexture = AtlasTexture.new()
+			atlasTexture.atlas = pictureFrame.texture
+			atlasTexture.region = Rect2(Vector2(x, y), pieceSizes)
+			var newTextureRect = TextureRect.new()
+			newTextureRect.texture = atlasTexture
+			newTextureRect.position = Vector2(i * (pieceEdgeX*scaling.x+5), j * (pieceEdgeY*scaling.y+5))
+			newTextureRect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			newTextureRect.size = scaledPieceSizes
+			newTextureRect.scale=scaling
+			add_child(newTextureRect)
+			puzzlePieces[str(i)+str(j)] = newTextureRect
+	playerSequence = puzzlePieces.duplicate()
+
+func _puzzle_piece_on_area_entered(piece, place):
+	pieceParent = piece.get_parent()
+	placeParent = place.get_parent()
+	print("_puzzle_piece_on_area_entered pieceParent: ", pieceParent)
+	print("_puzzle_piece_on_area_entered placeParent: ", placeParent)
+	
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			pieceInHand = true 
+		elif event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			pieceInHand = false
+		print(pieceInHand)
+			
+func _process(delta):
+	if placeParent and not pieceInHand:
+		placeParent.texture=pieceInHandRect.texture
+		remove_child(pieceParent)
+		pieceInHandRect = null
+		pieceInHand = null
+		placeParent = null
+		placeParent = null
+		
+func _out_of_order_piece_on_click(event, piece):
+	if Input.is_action_pressed("room_changer_click"):
+		piece.get_parent().remove_child(piece)
+		add_child(piece)
+		piece.position = get_viewport().get_mouse_position() - Vector2(pieceSizes.x/4, pieceSizes.y/4)
+		if pieceRotation == 0:
+			pieceRotation = piece.rotation
+			piece.rotation = 0.0
+			pieceInHandRect = piece
+			piece.mouse_filter = Control.MOUSE_FILTER_PASS
+	elif Input.is_action_just_released("room_changer_click"):
+		piece.rotation = pieceRotation
+		pieceRotation = 0.0
+	
+func _select_random_puzzle_pieces():
+	var alreadyGenerated = [Vector2(-1,-1)]
+	while alreadyGenerated.size() <= outOfOrderPiecesNumber:
+		var randomIndexX = randi_range(0,numberOfPieces.x-1)
+		var randomIndexY = randi_range(0,numberOfPieces.y-1)
+		var vector = Vector2(randomIndexX, randomIndexY)
+		if not alreadyGenerated.has(vector):
+			vector = Vector2(randomIndexX, randomIndexY)
+			alreadyGenerated.append(vector)
+			var key = str(randomIndexX)+str(randomIndexY)
+			outOfOrderPieces[key] = puzzlePieces.get(key)
+			puzzlePieces.get(key).texture = null
+			playerSequence.erase(key)
+	_make_out_of_order_puzzle_pieces()
+
+func _make_out_of_order_puzzle_pieces():
+	for i in range(outOfOrderPieces.size()):
+		var key = outOfOrderPieces.keys()[i]
+		var outOfOrderPuzzlePiecesTextureRect = TextureRect.new()
+		var texture = untouchedPuzzlePieces.get(key).texture
+		outOfOrderPuzzlePiecesTextureRect.texture = texture
+		outOfOrderPuzzlePiecesTextureRect.position = Vector2(pictureFrame.size.x + 80, (pieceSizes.y +20)*i)
+		outOfOrderPuzzlePiecesTextureRect.pivot_offset=Vector2(pieceSizes.x/2, pieceSizes.y/2)
+		outOfOrderPuzzlePiecesTextureRect.rotation = i*60
+		outOfOrderPuzzlePiecesTextureRect.gui_input.connect(_out_of_order_piece_on_click.bind(outOfOrderPuzzlePiecesTextureRect))
+		var area1 = Area2D.new()
+		var area2 = Area2D.new()
+		var collision1 = CollisionShape2D.new()
+		var collision2 = CollisionShape2D.new()
+		collision1.shape = RectangleShape2D.new()
+		collision2.shape = RectangleShape2D.new()
+		collision1.shape.size = pieceSizes*scaling
+		collision2.shape.size = pieceSizes*scaling
+		area1.add_child(collision1)
+		area2.add_child(collision2)
+		area1.area_entered.connect(_puzzle_piece_on_area_entered.bind(area1))
+		#area1.area_exited.connect(_puzzle_piece_on_area_exited)
+		puzzlePieces.get(key).add_child(area1)
+		outOfOrderPuzzlePiecesTextureRect.add_child(area2)
+		$OutOfOrderPuzzlePieces.add_child(outOfOrderPuzzlePiecesTextureRect)
+
+
+func _deep_copy_puzzle_piece_dictionary():
+	for i in range(puzzlePieces.keys().size()):
+		var key = puzzlePieces.keys()[i]
+		var oldPiece = puzzlePieces.get(key)
+		var newPiece = TextureRect.new()
+		newPiece.texture = oldPiece.texture
+		untouchedPuzzlePieces[key] = newPiece
+		
+func _verify_player_sequence():
+	pass
+	
+func _sizing_and_positioning():
+	if pictureFrame.size.y > 400:
+		pictureFrame.scale = scaling
+	$MainPuzzlePieces.custom_minimum_size = pictureFrame.size * scaling
+	$MainPuzzlePieces.size = pictureFrame.size * scaling
+	$MainPuzzlePieces.scale= scaling
+	$OutOfOrderPuzzlePieces.scale = scaling
+

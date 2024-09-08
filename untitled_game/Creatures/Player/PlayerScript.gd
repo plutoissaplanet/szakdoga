@@ -32,10 +32,12 @@ enum {
 	WALK,
 	ATTACK,
 	IDLE,
-	DEATH
+	DEATH,
+	HURT
 }
 
 func _ready():
+
 	get_tree().paused=false
 	animationTree.active=true
 	_set_up_animations()
@@ -49,28 +51,24 @@ func _ready():
 	ENEMY_CONDITIONS=animationMachine.ENEMY_CONDITIONS
 	PLAYER_CONDITIONS=animationMachine.PLAYER_CONDITIONS
 	
-func _process(delta):
-	match (state):
-		WALK:
-			SPEED = 180.0
-			animationTree.set(PLAYER_CONDITIONS.playerIdle, false)
-			animationTree.set(PLAYER_CONDITIONS.playerWalk, true)
-		IDLE:
-			animationTree.set(PLAYER_CONDITIONS.playerWalk, false)
-			animationTree.set(PLAYER_CONDITIONS.playerIdle, true)
-			animationTree.set(PLAYER_CONDITIONS.playerAttack, false)
-		ATTACK:
-			animationTree.set(PLAYER_CONDITIONS.playerAttack, true)
-			SPEED = 0
-		DEATH:
-			animationTree.set(PLAYER_CONDITIONS.playerDead, true)
-			SPEED = 0
-			if animationTree.get("parameters/playback").get_current_node() == "End":
-				get_tree().paused=true
-				var deathScreenInstance = deathScreen.instantiate()
-				deathScreenInstance.z_index=100
-				deathScreenInstance.position.y-=100
-				self.add_child(deathScreenInstance)
+func _process(event):
+	match state:
+			IDLE:
+				_set_state("idle", PLAYER_CONDITIONS.playerIdle)
+			WALK:
+				_set_state("walk", PLAYER_CONDITIONS.playerWalk)
+			ATTACK:
+				_set_state("attack", PLAYER_CONDITIONS.playerAttack)
+			HURT:
+				_set_state("hurt", PLAYER_CONDITIONS.playerHurt)
+			DEATH:
+				_set_state("death", PLAYER_CONDITIONS.playerDead)
+				if animationTree.get("parameters/playback").get_current_node() == "End":
+					get_tree().paused=true
+					var deathScreenInstance = deathScreen.instantiate()
+					deathScreenInstance.z_index=100
+					deathScreenInstance.position.y-=100
+					self.add_child(deathScreenInstance)
 			
 			
 	healthBar.value=stats.HealthPoints
@@ -89,15 +87,21 @@ func _process(delta):
 				body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, true)
 				body.animationTree.set(ENEMY_CONDITIONS.enemyWalking, false)
 				
-func _input(event):
-	pass
-
 func _set_up_animations():
 	var animationMaker = ANIMATION_MAKER.new()
-	await animationMaker.make_animation('Player/Assets', 'Fairy', 'Fairy1', 1, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
+	print(UserData.characterType)
+	await animationMaker.make_animation('Player/Assets', UserData.characterType, UserData.character, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
 	animationMaker.add_points_to_blendspace(animationTree, 'playerLibrary/', animationPlayer )
 
-	
+func _set_state(new_state: String, condition: String):
+	# Reset all conditions
+	for key in PLAYER_CONDITIONS.keys():
+		animationTree.set(PLAYER_CONDITIONS[key], false)
+
+	# Set the new condition
+	animationTree.set(condition, true)
+	state = new_state
+
 func _physics_process(_delta):
 	var move_right = Input.is_action_pressed("move_right")
 	var move_left = Input.is_action_pressed("move_left")
@@ -146,12 +150,14 @@ func _on_enemy_attack_area_body_exited(body):
 		
 func attack_enemy(body):
 	if Input.is_action_just_pressed("room_changer_click"):
-		state=ATTACK
-		animationTree.set(PLAYER_CONDITIONS.playerAttack, true)
+
+		_set_state("attack", PLAYER_CONDITIONS.playerAttack)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyHurt, true)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, false)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyIsAttacking, false)
 		body.timer.stop()
 		body.set_meta("timer_started", false)
 		body.state_machine.enemy_hit(stats.AttackPoints, body)
+
+		
 	

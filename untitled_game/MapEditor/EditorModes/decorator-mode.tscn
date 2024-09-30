@@ -1,8 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://wb843brcr06o"]
+[gd_scene load_steps=15 format=3 uid="uid://wb843brcr06o"]
 
 [ext_resource type="Script" path="res://MapEditor/EditorModes/decorator-mode.gd" id="1_exevj"]
 [ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="2_mj8dh"]
 [ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_0c21j"]
+[ext_resource type="Texture2D" uid="uid://n1qayoraav2w" path="res://Game Assets/Home/TopDownHouse_FloorsAndWalls2.png" id="4_aj5fv"]
+[ext_resource type="Texture2D" uid="uid://baaw238fe3kws" path="res://Game Assets/Home/Flooring.png" id="4_kolun"]
+[ext_resource type="Texture2D" uid="uid://dj77m42vdg8fd" path="res://Game Assets/Home/TopDownHouse_FloorsAndWalls.png" id="5_jys0g"]
+[ext_resource type="Texture2D" uid="uid://b5n42d1ixw5le" path="res://Game Assets/generalButton.png" id="7_wm16x"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_uu30p"]
+tile_data = PackedInt32Array(0, 655360, 6, 65536, 655360, 6, 1, 720896, 6, 65537, 720896, 6)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_dj7xb"]
+tile_data = PackedInt32Array(0, 393216, 6, 65536, 393216, 6, 1, 458752, 6, 65537, 458752, 6)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_84b8d"]
+texture = ExtResource("4_kolun")
+8:0/size_in_atlas = Vector2i(3, 2)
+8:0/0 = 0
+8:0/0/texture_origin = Vector2i(16, 16)
+4:0/size_in_atlas = Vector2i(3, 2)
+4:0/0 = 0
+4:0/0/texture_origin = Vector2i(16, 16)
+0:0/size_in_atlas = Vector2i(3, 2)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7g4np"]
+resource_name = "LIGHT_FLOOR"
+texture = ExtResource("5_jys0g")
+6:6/size_in_atlas = Vector2i(2, 1)
+6:6/0 = 0
+10:6/size_in_atlas = Vector2i(2, 1)
+10:6/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p7f5t"]
+texture = ExtResource("4_aj5fv")
+2:1/size_in_atlas = Vector2i(2, 4)
+2:1/0 = 0
+6:1/size_in_atlas = Vector2i(2, 4)
+6:1/0 = 0
+10:1/size_in_atlas = Vector2i(2, 4)
+10:1/0 = 0
+14:1/size_in_atlas = Vector2i(2, 4)
+14:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hkwqp"]
+texture = ExtResource("5_jys0g")
+2:1/size_in_atlas = Vector2i(2, 4)
+2:1/0 = 0
+6:1/size_in_atlas = Vector2i(2, 4)
+6:1/0 = 0
+10:1/size_in_atlas = Vector2i(2, 4)
+10:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_awunu"]
+sources/1 = SubResource("TileSetAtlasSource_7g4np")
+sources/2 = SubResource("TileSetAtlasSource_p7f5t")
+sources/3 = SubResource("TileSetAtlasSource_hkwqp")
+sources/0 = SubResource("TileSetAtlasSource_84b8d")
+pattern_0 = SubResource("TileMapPattern_uu30p")
+pattern_1 = SubResource("TileMapPattern_dj7xb")
 
 [node name="Decorator-mode" type="Node2D"]
 script = ExtResource("1_exevj")
@@ -11,8 +69,8 @@ script = ExtResource("1_exevj")
 self_modulate = Color(1, 1, 1, 0.101961)
 offset_left = 8.0
 offset_top = 236.0
-offset_right = 189.0
-offset_bottom = 639.0
+offset_right = 188.0
+offset_bottom = 636.0
 texture = ExtResource("2_mj8dh")
 expand_mode = 1
 
@@ -34,10 +92,10 @@ text = "Walls and Flooring"
 
 [node name="Decorations" type="TextureRect" parent="."]
 self_modulate = Color(1, 1, 1, 0.101961)
-offset_left = 1027.0
-offset_top = 11.0
-offset_right = 1208.0
-offset_bottom = 636.0
+offset_left = 1021.0
+offset_top = 17.0
+offset_right = 1202.0
+offset_bottom = 642.0
 texture = ExtResource("2_mj8dh")
 expand_mode = 1
 
@@ -56,3 +114,22 @@ theme_override_fonts/font = ExtResource("3_0c21j")
 theme_override_font_sizes/font_size = 25
 text = "Decorations
 "
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_awunu")
+format = 2
+layer_0/name = "Floor"
+layer_1/name = "Wall"
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Furniture"
+layer_2/tile_data = PackedInt32Array()
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 4.0
+offset_top = 193.0
+offset_right = 44.0
+offset_bottom = 233.0
+texture_normal = ExtResource("7_wm16x")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

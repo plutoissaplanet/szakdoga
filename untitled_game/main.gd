@@ -12,10 +12,11 @@ func _ready():
 func _on_start_button_pressed():
 	get_tree().change_scene_to_file("res://MainMenuThings/level_chooser.tscn")
 
-
 func _on_leader_b_pressed():
 	get_tree().change_scene_to_file("res://MainMenuThings/LeaderBoard.tscn")
 
-
 func _on_exit_pressed():
 	get_tree().quit()
+
+func _on_map_editor_pressed():
+	get_tree().change_scene_to_file("res://MapEditor/map-editor-ui.tscn")

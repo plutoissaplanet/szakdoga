@@ -12,14 +12,8 @@ enum STATES {
 	walk
 }
 
-var frameWidths = {
-	'Ent': 722,
-	'Player': 382
-}
-
 func load_assets(entityType: String, entityName: String, variant: String) -> Dictionary:
 	var path = pathLoader.get_asset_path(entityType, entityName, variant)
-	print(path)
 	return pathLoader.load_all_animations_subdirectories(path)
 
 
@@ -28,14 +22,8 @@ func make_animation(entityType: String, entityName: String, variant: String, spe
 	var animationLibrary = AnimationLibrary.new()
 	var spriteFrame = SpriteFrames.new()
 
-	var frameWidth: int
-	var frameHeight: int
-	print(entityName)
-	
-	if entityType == 'Player/Assets':
-		frameWidth = frameWidths.get('Player')
-	else:
-		frameWidth = frameWidths.get(entityName)
+	var frameWidth: int = 382
+	var frameHeight: int 
 
 	for key in sprites.keys():
 		var currentSpriteSheet = load(sprites.get(key)[0])
@@ -59,8 +47,6 @@ func make_animation(entityType: String, entityName: String, variant: String, spe
 		var spriteSheetWidth = currentSpriteSheet.get_width()
 		var numberOfFrames = spriteSheetWidth/frameWidth
 		animation.length = speed * (numberOfFrames-1)
-		print(numberOfFrames)
-		print('anim length: ',animation.length)
 		animation.add_track(Animation.TYPE_VALUE)
 		animation.track_set_path(0, str(animatedSprite.get_path())+":animation")
 		animation.track_set_interpolation_type(0, Animation.INTERPOLATION_CUBIC)
@@ -87,6 +73,5 @@ func add_points_to_blendspace(animationTree: AnimationTree, libraryName: String,
 	for element in STATES:
 		var animation_root_node = AnimationNodeAnimation.new()
 		animation_root_node.set_animation(libraryName+element)
-		print(libraryName+element)
 		var node = animationTree.tree_root.get_node(element)
 		node.add_blend_point(animation_root_node, 0)

@@ -71,7 +71,6 @@ func _on_back_button_pressed():
 
 func login_succeeded(auth):
 	userDoc = await Firebase.Firestore.collection('users').get_doc(auth['localid'])
-	print(userDoc)
 	if userDoc:
 		UserData.username = userDoc.document.get('username')['stringValue']
 		if not userDoc.document.get('characterSet')['booleanValue']:

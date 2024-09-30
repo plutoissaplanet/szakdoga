@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://boplpwodswyfy"]
+
+[ext_resource type="Texture2D" uid="uid://n1qayoraav2w" path="res://Game Assets/Home/TopDownHouse_FloorsAndWalls2.png" id="1_77cgb"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w4ay5"]
+resource_name = "GreenWallpaper"
+texture = ExtResource("1_77cgb")
+margins = Vector2i(21, 12)
+separation = Vector2i(29, 0)
+texture_region_size = Vector2i(40, 68)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mklir"]
+resource_name = "RedWallpaperWithWood"
+texture = ExtResource("1_77cgb")
+margins = Vector2i(21, 12)
+separation = Vector2i(29, 0)
+texture_region_size = Vector2i(40, 68)
+1:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r13rj"]
+resource_name = "RedWallpaper"
+texture = ExtResource("1_77cgb")
+margins = Vector2i(21, 12)
+separation = Vector2i(29, 0)
+texture_region_size = Vector2i(40, 68)
+
+[sub_resource type="TileSet" id="TileSet_yi3nh"]
+sources/0 = SubResource("TileSetAtlasSource_w4ay5")
+sources/1 = SubResource("TileSetAtlasSource_mklir")
+sources/2 = SubResource("TileSetAtlasSource_r13rj")
+
+[node name="Tilemaps" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_yi3nh")
+format = 2

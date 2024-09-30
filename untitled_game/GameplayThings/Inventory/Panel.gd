@@ -4,13 +4,6 @@ var itemSprite=preload("res://GameplayThings/Items/general_scene_for_items.tscn"
 var item = null
 
 
-func _ready():
-	#item = itemSprite.instantiate()
-	#if randi()%2==0:
-		#add_child(item)
-		#item.position = Vector2(4, 4)
-	pass
-
 func pickItemFromSlot():
 	if item and has_node(item.get_path()):
 		remove_child(item)

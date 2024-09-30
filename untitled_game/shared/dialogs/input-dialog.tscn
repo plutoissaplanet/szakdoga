@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cftxayq8mbls1"]
+
+[ext_resource type="Texture2D" uid="uid://bur3bt8rfugup" path="res://Game Assets/Font/Button1.png" id="1_l2aem"]
+[ext_resource type="Texture2D" uid="uid://0bpb05fiart0" path="res://Game Assets/GUI/Tiles/Button2.png" id="2_8vphv"]
+
+[node name="Input-dialog" type="Node2D"]
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 76.0
+offset_top = 36.0
+offset_right = 124.0
+offset_bottom = 64.0
+texture_normal = ExtResource("1_l2aem")
+texture_pressed = ExtResource("2_8vphv")

@@ -162,3 +162,24 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
 script = ExtResource("5_23hqp")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = 360.0
+offset_right = 444.0
+offset_bottom = 85.0
+texture = ExtResource("1_ixoaq")
+
+[node name="SwordSlot" type="Panel" parent="TextureRect3"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.119
+anchor_top = 0.151
+anchor_right = 0.833
+anchor_bottom = 0.849
+offset_left = 2.004
+offset_top = 3.165
+offset_right = 2.02799
+offset_bottom = 3.835
+theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
+script = ExtResource("5_23hqp")

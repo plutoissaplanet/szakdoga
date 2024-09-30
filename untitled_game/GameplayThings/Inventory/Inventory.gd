@@ -7,7 +7,6 @@ class_name Inventory
 var heldItem=null
 var player = null 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	player = self.get_parent()
 	self.visible=false
@@ -46,7 +45,6 @@ func pick_up_item(item):
 			item.position = Vector2(4, 4)
 			item.scale=Vector2(1,1)
 			return
-
 
 func apply_armor_states_to_player(child, slot):
 	var armorInSlot = child

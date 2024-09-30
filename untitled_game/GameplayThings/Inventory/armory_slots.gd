@@ -16,6 +16,7 @@ func pickItemFromSlot():
 		item=null
 
 func placeItemIntoSlot(placableItem, slot):
+	
 	if placableItem.get_parent():
 		placableItem.get_parent().remove_child(placableItem)
 	item=placableItem

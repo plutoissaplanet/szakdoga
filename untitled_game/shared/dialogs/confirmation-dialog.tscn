@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://pcj1pwbyf0ok"]
+
+[node name="Confirmation-dialog" type="Node2D"]

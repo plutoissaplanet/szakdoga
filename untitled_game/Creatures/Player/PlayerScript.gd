@@ -16,17 +16,17 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var healthBar = get_node("HealthBar/ProgressBar")
 @onready var animationTree = $AnimationTree
 @onready var inventory = $Inventory
+@onready var overlappingProjectileHitArea = $ProjectileHitArea
 var animationMachine = AnimationMachine.new()
-var ENEMY_CONDITIONS
-var PLAYER_CONDITIONS = {
-	
-}
+var ENEMY_CONDITIONS = {}
+var PLAYER_CONDITIONS = {}
 var state
 var SPEED
 var totalHealth: int
 var playerConfig = PlayerConfig.new()
-@export var stats = Statistics
 
+
+@export var stats = Statistics
 
 enum {
 	WALK,
@@ -34,14 +34,13 @@ enum {
 	IDLE,
 	DEATH,
 	HURT
+	
 }
 
 func _ready():
-
 	get_tree().paused=false
 	animationTree.active=true
 	_set_up_animations()
-
 	totalHealth = playerConfig.STARTER_HEALTH_POINTS
 	stats.HealthPoints = playerConfig.STARTER_HEALTH_POINTS
 	stats.AttackPoints= playerConfig.STARTER_ATTACK_PONTS
@@ -55,12 +54,16 @@ func _process(event):
 	match state:
 			IDLE:
 				_set_state("idle", PLAYER_CONDITIONS.playerIdle)
+				if stats.HealthPoints <=0:
+					state=DEATH
 			WALK:
 				_set_state("walk", PLAYER_CONDITIONS.playerWalk)
 			ATTACK:
 				_set_state("attack", PLAYER_CONDITIONS.playerAttack)
 			HURT:
 				_set_state("hurt", PLAYER_CONDITIONS.playerHurt)
+				if stats.HealthPoints <=0:
+					state=DEATH
 			DEATH:
 				_set_state("death", PLAYER_CONDITIONS.playerDead)
 				if animationTree.get("parameters/playback").get_current_node() == "End":
@@ -72,35 +75,45 @@ func _process(event):
 			
 			
 	healthBar.value=stats.HealthPoints
-	var overlapping_bodies = attackEnemy.get_overlapping_bodies()
-	var overlapping_bodies_attack= enemyArea.get_overlapping_bodies()
-	for body in overlapping_bodies:
+	var overlappingBodies = $AttackTheEnemyArea.get_overlapping_bodies()
+	var overlappingBodiesAttack= $EnemyAttackArea.get_overlapping_bodies()
+	var overlappingBodiesRangedAttacker = $IdleAndRangedEnemyDetectArea.get_overlapping_bodies()
+	
+	
+	for body in overlappingBodies:
 		if body.is_in_group("Enemy"):
 			if body.state_machine.stats.HealthPoints > 0:
 				attack_enemy(body)
-	for body in overlapping_bodies_attack:
-		if body.is_in_group("Enemy"):
+	for body in overlappingBodiesAttack:
+		if body.is_in_group("Melee"):
+			if not body.get_meta("timer_started"):
+				body.timer.start()
+				body.set_meta("timer_started", true)
+				body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, true)
+				body.animationTree.set(ENEMY_CONDITIONS.enemyWalking, false)
+	for body in overlappingBodiesRangedAttacker:
+		if body.is_in_group("Ranged"):
 			body.state_machine.SPEED=0;
 			if not body.get_meta("timer_started"):
 				body.timer.start()
 				body.set_meta("timer_started", true)
 				body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, true)
 				body.animationTree.set(ENEMY_CONDITIONS.enemyWalking, false)
-				
+
 func _set_up_animations():
 	var animationMaker = ANIMATION_MAKER.new()
-	print(UserData.characterType)
-	await animationMaker.make_animation('Player/Assets', UserData.characterType, UserData.character, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
+	if UserData.characterType != null:
+		await animationMaker.make_animation('Player/Assets', UserData.characterType, UserData.character, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
+	else:
+		await animationMaker.make_animation('Player/Assets', UserData.fallbackCharacterType,UserData.fallbackCharacter, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
 	animationMaker.add_points_to_blendspace(animationTree, 'playerLibrary/', animationPlayer )
 
-func _set_state(new_state: String, condition: String):
-	# Reset all conditions
+func _set_state(newState: String, condition: String):
 	for key in PLAYER_CONDITIONS.keys():
-		animationTree.set(PLAYER_CONDITIONS[key], false)
-
-	# Set the new condition
+		if PLAYER_CONDITIONS[key] != condition:
+			animationTree.set(PLAYER_CONDITIONS[key], false)
 	animationTree.set(condition, true)
-	state = new_state
+	state = newState
 
 func _physics_process(_delta):
 	var move_right = Input.is_action_pressed("move_right")
@@ -150,7 +163,6 @@ func _on_enemy_attack_area_body_exited(body):
 		
 func attack_enemy(body):
 	if Input.is_action_just_pressed("room_changer_click"):
-
 		_set_state("attack", PLAYER_CONDITIONS.playerAttack)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyHurt, true)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, false)
@@ -159,5 +171,3 @@ func attack_enemy(body):
 		body.set_meta("timer_started", false)
 		body.state_machine.enemy_hit(stats.AttackPoints, body)
 
-		
-	

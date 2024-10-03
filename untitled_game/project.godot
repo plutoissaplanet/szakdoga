@@ -22,10 +22,11 @@ Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 UserData="*res://Config Files/user_data.gd"
 createNewScene="*res://MapEditor/create-new-scene.gd"
 TileNames="*res://MapEditor/tile_names.gd"
+FileLoader="*res://shared/file-loader.gd"
 
 [display]
 
-window/size/mode=2
+window/size/mode=3
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 

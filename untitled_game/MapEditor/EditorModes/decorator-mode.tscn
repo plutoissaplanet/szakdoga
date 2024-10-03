@@ -1,12 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://wb843brcr06o"]
+[gd_scene load_steps=24 format=3 uid="uid://wb843brcr06o"]
 
 [ext_resource type="Script" path="res://MapEditor/EditorModes/decorator-mode.gd" id="1_exevj"]
 [ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="2_mj8dh"]
 [ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_0c21j"]
 [ext_resource type="Texture2D" uid="uid://n1qayoraav2w" path="res://Game Assets/Home/TopDownHouse_FloorsAndWalls2.png" id="4_aj5fv"]
 [ext_resource type="Texture2D" uid="uid://baaw238fe3kws" path="res://Game Assets/Home/Flooring.png" id="4_kolun"]
+[ext_resource type="Texture2D" uid="uid://brl0x1rvwinsi" path="res://Game Assets/GUI/Icons/Icons_03.png" id="5_4ioek"]
 [ext_resource type="Texture2D" uid="uid://dj77m42vdg8fd" path="res://Game Assets/Home/TopDownHouse_FloorsAndWalls.png" id="5_jys0g"]
-[ext_resource type="Texture2D" uid="uid://b5n42d1ixw5le" path="res://Game Assets/generalButton.png" id="7_wm16x"]
+[ext_resource type="Texture2D" uid="uid://c7ihulgcsf6k4" path="res://Game Assets/GUI/backdrop.png" id="8_wklju"]
+[ext_resource type="Texture2D" uid="uid://bckjurq5yr6w" path="res://Game Assets/GUI/Buttons/Button1.png" id="9_0ft5m"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_uu30p"]
 tile_data = PackedInt32Array(0, 655360, 6, 65536, 655360, 6, 1, 720896, 6, 65537, 720896, 6)
@@ -62,58 +64,31 @@ sources/0 = SubResource("TileSetAtlasSource_84b8d")
 pattern_0 = SubResource("TileMapPattern_uu30p")
 pattern_1 = SubResource("TileMapPattern_dj7xb")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jqvq7"]
+texture = ExtResource("2_mj8dh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5csac"]
+texture = ExtResource("8_wklju")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_37g1s"]
+texture = ExtResource("2_mj8dh")
+modulate_color = Color(1, 1, 1, 0.239216)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3vl0u"]
+texture = ExtResource("2_mj8dh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2kegg"]
+texture = ExtResource("2_mj8dh")
+modulate_color = Color(1, 1, 1, 0.207843)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_js7sj"]
+size = Vector2(829, 384.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4c55"]
+size = Vector2(829, 86)
+
 [node name="Decorator-mode" type="Node2D"]
 script = ExtResource("1_exevj")
-
-[node name="WallsAndFlooring" type="TextureRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.101961)
-offset_left = 8.0
-offset_top = 236.0
-offset_right = 188.0
-offset_bottom = 636.0
-texture = ExtResource("2_mj8dh")
-expand_mode = 1
-
-[node name="WallsAndFlooringLabel" type="Label" parent="WallsAndFlooring"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.028
-anchor_top = 0.007
-anchor_right = 0.803
-anchor_bottom = 0.082
-offset_left = -0.104
-offset_top = 0.179
-offset_right = -0.0540009
-offset_bottom = -0.0460014
-theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
-theme_override_fonts/font = ExtResource("3_0c21j")
-theme_override_font_sizes/font_size = 20
-text = "Walls and Flooring"
-
-[node name="Decorations" type="TextureRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.101961)
-offset_left = 1021.0
-offset_top = 17.0
-offset_right = 1202.0
-offset_bottom = 642.0
-texture = ExtResource("2_mj8dh")
-expand_mode = 1
-
-[node name="DecorationsLabel" type="Label" parent="Decorations"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.122
-anchor_right = 0.873
-anchor_bottom = 0.054
-offset_left = -0.0820007
-offset_top = 3.0
-offset_right = -0.0130005
-offset_bottom = -2.75
-theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
-theme_override_fonts/font = ExtResource("3_0c21j")
-theme_override_font_sizes/font_size = 25
-text = "Decorations
-"
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_awunu")
@@ -125,11 +100,101 @@ layer_1/tile_data = PackedInt32Array()
 layer_2/name = "Furniture"
 layer_2/tile_data = PackedInt32Array()
 
-[node name="TextureButton" type="TextureButton" parent="."]
-offset_left = 4.0
-offset_top = 193.0
-offset_right = 44.0
-offset_bottom = 233.0
-texture_normal = ExtResource("7_wm16x")
+[node name="EraserButton" type="TextureButton" parent="."]
+offset_left = 267.0
+offset_top = 11.0
+offset_right = 291.0
+offset_bottom = 35.0
+texture_normal = ExtResource("5_4ioek")
+stretch_mode = 0
 
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[node name="DecorationTabContainer" type="TabContainer" parent="."]
+offset_left = 9.0
+offset_top = 237.0
+offset_right = 209.0
+offset_bottom = 639.0
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_jqvq7")
+theme_override_styles/tab_hovered = SubResource("StyleBoxTexture_5csac")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_37g1s")
+theme_override_styles/tab_focus = SubResource("StyleBoxTexture_3vl0u")
+theme_override_styles/panel = SubResource("StyleBoxTexture_2kegg")
+tab_alignment = 1
+tab_focus_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Floors" type="TabBar" parent="DecorationTabContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 4
+
+[node name="GridContainer" type="GridContainer" parent="DecorationTabContainer/Floors"]
+layout_mode = 0
+offset_top = 6.215
+offset_right = 199.0
+offset_bottom = 366.215
+columns = 3
+
+[node name="Walls" type="TabBar" parent="DecorationTabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/h_separation = 4
+
+[node name="GridContainer" type="GridContainer" parent="DecorationTabContainer/Walls"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 3
+
+[node name="Decor" type="TabBar" parent="DecorationTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="DecorationTabContainer/Decor"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 3
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(679.5, 379.25)
+shape = SubResource("RectangleShape2D_js7sj")
+
+[node name="WallAreaDetector" type="Area2D" parent="."]
+position = Vector2(679.5, 144)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallAreaDetector"]
+modulate = Color(0.466667, 0.866667, 0.403922, 1)
+shape = SubResource("RectangleShape2D_e4c55")
+
+[node name="RoomsContainer" type="VBoxContainer" parent="."]
+offset_left = 266.0
+offset_top = 589.0
+offset_right = 919.0
+offset_bottom = 638.0
+
+[node name="NewRoomButton" type="TextureButton" parent="."]
+offset_left = 937.0
+offset_top = 592.0
+offset_right = 1017.0
+offset_bottom = 635.0
+texture_normal = ExtResource("9_0ft5m")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="NewRoomButton"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 77.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "New room"
+
+[connection signal="pressed" from="EraserButton" to="." method="_on_placement_mode_button_pressed"]
+[connection signal="tab_changed" from="DecorationTabContainer" to="." method="_on_tab_changed"]
+[connection signal="input_event" from="Area2D" to="." method="_on_floor_area_detector_input_event"]
+[connection signal="input_event" from="WallAreaDetector" to="." method="_on_wall_area_detector_input_event"]

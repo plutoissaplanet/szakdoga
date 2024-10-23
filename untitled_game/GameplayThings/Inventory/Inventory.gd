@@ -4,6 +4,7 @@ class_name Inventory
 
 @onready var inventorySlots=$GridContainer.get_children()
 @onready var armoryInventorySlots = $GridContainer2.get_children()
+@onready var swordSlot = $TextureRect3/SwordSlot
 var heldItem=null
 var player = null 
 
@@ -15,6 +16,8 @@ func _ready():
 	for slots in armoryInventorySlots:
 		slots.gui_input.connect(clicked_on_slot.bind(slots))
 		slots.child_entered_tree.connect(apply_armor_states_to_player.bind(slots))
+	swordSlot.gui_input.connect(clicked_on_slot.bind(swordSlot))
+	swordSlot.child_entered_tree.connect(apply_armor_states_to_player.bind(swordSlot))
 		
 func _process(delta):
 	if heldItem:
@@ -48,8 +51,11 @@ func pick_up_item(item):
 
 func apply_armor_states_to_player(child, slot):
 	var armorInSlot = child
-	player.totalHealth += armorInSlot.ARMOR
-	player.healthBar.update_total_health(player.totalHealth)
+	if slot.is_in_group("Sword") and armorInSlot.finalItem.ITEM_NAME == "Sword":
+		player.stats.AttackPoints += armorInSlot.finalItem.ATTACK_POINTS
+	else:
+		player.totalHealth += armorInSlot.ARMOR
+		player.healthBar.update_total_health(player.totalHealth)
 
 func all_slots_are_occupied():
 	for slot in inventorySlots:

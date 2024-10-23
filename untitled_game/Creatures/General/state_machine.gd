@@ -34,20 +34,31 @@ enum {
 	FOLLOW 
 }
 
+var stateMap = {
+	"move": MOVE,
+	"attack": ATTACK,
+	"idle": IDLE,
+	"hurt": HURT
+}
+
+
+
 func _set_state(newState: String, condition: String):
 	for key in ENEMY_CONDITIONS.keys():
 		if ENEMY_CONDITIONS[key] != condition:
 			animationTree.set(ENEMY_CONDITIONS[key], false)
 	animationTree.set(condition, true)
-	state = newState
+	state = stateMap.get(newState)
 
 func update(delta, enemy):
 	if player == null:
 		return
 	match state:
 		MOVE:
+			_set_state("move", ENEMY_CONDITIONS.enemyWalking)
 			move(player, delta, enemy, 'To')
 		IDLE:
+			SPEED = 0
 			_set_state("idle", ENEMY_CONDITIONS.enemyIsIdle)
 		HIT:
 			pass
@@ -56,9 +67,11 @@ func update(delta, enemy):
 			attack(player, delta)
 			state = IDLE
 		WALK_AWAY:
+			_set_state("move", ENEMY_CONDITIONS.enemyWalking)
 			move(player, delta, enemy, 'Away')
 
 func move(target, delta, node, dir):
+	SPEED = 30.0
 	var target_pos=target.position
 	var direction=(target_pos-node.position).normalized()
 	if dir == 'To':
@@ -102,9 +115,12 @@ func _melee_attack(target):
 	_set_state("attack", ENEMY_CONDITIONS.enemyIsAttacking)
 	
 func _ranged_attack(target, shootInterval, delta):
+	#Create the projectile
 	var newProjectileSprite = Sprite2D.new()
 	newProjectileSprite.texture = load("res://Creatures/Monsters/SpellsEffect.png")
 	newProjectileSprite.scale = Vector2(0.2, 0.2)
+	
+	#create the projectile's player detection
 	var newProjectileArea = Area2D.new()
 	var collisionDetector = CollisionShape2D.new()
 	collisionDetector.shape = CircleShape2D.new()
@@ -116,6 +132,8 @@ func _ranged_attack(target, shootInterval, delta):
 	newProjectileArea.collision_layer = 1
 	newProjectileArea.collision_mask = 1
 	enemy.get_parent().add_child(newProjectileArea)
+	
+	#Connect it to the function
 	newProjectileArea.body_entered.connect(_projectile_hit_body.bind(newProjectileArea))
 	enemy.projectileArray.append(newProjectileArea)
 	_set_state("idle", ENEMY_CONDITIONS.enemyIsIdle)

@@ -1,28 +1,41 @@
 extends Node
 
 
-var filePath = "res://Player Maps/asdasd.tscn" #TODO make it so the player can input a name, maybe a parameter in map_editor_button_on_click
+var filePath = "res://PlayerMaps/"
 
-func create_new_scene():
+
+func create_new_scene(mapName: String):
+	var mapFilePath = filePath + mapName + ".tscn"
 	var rootNode = Node2D.new()
 	var script = load("res://MapEditor/map-editor.gd")
+	var mapPath = mapFilePath
 	if script:
 		rootNode.set_script(script)
 	var newScene = PackedScene.new()
 	newScene.pack(rootNode)
-	ResourceSaver.save(newScene, filePath)
-	_load_scene()
+	ResourceSaver.save(newScene, mapPath)
+	
+	SelectedMap.FILE_PATH = mapFilePath
+	SelectedMap.FILE_NAME = mapName
+	_load_scene(mapPath)
 
-func _load_scene():
-	get_tree().change_scene_to_file(filePath)
+func _load_scene(mapFilePath):
+	get_tree().change_scene_to_file(mapFilePath)
 
+func map_on_save_button_pressed(node: Node2D):
+	var mapPath = SelectedMap.FILE_PATH
+	var newScene = PackedScene.new()
+	var result = newScene.pack(node)
+	
+	if result == OK:
+		var saveResult = ResourceSaver.save(newScene, mapPath)
+		if saveResult == OK:
+			print("Save was successful!")
+		else:
+			print("Save failed!")
+	else:
+		print("Error packing the scene.")
 
-
-func map_on_save_button_pressed():
-	pass
-	#TODO
-	#remove every editor specific node
-	#save map
 
 func save_map_into_database():
 	pass

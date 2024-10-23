@@ -23,6 +23,7 @@ UserData="*res://Config Files/user_data.gd"
 createNewScene="*res://MapEditor/create-new-scene.gd"
 TileNames="*res://MapEditor/tile_names.gd"
 FileLoader="*res://shared/file-loader.gd"
+SelectedMap="*res://MapEditor/selected-map.gd"
 
 [display]
 
@@ -33,6 +34,12 @@ window/stretch/aspect="expand"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Game Assets/MapEditor/Enemy/": "red"
+}
 
 [input]
 

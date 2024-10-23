@@ -16,7 +16,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var healthBar = get_node("HealthBar/ProgressBar")
 @onready var animationTree = $AnimationTree
 @onready var inventory = $Inventory
-@onready var overlappingProjectileHitArea = $ProjectileHitArea
+@onready var overlappingProjectileHitArea = $IdleAndRangedEnemyDetectArea
 var animationMachine = AnimationMachine.new()
 var ENEMY_CONDITIONS = {}
 var PLAYER_CONDITIONS = {}
@@ -59,6 +59,7 @@ func _process(event):
 			WALK:
 				_set_state("walk", PLAYER_CONDITIONS.playerWalk)
 			ATTACK:
+				print("attacking")
 				_set_state("attack", PLAYER_CONDITIONS.playerAttack)
 			HURT:
 				_set_state("hurt", PLAYER_CONDITIONS.playerHurt)
@@ -99,6 +100,15 @@ func _process(event):
 				body.set_meta("timer_started", true)
 				body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, true)
 				body.animationTree.set(ENEMY_CONDITIONS.enemyWalking, false)
+	#for body in get_tree().get_nodes_in_group("Ranged"):
+		#if not overlappingBodiesRangedAttacker.has(body) and body.state_machine.state != body.state_machine.ATTACK:
+			#body.timer.stop()
+			#body.set_meta("timer_started", false)
+			#body.state_machine.SPEED=30.0;
+			#body.state_machine.state=body.state_machine.MOVE
+			#body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, false)
+			#body.animationTree.set(ENEMY_CONDITIONS.enemyHurt, false)
+			#body.animationTree.set(ENEMY_CONDITIONS.enemyWalking, true)
 
 func _set_up_animations():
 	var animationMaker = ANIMATION_MAKER.new()
@@ -163,6 +173,7 @@ func _on_enemy_attack_area_body_exited(body):
 		
 func attack_enemy(body):
 	if Input.is_action_just_pressed("room_changer_click"):
+		print("should attack enemy")
 		_set_state("attack", PLAYER_CONDITIONS.playerAttack)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyHurt, true)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, false)

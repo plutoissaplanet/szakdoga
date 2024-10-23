@@ -8,8 +8,8 @@ extends Node2D
 @onready var spawn_node=get_node("EnemySpawnpoint")
 
 func _ready():
-	door.player_detector.body_entered.connect(_on_player_detector_body_entered)
-	nanogram.solvedSignal.connect(openChest)
+	#door.player_detector.body_entered.connect(_on_player_detector_body_entered)
+	#nanogram.solvedSignal.connect(openChest)
 	spawn_node.player=player
 	spawn_node.room=self
 	

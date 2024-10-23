@@ -139,25 +139,25 @@ offset_right = -19.0
 offset_bottom = 320.0
 theme_override_constants/v_separation = 20
 
-[node name="HelmetSlot" type="Panel" parent="GridContainer2"]
+[node name="HelmetSlot" type="Panel" parent="GridContainer2" groups=["Helmet"]]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
 script = ExtResource("5_23hqp")
 
-[node name="PlateSlot" type="Panel" parent="GridContainer2"]
+[node name="PlateSlot" type="Panel" parent="GridContainer2" groups=["Plate"]]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
 script = ExtResource("5_23hqp")
 
-[node name="LeggingSlot" type="Panel" parent="GridContainer2"]
+[node name="LeggingSlot" type="Panel" parent="GridContainer2" groups=["Legging"]]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
 script = ExtResource("5_23hqp")
 
-[node name="BootSlot" type="Panel" parent="GridContainer2"]
+[node name="BootSlot" type="Panel" parent="GridContainer2" groups=["Boot"]]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
@@ -169,7 +169,7 @@ offset_right = 444.0
 offset_bottom = 85.0
 texture = ExtResource("1_ixoaq")
 
-[node name="SwordSlot" type="Panel" parent="TextureRect3"]
+[node name="SwordSlot" type="Panel" parent="TextureRect3" groups=["Sword"]]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
 anchors_preset = -1

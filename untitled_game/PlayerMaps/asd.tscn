@@ -1,0 +1,312 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://MapEditor/map-editor.gd" id="1_cbmv5"]
+[ext_resource type="Texture2D" path="res://Game Assets/Home/Flooring.png" id="2_ki2yy"]
+[ext_resource type="Texture2D" path="res://Game Assets/Home/TopDownHouse_FurnitureState1.png" id="3_1op78"]
+[ext_resource type="Texture2D" path="res://Game Assets/Home/walls.png" id="4_gsina"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_uu30p"]
+tile_data = PackedInt32Array(0, 655360, 6, 65536, 655360, 6, 1, 720896, 6, 65537, 720896, 6)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_dj7xb"]
+tile_data = PackedInt32Array(0, 393216, 6, 65536, 393216, 6, 1, 458752, 6, 65537, 458752, 6)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_84b8d"]
+texture = ExtResource("2_ki2yy")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/size_in_atlas = Vector2i(2, 2)
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+9:0/size_in_atlas = Vector2i(2, 2)
+9:0/0 = 0
+9:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:0/0/physics_layer_0/angular_velocity = 0.0
+13:0/size_in_atlas = Vector2i(2, 2)
+13:0/0 = 0
+13:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+13:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2gyu8"]
+texture = ExtResource("3_1op78")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/z_index = 1
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2, 8, -2, 8, 3.25, -8, 3.5)
+2:0/size_in_atlas = Vector2i(1, 2)
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.5, -3.5, 1.5, -3.625, 1.375, 8, -4.125, 8)
+3:0/size_in_atlas = Vector2i(1, 2)
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/size_in_atlas = Vector2i(1, 2)
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/size_in_atlas = Vector2i(1, 2)
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+6:0/size_in_atlas = Vector2i(1, 2)
+6:0/0 = 0
+6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:0/0/physics_layer_0/angular_velocity = 0.0
+7:0/size_in_atlas = Vector2i(1, 2)
+7:0/0 = 0
+7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:0/0/physics_layer_0/angular_velocity = 0.0
+8:0/size_in_atlas = Vector2i(1, 2)
+8:0/0 = 0
+8:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:0/0/physics_layer_0/angular_velocity = 0.0
+9:0/size_in_atlas = Vector2i(1, 2)
+9:0/0 = 0
+9:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:0/0/physics_layer_0/angular_velocity = 0.0
+10:0/size_in_atlas = Vector2i(1, 2)
+10:0/0 = 0
+10:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+10:0/0/physics_layer_0/angular_velocity = 0.0
+11:0/size_in_atlas = Vector2i(1, 2)
+11:0/0 = 0
+11:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:0/0/physics_layer_0/angular_velocity = 0.0
+12:1/0 = 0
+12:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+12:1/0/physics_layer_0/angular_velocity = 0.0
+10:2/size_in_atlas = Vector2i(3, 2)
+10:2/0 = 0
+10:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+10:2/0/physics_layer_0/angular_velocity = 0.0
+8:2/size_in_atlas = Vector2i(2, 1)
+8:2/0 = 0
+8:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:2/0/physics_layer_0/angular_velocity = 0.0
+8:3/size_in_atlas = Vector2i(2, 1)
+8:3/0 = 0
+8:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:3/0/physics_layer_0/angular_velocity = 0.0
+7:2/size_in_atlas = Vector2i(1, 2)
+7:2/0 = 0
+7:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:2/0/physics_layer_0/angular_velocity = 0.0
+5:2/size_in_atlas = Vector2i(2, 2)
+5:2/0 = 0
+5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/size_in_atlas = Vector2i(2, 2)
+3:2/0 = 0
+3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_0/angular_velocity = 0.0
+0:2/size_in_atlas = Vector2i(3, 2)
+0:2/0 = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
+0:4/size_in_atlas = Vector2i(2, 3)
+0:4/0 = 0
+0:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:4/0/physics_layer_0/angular_velocity = 0.0
+2:4/size_in_atlas = Vector2i(3, 3)
+2:4/0 = 0
+2:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:4/0/physics_layer_0/angular_velocity = 0.0
+5:4/size_in_atlas = Vector2i(1, 3)
+5:4/0 = 0
+5:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:4/0/physics_layer_0/angular_velocity = 0.0
+6:4/size_in_atlas = Vector2i(3, 3)
+6:4/0 = 0
+6:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:4/0/physics_layer_0/angular_velocity = 0.0
+9:4/size_in_atlas = Vector2i(1, 3)
+9:4/0 = 0
+9:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:4/0/physics_layer_0/angular_velocity = 0.0
+10:4/size_in_atlas = Vector2i(3, 3)
+10:4/0 = 0
+10:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+10:4/0/physics_layer_0/angular_velocity = 0.0
+0:7/size_in_atlas = Vector2i(2, 3)
+0:7/0 = 0
+0:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:7/0/physics_layer_0/angular_velocity = 0.0
+2:7/size_in_atlas = Vector2i(1, 3)
+2:7/0 = 0
+2:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:7/0/physics_layer_0/angular_velocity = 0.0
+3:7/size_in_atlas = Vector2i(1, 3)
+3:7/0 = 0
+3:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:7/0/physics_layer_0/angular_velocity = 0.0
+4:7/size_in_atlas = Vector2i(2, 3)
+4:7/0 = 0
+4:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:7/0/physics_layer_0/angular_velocity = 0.0
+6:7/size_in_atlas = Vector2i(1, 3)
+6:7/0 = 0
+6:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:7/0/physics_layer_0/angular_velocity = 0.0
+7:7/size_in_atlas = Vector2i(2, 3)
+7:7/0 = 0
+7:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:7/0/physics_layer_0/angular_velocity = 0.0
+9:7/size_in_atlas = Vector2i(2, 3)
+9:7/0 = 0
+9:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:7/0/physics_layer_0/angular_velocity = 0.0
+11:7/size_in_atlas = Vector2i(2, 3)
+11:7/0 = 0
+11:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:7/0/physics_layer_0/angular_velocity = 0.0
+0:10/size_in_atlas = Vector2i(1, 2)
+0:10/0 = 0
+0:10/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:10/0/physics_layer_0/angular_velocity = 0.0
+1:10/size_in_atlas = Vector2i(4, 2)
+1:10/0 = 0
+1:10/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:10/0/physics_layer_0/angular_velocity = 0.0
+5:10/size_in_atlas = Vector2i(4, 2)
+5:10/0 = 0
+5:10/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:10/0/physics_layer_0/angular_velocity = 0.0
+9:10/size_in_atlas = Vector2i(2, 2)
+9:10/0 = 0
+9:10/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:10/0/physics_layer_0/angular_velocity = 0.0
+11:10/size_in_atlas = Vector2i(2, 2)
+11:10/0 = 0
+11:10/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:10/0/physics_layer_0/angular_velocity = 0.0
+0:12/size_in_atlas = Vector2i(2, 4)
+0:12/0 = 0
+0:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:12/0/physics_layer_0/angular_velocity = 0.0
+2:12/size_in_atlas = Vector2i(2, 4)
+2:12/0 = 0
+2:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:12/0/physics_layer_0/angular_velocity = 0.0
+4:12/size_in_atlas = Vector2i(2, 3)
+4:12/0 = 0
+4:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:12/0/physics_layer_0/angular_velocity = 0.0
+4:15/size_in_atlas = Vector2i(2, 1)
+4:15/0 = 0
+4:15/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:15/0/physics_layer_0/angular_velocity = 0.0
+6:15/size_in_atlas = Vector2i(2, 1)
+6:15/0 = 0
+6:15/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:15/0/physics_layer_0/angular_velocity = 0.0
+6:12/size_in_atlas = Vector2i(2, 3)
+6:12/0 = 0
+6:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:12/0/physics_layer_0/angular_velocity = 0.0
+8:12/size_in_atlas = Vector2i(3, 3)
+8:12/0 = 0
+8:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:12/0/physics_layer_0/angular_velocity = 0.0
+11:12/size_in_atlas = Vector2i(2, 4)
+11:12/0 = 0
+11:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:12/0/physics_layer_0/angular_velocity = 0.0
+8:15/size_in_atlas = Vector2i(3, 1)
+8:15/0 = 0
+8:15/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:15/0/physics_layer_0/angular_velocity = 0.0
+11:16/size_in_atlas = Vector2i(2, 2)
+11:16/0 = 0
+11:16/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:16/0/physics_layer_0/angular_velocity = 0.0
+9:16/size_in_atlas = Vector2i(2, 2)
+9:16/0 = 0
+9:16/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:16/0/physics_layer_0/angular_velocity = 0.0
+8:16/size_in_atlas = Vector2i(1, 2)
+8:16/0 = 0
+8:16/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:16/0/physics_layer_0/angular_velocity = 0.0
+5:16/size_in_atlas = Vector2i(3, 2)
+5:16/0 = 0
+5:16/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:16/0/physics_layer_0/angular_velocity = 0.0
+3:16/size_in_atlas = Vector2i(2, 2)
+3:16/0 = 0
+3:16/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:16/0/physics_layer_0/angular_velocity = 0.0
+0:16/size_in_atlas = Vector2i(1, 2)
+0:16/0 = 0
+0:16/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:16/0/physics_layer_0/angular_velocity = 0.0
+1:16/size_in_atlas = Vector2i(2, 2)
+1:16/0 = 0
+1:16/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:16/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_awunu"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_84b8d")
+sources/5 = SubResource("TileSetAtlasSource_2gyu8")
+pattern_0 = SubResource("TileMapPattern_uu30p")
+pattern_1 = SubResource("TileMapPattern_dj7xb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by8ik"]
+texture = ExtResource("4_gsina")
+separation = Vector2i(1, 0)
+texture_region_size = Vector2i(32, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_kervl"]
+tile_size = Vector2i(32, 64)
+sources/1 = SubResource("TileSetAtlasSource_by8ik")
+
+[node name="@Node2D@216" type="Node2D"]
+script = ExtResource("1_cbmv5")
+metadata/MAP_NAME = ""
+metadata/MAP_DIFFICULTY = ""
+metadata/NUMBER_OF_ROOMS = 1
+metadata/CREATION_DATE = {
+"day": 22,
+"dst": true,
+"hour": 17,
+"minute": 33,
+"month": 10,
+"second": 31,
+"weekday": 2,
+"year": 2024
+}
+metadata/ROOM_SIZE_NUMBER_1 = "small"
+
+[node name="FloorTileMap" type="TileMap" parent="."]
+position = Vector2(234, 186)
+tile_set = SubResource("TileSet_awunu")
+navigation_visibility_mode = 1
+format = 2
+layer_0/name = "Floor"
+layer_0/tile_data = PackedInt32Array(65537, 0, 0, 196611, 0, 0, 327682, 0, 0, 393219, 0, 0, 327686, 0, 0, 65542, 0, 0, 3, 0, 0, 327687, 0, 0, 458756, 0, 0, 524293, 0, 0, 524294, 0, 0, 262150, 0, 0, 131076, 0, 0, 196608, 851968, 0, 327680, 851968, 0, 393218, 851968, 0, 458758, 851968, 0, 393223, 851968, 0, 262148, 851968, 0, 196614, 851968, 0, 131079, 851968, 0)
+layer_1/name = "Wall"
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Furniture"
+layer_2/tile_data = PackedInt32Array(2, 458757, 0, 65538, 458757, 0, 65539, 458757, 0, 3, 458757, 0)
+
+[node name="WallTileMap" type="TileMap" parent="."]
+position = Vector2(234, 122)
+tile_set = SubResource("TileSet_kervl")
+format = 2
+layer_1/tile_data = PackedInt32Array(2, 1, 0, 5, 1, 0, 6, 1, 0, 8, 1, 0, 3, 1, 0, 1, 1, 0, 4, 327681, 0)

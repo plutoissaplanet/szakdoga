@@ -9,7 +9,7 @@ enum STATES {
 	death,
 	hurt,
 	idle,
-	walk
+	move
 }
 
 func load_assets(entityType: String, entityName: String, variant: String) -> Dictionary:
@@ -58,7 +58,7 @@ func make_animation(entityType: String, entityName: String, variant: String, spe
 			animation.track_insert_key(0, i, key)
 			animation.track_insert_key(1, i*speed, i)
 			
-		if key == 'idle' or key == 'walk':
+		if key == 'idle' or key == 'move':
 			animation.loop_mode=Animation.LOOP_LINEAR
 			
 		animationLibrary.add_animation(key, animation)
@@ -66,12 +66,12 @@ func make_animation(entityType: String, entityName: String, variant: String, spe
 	animatedSprite.sprite_frames = spriteFrame
 	animPlayer.add_animation_library(libraryName, animationLibrary )
 
-
-
 func add_points_to_blendspace(animationTree: AnimationTree, libraryName: String, animPlayer: AnimationPlayer):
 	animationTree.anim_player = animPlayer.get_path()
 	for element in STATES:
+		print("element: ",element)
 		var animation_root_node = AnimationNodeAnimation.new()
 		animation_root_node.set_animation(libraryName+element)
 		var node = animationTree.tree_root.get_node(element)
+		print("node: ",node)
 		node.add_blend_point(animation_root_node, 0)

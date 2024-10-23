@@ -82,12 +82,12 @@ states/hurt/node = SubResource("AnimationNodeBlendSpace1D_fkcp0")
 states/hurt/position = Vector2(497, 13.4672)
 states/idle/node = SubResource("AnimationNodeBlendSpace1D_13pnw")
 states/idle/position = Vector2(753, 18.4672)
-states/walk/node = SubResource("AnimationNodeBlendSpace1D_2tw6e")
-states/walk/position = Vector2(497, 200)
-transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_3gvl0"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_kw8mx"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_twpcv"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_iu0pn"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ffuuw"), "death", "End", SubResource("AnimationNodeStateMachineTransition_0cgyj"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_ld2bu"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_nfqag"), "hurt", "walk", SubResource("AnimationNodeStateMachineTransition_5et0f"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_v3u7o"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_w7kin"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_karri"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_yexxg")]
-graph_offset = Vector2(52, -280.346)
+states/move/node = SubResource("AnimationNodeBlendSpace1D_2tw6e")
+states/move/position = Vector2(497, 200)
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_3gvl0"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_kw8mx"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_twpcv"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_iu0pn"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ffuuw"), "death", "End", SubResource("AnimationNodeStateMachineTransition_0cgyj"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_ld2bu"), "move", "hurt", SubResource("AnimationNodeStateMachineTransition_nfqag"), "hurt", "move", SubResource("AnimationNodeStateMachineTransition_5et0f"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_v3u7o"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_w7kin"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_karri"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_yexxg")]
+graph_offset = Vector2(133, 31.654)
 
-[node name="Skeleton" type="CharacterBody2D"]
+[node name="Skeleton" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 script = ExtResource("1_4pvud")
 metadata/timer_started = false
@@ -115,7 +115,7 @@ parameters/attack/blend_position = 0
 parameters/death/blend_position = -0.000914931
 parameters/hurt/blend_position = 0
 parameters/idle/blend_position = 0
-parameters/walk/blend_position = -0.000836849
+parameters/move/blend_position = -0.000836849
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Enemy"]]
 position = Vector2(1, 0)

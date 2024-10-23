@@ -55,3 +55,11 @@ func load_assets_1_level_deep(path: String, fileExtension: String ) -> Dictionar
 	
 func load_assets_2_level_deep(path: String, subpath: String):
 	pass
+	
+func get_directory_filenames(directoryPath: String) -> PackedStringArray:
+	var fileNames
+	var dir = DirAccess.open(directoryPath)
+	fileNames = dir.get_files()
+	
+	return fileNames
+

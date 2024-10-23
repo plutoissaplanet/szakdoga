@@ -1,9 +1,13 @@
-[gd_resource type="Resource" script_class="SWORDS" load_steps=2 format=3 uid="uid://cdjob0csn0tm0"]
+[gd_resource type="Resource" script_class="SWORDS" load_steps=3 format=3 uid="uid://cdjob0csn0tm0"]
 
+[ext_resource type="Texture2D" uid="uid://cb7hpi6fsqiwn" path="res://GameplayThings/Items/Swords/Assets/medium_level_3.png" id="1_jjidv"]
 [ext_resource type="Script" path="res://GameplayThings/Items/General/Sword Script/item_swords.gd" id="1_mj84r"]
 
 [resource]
 script = ExtResource("1_mj84r")
 ATTACK_POINTS = 14
-ITEM_NAME = ""
+ITEM_NAME = "Sword"
+ITEM_TEXT = ExtResource("1_jjidv")
 SHOW_STATS = ""
+RARITY_INTERVAL = []
+RARITY = ""

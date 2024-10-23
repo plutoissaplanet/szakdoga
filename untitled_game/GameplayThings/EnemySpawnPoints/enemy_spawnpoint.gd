@@ -11,7 +11,7 @@ var enemyData: ENEMY_DATA = ENEMY_DATA.new(0.1, 'Mummy', 'Mummy1', 'Ranged', 'On
 @onready var node = get_node(".")
 
 func _on_timer_timeout():
-	spawn_monsters(room)
+	spawn_monsters(room) 
 		
 func spawn_monsters(r):
 	var randomNumberOfEnemies = 1#randi_range(1,2) #the 3 will need to be changed to maxenemies when making different levels of maps and for the editor mode.

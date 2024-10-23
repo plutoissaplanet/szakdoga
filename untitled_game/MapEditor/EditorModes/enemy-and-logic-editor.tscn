@@ -1,0 +1,648 @@
+[gd_scene load_steps=14 format=3 uid="uid://tv6xl43fjll0"]
+
+[ext_resource type="Script" path="res://MapEditor/EditorModes/enemy-and-logic-editor.gd" id="1_6hqn8"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="2_kej3v"]
+[ext_resource type="Texture2D" uid="uid://dvjm4wqr83nyu" path="res://Game Assets/MapEditor/Icons/Icons_37.png" id="3_0xjvr"]
+[ext_resource type="Texture2D" uid="uid://dentiv7kcjumv" path="res://Game Assets/GUI/backdrop3.png" id="3_8aeki"]
+[ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="3_wl5ic"]
+[ext_resource type="Texture2D" uid="uid://3wrwa648yffq" path="res://Game Assets/GUI/Tiles/Tileset.png" id="4_d2ag0"]
+[ext_resource type="Texture2D" uid="uid://bckjurq5yr6w" path="res://Game Assets/GUI/Buttons/Button1.png" id="4_f2vwj"]
+[ext_resource type="Texture2D" uid="uid://qtp5jl15i4wo" path="res://Game Assets/GUI/Buttons/Button2.png" id="5_4js7r"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ng7y4"]
+texture = ExtResource("4_d2ag0")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+15:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+12:4/0 = 0
+13:4/0 = 0
+14:4/0 = 0
+15:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+14:5/0 = 0
+15:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+13:6/0 = 0
+14:6/0 = 0
+15:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+13:7/0 = 0
+14:7/0 = 0
+15:7/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+10:8/0 = 0
+11:8/0 = 0
+14:8/0 = 0
+15:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+10:9/0 = 0
+11:9/0 = 0
+12:9/0 = 0
+13:9/0 = 0
+14:9/0 = 0
+15:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+9:10/0 = 0
+10:10/0 = 0
+11:10/0 = 0
+12:10/0 = 0
+13:10/0 = 0
+14:10/0 = 0
+15:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+12:11/0 = 0
+13:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+3:12/0 = 0
+4:12/0 = 0
+5:12/0 = 0
+6:12/0 = 0
+7:12/0 = 0
+8:12/0 = 0
+9:12/0 = 0
+10:12/0 = 0
+11:12/0 = 0
+12:12/0 = 0
+13:12/0 = 0
+14:12/0 = 0
+15:12/0 = 0
+0:13/0 = 0
+1:13/0 = 0
+2:13/0 = 0
+3:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+6:13/0 = 0
+7:13/0 = 0
+8:13/0 = 0
+9:13/0 = 0
+10:13/0 = 0
+11:13/0 = 0
+12:13/0 = 0
+13:13/0 = 0
+14:13/0 = 0
+15:13/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2jjq0"]
+sources/0 = SubResource("TileSetAtlasSource_ng7y4")
+
+[sub_resource type="Theme" id="Theme_e74ja"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ybxww"]
+
+[sub_resource type="Theme" id="Theme_5k5qx"]
+default_font = ExtResource("2_kej3v")
+/colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+/font_sizes/font_size = 16
+/fonts/font = ExtResource("2_kej3v")
+/styles/texture = SubResource("StyleBoxTexture_ybxww")
+
+[node name="Enemy-and-logic-editor" type="Node2D"]
+script = ExtResource("1_6hqn8")
+
+[node name="EnemySelection" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 139.0
+offset_right = 209.0
+offset_bottom = 629.0
+
+[node name="TextureRect" type="TextureRect" parent="EnemySelection"]
+modulate = Color(1, 1, 1, 0.239216)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 490.0
+texture = ExtResource("3_wl5ic")
+expand_mode = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="EnemySelection"]
+offset_left = 5.0
+offset_top = 34.0
+offset_right = 195.0
+offset_bottom = 484.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="EnemySelection/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 2
+
+[node name="EnemyEditor" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GoBackButton" type="TextureButton" parent="EnemyEditor"]
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 33.0
+offset_bottom = 32.0
+texture_normal = ExtResource("3_0xjvr")
+
+[node name="PlaceEnemyButton" type="TextureButton" parent="EnemyEditor"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.8
+anchor_top = 12.55
+anchor_right = 6.4
+anchor_bottom = 13.55
+texture_normal = ExtResource("4_f2vwj")
+texture_pressed = ExtResource("5_4js7r")
+stretch_mode = 0
+
+[node name="EnemyEditorLabel" type="Label" parent="EnemyEditor/PlaceEnemyButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.326
+anchor_top = 0.1
+anchor_right = 0.652
+anchor_bottom = 0.775
+offset_left = 0.0159988
+offset_right = 0.0319977
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 25
+text = "Place"
+
+[node name="Background" type="TextureRect" parent="EnemyEditor"]
+offset_right = 330.0
+offset_bottom = 484.0
+texture = ExtResource("3_8aeki")
+expand_mode = 1
+
+[node name="TileMap" type="TileMap" parent="EnemyEditor"]
+tile_set = SubResource("TileSet_2jjq0")
+format = 2
+
+[node name="EnemyEditorLabel" type="Label" parent="EnemyEditor"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.8
+anchor_top = 0.2
+anchor_right = 6.475
+anchor_bottom = 0.875
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 25
+text = "Configure Enemy"
+
+[node name="SelectDifficulty" type="Control" parent="EnemyEditor"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 49.0
+offset_right = 49.0
+offset_bottom = 89.0
+
+[node name="SelectDifficultyLabel" type="Label" parent="EnemyEditor/SelectDifficulty"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 5.125
+anchor_bottom = 0.675
+offset_right = -1.52588e-05
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "Select enemy difficulty: "
+
+[node name="OptionButton" type="OptionButton" parent="EnemyEditor/SelectDifficulty"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 5.175
+anchor_right = 7.65
+anchor_bottom = 0.525
+offset_top = 1.0
+offset_right = -3.05176e-05
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 15
+alignment = 1
+
+[node name="EnemyTypeSelection" type="Control" parent="EnemyEditor"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -2.0
+offset_top = 26.0
+offset_right = 38.0
+offset_bottom = 66.0
+theme = SubResource("Theme_e74ja")
+
+[node name="EnemyType" type="Label" parent="EnemyEditor/EnemyTypeSelection"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.425
+anchor_top = 1.45
+anchor_right = 3.075
+anchor_bottom = 2.125
+offset_left = -6.0
+offset_top = -3.0
+offset_right = -6.0
+offset_bottom = -3.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "Enemy type:"
+
+[node name="MeleeSelection" type="CheckBox" parent="EnemyEditor/EnemyTypeSelection"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 5.65
+anchor_top = 1.375
+anchor_right = 7.525
+anchor_bottom = 2.1
+offset_left = -2.0
+offset_top = -5.0
+offset_right = -2.00003
+offset_bottom = -3.00001
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_hover_color = Color(0.243137, 0.14902, 0.231373, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.247059, 0.152941, 0.235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_disabled_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+disabled = true
+text = "Melee"
+
+[node name="RangedSelection" type="CheckBox" parent="EnemyEditor/EnemyTypeSelection"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 3.075
+anchor_top = 1.375
+anchor_right = 5.225
+anchor_bottom = 2.15
+offset_left = 1.0
+offset_top = -5.0
+offset_right = 0.999985
+offset_bottom = -5.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_hover_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_disabled_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+disabled = true
+text = "Ranged"
+
+[node name="EnemySetStatistics" type="Control" parent="EnemyEditor"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -5.0
+offset_top = 51.0
+offset_right = 35.0
+offset_bottom = 91.0
+
+[node name="HealthPoints" type="SpinBox" parent="EnemyEditor/EnemySetStatistics"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 89.0
+offset_right = 238.0
+offset_bottom = 115.0
+theme = SubResource("Theme_5k5qx")
+step = 10.0
+rounded = true
+alignment = 1
+editable = false
+
+[node name="AttackPoints" type="SpinBox" parent="EnemyEditor/EnemySetStatistics"]
+offset_left = 170.0
+offset_top = 122.0
+offset_right = 238.0
+offset_bottom = 148.0
+theme = SubResource("Theme_5k5qx")
+step = 10.0
+rounded = true
+alignment = 1
+editable = false
+
+[node name="AttackPointsLabel" type="Label" parent="EnemyEditor/EnemySetStatistics"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 3.05
+anchor_right = 3.425
+anchor_bottom = 3.725
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "Health pounts:"
+
+[node name="HealthPointsLabel" type="Label" parent="EnemyEditor/EnemySetStatistics"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 2.225
+anchor_right = 3.35
+anchor_bottom = 2.9
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "Attack points:"
+
+[node name="EnemySpeedSettings" type="Control" parent="EnemyEditor"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 223.0
+offset_right = 49.0
+offset_bottom = 263.0
+
+[node name="SetEnemySpeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.1
+anchor_right = 3.7
+anchor_bottom = 0.775
+offset_right = -1.52588e-05
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "Set walk speed:"
+
+[node name="EnemySppeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 6.85
+anchor_top = 0.1
+anchor_right = 7.1
+anchor_bottom = 0.6
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "0"
+
+[node name="EnemySpeed" type="HSlider" parent="EnemyEditor/EnemySpeedSettings"]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 7.0
+offset_right = 258.0
+offset_bottom = 23.0
+min_value = 1.0
+value = 1.0
+rounded = true
+editable = false
+
+[node name="setEnemyAttackSpeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.925
+anchor_right = 3.725
+anchor_bottom = 1.425
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "Set attack speed:"
+
+[node name="EnemyAttackSpeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 6.85
+anchor_top = 0.925
+anchor_right = 7.1
+anchor_bottom = 1.425
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "0"
+
+[node name="EnemyAttackSpeed" type="HSlider" parent="EnemyEditor/EnemySpeedSettings"]
+offset_left = 156.0
+offset_top = 40.0
+offset_right = 258.0
+offset_bottom = 56.0
+min_value = 1.0
+value = 1.0
+rounded = true
+editable = false
+
+[node name="setEnemyCoolDownLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.625
+anchor_right = 3.725
+anchor_bottom = 2.125
+offset_top = 5.99999
+offset_bottom = 6.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "Set  cooldown:"
+
+[node name="EnemyCooldownSpeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 6.85
+anchor_top = 0.925
+anchor_right = 7.1
+anchor_bottom = 1.425
+offset_top = 34.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+text = "0"
+
+[node name="EnemyCooldown" type="HSlider" parent="EnemyEditor/EnemySpeedSettings"]
+offset_left = 156.0
+offset_top = 74.0
+offset_right = 258.0
+offset_bottom = 90.0
+min_value = 1.0
+value = 1.0
+rounded = true
+editable = false
+
+[node name="EnemyAnimation" type="Control" parent="EnemyEditor"]
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 344.0
+offset_right = 315.0
+offset_bottom = 472.0
+
+[node name="Error" type="Label" parent="EnemyEditor"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.425
+anchor_top = 8.3
+anchor_right = 7.75
+anchor_bottom = 8.975
+offset_left = 1.0
+offset_right = -3.05176e-05
+scale = Vector2(0.997065, 1.00274)
+theme_override_colors/font_color = Color(1, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="EnemyEditor/Error"]
+wait_time = 10.0
+one_shot = true
+
+[node name="EnemySpawnPointClicked" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -166.0
+offset_top = 168.0
+offset_right = -126.0
+offset_bottom = 208.0
+
+[connection signal="item_selected" from="EnemyEditor/SelectDifficulty/OptionButton" to="." method="_on_enemy_difficulty_selected"]
+[connection signal="pressed" from="EnemyEditor/EnemyTypeSelection/MeleeSelection" to="." method="_on_melee_selection_pressed"]
+[connection signal="pressed" from="EnemyEditor/EnemyTypeSelection/RangedSelection" to="." method="_on_ranged_selection_pressed"]
+[connection signal="value_changed" from="EnemyEditor/EnemySetStatistics/HealthPoints" to="." method="_on_health_points_value_changed"]
+[connection signal="value_changed" from="EnemyEditor/EnemySetStatistics/AttackPoints" to="." method="_on_attack_points_value_changed"]
+[connection signal="value_changed" from="EnemyEditor/EnemySpeedSettings/EnemySpeed" to="." method="_on_enemy_speed_value_changed"]
+[connection signal="value_changed" from="EnemyEditor/EnemySpeedSettings/EnemyAttackSpeed" to="." method="_on_enemy_attack_speed_value_changed"]
+[connection signal="value_changed" from="EnemyEditor/EnemySpeedSettings/EnemyCooldown" to="." method="_on_enemy_cooldown_value_changed"]
+[connection signal="timeout" from="EnemyEditor/Error/Timer" to="." method="_on_error_timer_timeout"]

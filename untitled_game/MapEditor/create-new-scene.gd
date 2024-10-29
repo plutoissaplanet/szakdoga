@@ -11,15 +11,17 @@ func create_new_scene(mapName: String):
 	var mapPath = mapFilePath
 	if script:
 		rootNode.set_script(script)
+	else:
+		print("failed to load script ")
 	var newScene = PackedScene.new()
 	newScene.pack(rootNode)
 	ResourceSaver.save(newScene, mapPath)
 	
 	SelectedMap.FILE_PATH = mapFilePath
 	SelectedMap.FILE_NAME = mapName
-	_load_scene(mapPath)
+	load_scene(mapPath)
 
-func _load_scene(mapFilePath):
+func load_scene(mapFilePath):
 	get_tree().change_scene_to_file(mapFilePath)
 
 func map_on_save_button_pressed(node: Node2D):

@@ -59,7 +59,6 @@ func _process(event):
 			WALK:
 				_set_state("walk", PLAYER_CONDITIONS.playerWalk)
 			ATTACK:
-				print("attacking")
 				_set_state("attack", PLAYER_CONDITIONS.playerAttack)
 			HURT:
 				_set_state("hurt", PLAYER_CONDITIONS.playerHurt)
@@ -112,10 +111,11 @@ func _process(event):
 
 func _set_up_animations():
 	var animationMaker = ANIMATION_MAKER.new()
+
 	if UserData.characterType != null:
-		await animationMaker.make_animation('Player/Assets', UserData.characterType, UserData.character, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
+		await animationMaker.make_animation('Player/Assets', "Knight", "Knight1", 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
 	else:
-		await animationMaker.make_animation('Player/Assets', UserData.fallbackCharacterType,UserData.fallbackCharacter, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
+		await animationMaker.make_animation('Player/Assets', UserData.fallbackCharacterType, UserData.fallbackCharacter, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
 	animationMaker.add_points_to_blendspace(animationTree, 'playerLibrary/', animationPlayer )
 
 func _set_state(newState: String, condition: String):
@@ -173,7 +173,6 @@ func _on_enemy_attack_area_body_exited(body):
 		
 func attack_enemy(body):
 	if Input.is_action_just_pressed("room_changer_click"):
-		print("should attack enemy")
 		_set_state("attack", PLAYER_CONDITIONS.playerAttack)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyHurt, true)
 		body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, false)

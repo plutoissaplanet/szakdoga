@@ -95,7 +95,7 @@ func _make_map_container(mapName: String, filePath: String):
 func _on_edit_button_pressed(mapFilePath: String, mapName: String):
 	SelectedMap.FILE_PATH = mapFilePath
 	SelectedMap.FILE_NAME = mapName
-	createNewScene._load_scene(mapFilePath)
+	createNewScene.load_scene(mapFilePath)
 	
 func _on_delete_button_pressed(mapFilePath: String):
 	pass

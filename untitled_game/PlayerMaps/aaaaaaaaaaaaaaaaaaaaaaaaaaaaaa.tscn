@@ -1,0 +1,199 @@
+[gd_scene load_steps=13 format=3 uid="uid://bsba4v5nfgtcd"]
+
+[ext_resource type="Script" path="res://MapEditor/map-editor.gd" id="1_ud35o"]
+[ext_resource type="Texture2D" uid="uid://baaw238fe3kws" path="res://Game Assets/Home/Flooring.png" id="2_eph5n"]
+[ext_resource type="Texture2D" uid="uid://cj4lfg8rnk3ag" path="res://Game Assets/MapEditor/Enemy/Mummy_Mummy1.png" id="2_ymgjm"]
+[ext_resource type="Texture2D" uid="uid://clff1w4x8yhfq" path="res://Game Assets/Home/TopDownHouse_FurnitureState1.png" id="3_21vq5"]
+[ext_resource type="Texture2D" uid="uid://f62xlblqt43g" path="res://Game Assets/Home/walls.png" id="4_nan5c"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_uu30p"]
+tile_data = PackedInt32Array(0, 655360, 6, 65536, 655360, 6, 1, 720896, 6, 65537, 720896, 6)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_dj7xb"]
+tile_data = PackedInt32Array(0, 393216, 6, 65536, 393216, 6, 1, 458752, 6, 65537, 458752, 6)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_84b8d"]
+texture = ExtResource("2_eph5n")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/size_in_atlas = Vector2i(2, 2)
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+9:0/size_in_atlas = Vector2i(2, 2)
+9:0/0 = 0
+9:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:0/0/physics_layer_0/angular_velocity = 0.0
+13:0/size_in_atlas = Vector2i(2, 2)
+13:0/0 = 0
+13:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+13:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jbx8d"]
+texture = ExtResource("3_21vq5")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/size_in_atlas = Vector2i(1, 2)
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/size_in_atlas = Vector2i(1, 2)
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/size_in_atlas = Vector2i(1, 2)
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/size_in_atlas = Vector2i(1, 2)
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+6:0/size_in_atlas = Vector2i(1, 2)
+6:0/0 = 0
+6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:0/0/physics_layer_0/angular_velocity = 0.0
+7:0/size_in_atlas = Vector2i(1, 2)
+7:0/0 = 0
+7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:0/0/physics_layer_0/angular_velocity = 0.0
+8:0/size_in_atlas = Vector2i(1, 2)
+8:0/0 = 0
+8:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:0/0/physics_layer_0/angular_velocity = 0.0
+9:0/size_in_atlas = Vector2i(1, 2)
+9:0/0 = 0
+9:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:0/0/physics_layer_0/angular_velocity = 0.0
+10:0/size_in_atlas = Vector2i(1, 2)
+10:0/0 = 0
+10:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+10:0/0/physics_layer_0/angular_velocity = 0.0
+11:0/size_in_atlas = Vector2i(1, 2)
+11:0/0 = 0
+11:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:0/0/physics_layer_0/angular_velocity = 0.0
+12:0/size_in_atlas = Vector2i(1, 2)
+12:0/0 = 0
+12:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+12:0/0/physics_layer_0/angular_velocity = 0.0
+0:2/size_in_atlas = Vector2i(3, 2)
+0:2/0 = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/size_in_atlas = Vector2i(2, 2)
+3:2/0 = 0
+3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_0/angular_velocity = 0.0
+5:2/size_in_atlas = Vector2i(2, 2)
+5:2/0 = 0
+5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:2/0/physics_layer_0/angular_velocity = 0.0
+7:2/size_in_atlas = Vector2i(1, 2)
+7:2/0 = 0
+7:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:2/0/physics_layer_0/angular_velocity = 0.0
+8:2/size_in_atlas = Vector2i(2, 1)
+8:2/0 = 0
+8:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:2/0/physics_layer_0/angular_velocity = 0.0
+8:3/size_in_atlas = Vector2i(2, 1)
+8:3/0 = 0
+8:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:3/0/physics_layer_0/angular_velocity = 0.0
+10:2/size_in_atlas = Vector2i(3, 2)
+10:2/0 = 0
+10:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+10:2/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_awunu"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_84b8d")
+sources/1 = SubResource("TileSetAtlasSource_jbx8d")
+pattern_0 = SubResource("TileMapPattern_uu30p")
+pattern_1 = SubResource("TileMapPattern_dj7xb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by8ik"]
+texture = ExtResource("4_nan5c")
+separation = Vector2i(1, 0)
+texture_region_size = Vector2i(32, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_kervl"]
+tile_size = Vector2i(32, 64)
+sources/1 = SubResource("TileSetAtlasSource_by8ik")
+
+[node name="_Node2D_31" type="Node2D"]
+script = ExtResource("1_ud35o")
+metadata/MAP_NAME = ""
+metadata/MAP_DIFFICULTY = "medium"
+metadata/NUMBER_OF_ROOMS = 1
+metadata/CREATION_DATE = {
+"day": 26,
+"dst": true,
+"hour": 13,
+"minute": 48,
+"month": 10,
+"second": 28,
+"weekday": 6,
+"year": 2024
+}
+metadata/ROOM_SIZE_NUMBER_1 = "small"
+metadata/ENTITIES_TO_PLACE = {
+"enemy": {
+Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":Resource("res://shared/interface/enemy_interface.gd"))
+: Vector2(558.582, 225.417)
+},
+"items": {}
+}
+
+[node name="@TextureButton@166" type="TextureButton" parent="."]
+z_index = 10
+custom_minimum_size = Vector2(50.0001, 50)
+offset_left = 436.881
+offset_top = 362.718
+offset_right = 436.881
+offset_bottom = 362.718
+texture_normal = ExtResource("2_ymgjm")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="@TextureButton@159" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(50, 50.0001)
+offset_left = 533.582
+offset_top = 200.417
+offset_right = 533.582
+offset_bottom = 200.417
+texture_normal = ExtResource("2_ymgjm")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="FloorTileMap" type="TileMap" parent="."]
+position = Vector2(234, 186)
+tile_set = SubResource("TileSet_awunu")
+navigation_visibility_mode = 1
+format = 2
+layer_0/name = "Floor"
+layer_0/tile_data = PackedInt32Array(196611, 851968, 0, 196610, 851968, 0, 262146, 851968, 0, 327684, 851968, 0, 196614, 851968, 0, 65541, 851968, 0)
+layer_1/name = "Wall"
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Furniture"
+layer_2/tile_data = PackedInt32Array()
+
+[node name="WallTileMap" type="TileMap" parent="."]
+position = Vector2(234, 122)
+tile_set = SubResource("TileSet_kervl")
+format = 2
+layer_1/tile_data = PackedInt32Array()

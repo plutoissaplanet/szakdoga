@@ -23,9 +23,11 @@ enum {
 
 
 func _ready():
-	state_machine.player = player 
-	rangedAndIdleEnemyArea = player.overlappingProjectileHitArea
-	rangedAndIdleEnemyCollision = rangedAndIdleEnemyArea.get_children()[0]
+	if player != null:
+		state_machine.player = player 
+		print(player.overlappingProjectileHitArea)
+		rangedAndIdleEnemyArea = player.overlappingProjectileHitArea
+		rangedAndIdleEnemyCollision = rangedAndIdleEnemyArea.get_children()[0]
 	
 	state_machine.projectile_hit.connect(_projectile_hit)
 	state_machine.state=state_machine.MOVE
@@ -49,17 +51,18 @@ func _physics_process(delta):
 	state_machine.update(delta, self)
 	
 func _process(delta):
-	if projectileArray.size() != 0:
-		for projectile in projectileArray:
-			var direction = (player.position - projectile.position).normalized()
-			projectile.position = projectile.position + direction * delta * 100
-	if enemyObject.enemyAttackType == 'Ranged' and state_machine.state != state_machine.ATTACK :
-		var enemyDistanceFromPlayer = player.position.distance_to(self.position)
-		if enemyDistanceFromPlayer < rangedAndIdleEnemyCollision.shape.radius+10:
-			timer.stop()
-			state_machine.state = state_machine.WALK_AWAY
-		elif timer.is_stopped():
-			timer.start()
+	if player:
+		if projectileArray.size() != 0:
+			for projectile in projectileArray:
+				var direction = (player.position - projectile.position).normalized()
+				projectile.position = projectile.position + direction * delta * 100
+		if enemyObject.enemyAttackType == 'Ranged' and state_machine.state != state_machine.ATTACK :
+			var enemyDistanceFromPlayer = player.position.distance_to(self.position)
+			if enemyDistanceFromPlayer < rangedAndIdleEnemyCollision.shape.radius+10:
+				timer.stop()
+				state_machine.state = state_machine.WALK_AWAY
+			elif timer.is_stopped():
+				timer.start()
 		#if enemyDistanceFromPlayer > rangedAndIdleEnemyCollision.shape.radius+10:
 			#state_machine.state = state_machine.MOVE
 

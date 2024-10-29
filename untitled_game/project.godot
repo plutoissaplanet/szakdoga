@@ -38,7 +38,10 @@ enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://Game Assets/MapEditor/Enemy/": "red"
+"res://Creatures/Monsters/": "red",
+"res://Creatures/Player/": "blue",
+"res://Game Assets/MapEditor/Enemy/": "red",
+"res://MapEditor/": "pink"
 }
 
 [input]

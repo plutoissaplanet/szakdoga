@@ -248,6 +248,7 @@ position = Vector2(554, 330)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Area2D"]
 shape = SubResource("RectangleShape2D_js7sj")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="WallAreaDetector" type="Area2D" parent="Control"]
 position = Vector2(554, 154)
@@ -291,32 +292,6 @@ offset_bottom = 83.0
 texture = ExtResource("2_mj8dh")
 expand_mode = 1
 
-[node name="EraserButton" type="TextureButton" parent="Control/MenuBar"]
-texture_filter = 6
-layout_mode = 1
-anchors_preset = -1
-offset_left = 48.0
-offset_top = 21.0
-offset_right = 72.0
-offset_bottom = 45.0
-texture_normal = ExtResource("9_0oamb")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="Control/MenuBar/EraserButton"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.375
-anchor_top = 1.25
-anchor_right = 1.583
-anchor_bottom = 2.208
-offset_left = -4.48227e-05
-offset_right = 0.00819016
-offset_bottom = 0.00799561
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_0c21j")
-text = "Eraser"
-
 [node name="SaveButton" type="TextureButton" parent="Control/MenuBar"]
 texture_filter = 6
 layout_direction = 1
@@ -359,54 +334,6 @@ offset_bottom = 53.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_0c21j")
 text = "Discard"
-
-[node name="DrawButton" type="TextureButton" parent="Control/MenuBar"]
-texture_filter = 6
-layout_mode = 0
-offset_left = 106.0
-offset_top = 20.0
-offset_right = 130.0
-offset_bottom = 44.0
-texture_normal = ExtResource("12_xo4ih")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="Control/MenuBar/DrawButton"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.333
-anchor_top = 1.333
-anchor_right = 1.417
-anchor_bottom = 2.125
-offset_left = -0.0079999
-offset_top = 0.00799942
-offset_right = -0.00800323
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_0c21j")
-text = "Draw"
-
-[node name="RectangleDrawButton" type="TextureButton" parent="Control/MenuBar"]
-texture_filter = 6
-layout_mode = 0
-offset_left = 163.0
-offset_top = 16.0
-offset_right = 193.0
-offset_bottom = 46.0
-texture_normal = ExtResource("13_fkctm")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="Control/MenuBar/RectangleDrawButton"]
-layout_mode = 0
-offset_left = -21.0
-offset_top = 26.0
-offset_right = 51.0
-offset_bottom = 65.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_0c21j")
-text = "Rectangle
-Draw"
-horizontal_alignment = 1
 
 [node name="LogicMode" type="TextureButton" parent="Control/MenuBar"]
 layout_mode = 0
@@ -474,6 +401,85 @@ theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("3_0c21j")
 theme_override_font_sizes/font_size = 18
 text = "Enemy Mode"
+
+[node name="TilePlacementModifiers" type="Control" parent="Control/MenuBar"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EraserButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
+texture_filter = 6
+layout_mode = 1
+anchors_preset = -1
+offset_left = 48.0
+offset_top = 21.0
+offset_right = 72.0
+offset_bottom = 45.0
+texture_normal = ExtResource("9_0oamb")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/TilePlacementModifiers/EraserButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.375
+anchor_top = 1.25
+anchor_right = 1.583
+anchor_bottom = 2.208
+offset_left = -4.48227e-05
+offset_right = 0.00819016
+offset_bottom = 0.00799561
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Eraser"
+
+[node name="DrawButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
+texture_filter = 6
+layout_mode = 0
+offset_left = 106.0
+offset_top = 20.0
+offset_right = 130.0
+offset_bottom = 44.0
+texture_normal = ExtResource("12_xo4ih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/TilePlacementModifiers/DrawButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.333
+anchor_top = 1.333
+anchor_right = 1.417
+anchor_bottom = 2.125
+offset_left = -0.0079999
+offset_top = 0.00799942
+offset_right = -0.00800323
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Draw"
+
+[node name="RectangleDrawButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
+texture_filter = 6
+layout_mode = 0
+offset_left = 163.0
+offset_top = 16.0
+offset_right = 193.0
+offset_bottom = 46.0
+texture_normal = ExtResource("13_fkctm")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/TilePlacementModifiers/RectangleDrawButton"]
+layout_mode = 0
+offset_left = -21.0
+offset_top = 26.0
+offset_right = 51.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Rectangle
+Draw"
+horizontal_alignment = 1
 
 [node name="DecoratorSelection" type="Control" parent="Control"]
 anchors_preset = 0
@@ -694,14 +700,14 @@ visible = false
 
 [connection signal="input_event" from="Control/Area2D" to="." method="_on_floor_area_detector_input_event"]
 [connection signal="input_event" from="Control/WallAreaDetector" to="." method="_on_wall_area_detector_input_event"]
-[connection signal="pressed" from="Control/MenuBar/EraserButton" to="." method="_on_eraser_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/DiscardButton" to="." method="_on_discard_button_pressed"]
-[connection signal="pressed" from="Control/MenuBar/DrawButton" to="." method="_on_draw_button_pressed"]
-[connection signal="pressed" from="Control/MenuBar/RectangleDrawButton" to="." method="_on_rectangle_draw_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/LogicMode" to="." method="_on_logic_mode_pressed"]
 [connection signal="pressed" from="Control/MenuBar/DecoratorMode" to="." method="_on_decorator_mode_pressed"]
 [connection signal="pressed" from="Control/MenuBar/EnemyMode" to="." method="_on_enemy_mode_pressed"]
+[connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/EraserButton" to="." method="_on_eraser_button_pressed"]
+[connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/DrawButton" to="." method="_on_draw_button_pressed"]
+[connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/RectangleDrawButton" to="." method="_on_rectangle_draw_button_pressed"]
 [connection signal="tab_changed" from="Control/DecoratorSelection/DecorationTabContainer" to="." method="_on_tab_changed"]
 [connection signal="pressed" from="Control/Rooms/NewRoomButton" to="." method="_on_new_room_button_pressed"]
 [connection signal="item_selected" from="Control/RoomSize/OptionButton" to="." method="_on_option_button_item_selected"]

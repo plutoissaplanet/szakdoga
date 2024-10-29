@@ -69,9 +69,7 @@ func make_animation(entityType: String, entityName: String, variant: String, spe
 func add_points_to_blendspace(animationTree: AnimationTree, libraryName: String, animPlayer: AnimationPlayer):
 	animationTree.anim_player = animPlayer.get_path()
 	for element in STATES:
-		print("element: ",element)
 		var animation_root_node = AnimationNodeAnimation.new()
 		animation_root_node.set_animation(libraryName+element)
 		var node = animationTree.tree_root.get_node(element)
-		print("node: ",node)
 		node.add_blend_point(animation_root_node, 0)

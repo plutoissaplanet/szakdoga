@@ -30,11 +30,13 @@ func _ready():
 	gridContainer = get_node("TabContainer/Privated Rooms/ScrollContainer/GridContainer")
 	scrollContainer = get_node("TabContainer/Privated Rooms/ScrollContainer")
 	containerWidth = scrollContainer.size.x
+	get_tree().paused = false
 	_load_all_map_names()
 
 func _load_all_map_names():
 	for file in FileLoader.get_directory_filenames(mapDirectory):
-		mapNames.append(file.get_basename())
+		if file.ends_with(".tscn"):
+			mapNames.append(file.get_basename())
 	for map in mapNames:
 		_make_map_container(map, mapDirectory+map+".tscn")
 

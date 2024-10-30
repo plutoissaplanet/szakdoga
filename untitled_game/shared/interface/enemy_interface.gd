@@ -23,5 +23,17 @@ func _init(_speed: float, _enemyType: String, _enemyVariant: String, _enemyAttac
 	enemyDifficulty = _enemyDifficulty
 	healthPoints = _healthPoints
 	attackPoints = _attackPoints
+	
+func return_dictionary():
+	return {
+		"speed": speed,
+		"enemyType": enemyType,
+		"enemyVariant": enemyVariant,
+		"enemyAttackType": enemyAttackType,
+		"enemyShootTime": enemyShootTime,
+		"enemyDifficulty": enemyDifficulty,
+		"healthPoints": healthPoints,
+		"attackPoints": attackPoints
+	}
 
 

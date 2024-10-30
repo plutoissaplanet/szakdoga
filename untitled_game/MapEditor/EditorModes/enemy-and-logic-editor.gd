@@ -56,21 +56,24 @@ var enemiesToSpawnNumber: int = 1
 var isEnemyEdited = false
 var oldEnemy
 var oldEnemyButton
+var isEnemy: bool
 
 var numberOfEnemiesToSpawn: String
 var spawnCooldown: int
+
+var pressedEnemy
 
 
 var loadedTextures = {}
 var selectedTexture
 
 var parent
-var buttonsDictionary = {}
+var buttonsDictionary
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	parent = get_parent()
+	parent = get_parent().get_parent()
 	_add_buttons_to_grids()
 	_set_nodes_variables()
 	_connect_signals()
@@ -79,6 +82,9 @@ func _ready():
 
 
 #-------------------------------------- SET UP FUNCTIONS ---------------------------------------------------
+func set_up_initial_dictionay_value(value):
+	buttonsDictionary = value
+
 func _add_buttons_to_grids():
 	loadedTextures = FileLoader.load_assets_1_level_deep("res://Game Assets/MapEditor/Enemy/", ".png")
 	for key in loadedTextures.keys():
@@ -95,6 +101,7 @@ func _connect_signals():
 	single_enemy.connect(_single_enemy_selected)
 	multiple_enemy.connect(_multiple_enemies_selected)
 	if parent is Node2D:
+		print("parentSet")
 		parent.placed_enemy_clicked.connect(_on_placed_enemy_clicked)
 		
 func _add_animation_to_editor():
@@ -136,11 +143,18 @@ func _show_error(error: String):
 
 func _open_enemy_editor_dialog(selectedEnemyName: String, isFirstSelection: bool):
 	_get_enemy_type_and_variant_from_file_name(selectedEnemyName)
-	get_tree().paused = true
+	#get_tree().paused = true
 	if isFirstSelection:
 		enemyAmountSelector.visible = true
 	else:
 		enemyEditor.visible = true
+		print("enemyEditor position: ", enemyEditor.position)
+		if isEnemy:
+			$EnemyEditor/ProceedButton.visible = true
+			$EnemyEditor/ProceedToSpawnConfigurator.visible = false
+		else:
+			$EnemyEditor/ProceedButton.visible = false
+			$EnemyEditor/ProceedToSpawnConfigurator.visible = true
 
 	
 func _add_difficulty_to_option_selection():
@@ -228,46 +242,70 @@ func _on_placed_enemy_clicked(button, buttonsDict):
 		
 		
 func _on_edit_placed_enemy_clicked(button):
-	var data = buttonsDictionary.get(button).get("enemyData")
 	var enemyData
+	pressedEnemy = button
+	var data = parent.parent.ENTITIES_TO_PLACE.get("enemy").get(button.name)
+	var dataType = parent.parent.ENTITIES_TO_PLACE.get("enemy").get(button.name).get("type")
 	
-	if data is Marker2D:
-		enemyData = data.enemyData
+	if dataType == "spawnpoint":
+		enemyData = data.get("enemyData")
 		selectedEnemyAmount = "multiple"
-		print("data is marker")
+		isEnemy = false
+		print("selectedEnemyAmount: ", selectedEnemyAmount)
 	else:
-		print("data is not marker")
-		enemyData = data
+		enemyData = data.get("enemy_data")
+		isEnemy = true
 		selectedEnemyAmount = "single"
+		print("selectedEnemyAmount: ", selectedEnemyAmount)
 	
-	oldEnemy = data
+	oldEnemy = button.name
 	isEnemyEdited = true
-	print("_on_edit_placed_enemy_clicked isEnemyEdited: ", isEnemyEdited)
 	_open_enemy_editor_dialog(enemyData.enemyType + "_" + enemyData.enemyVariant, false)
-	
-	difficultySelection.selected = REQUIREMENTS.enemy_difficulty.keys().find(enemyData.enemyDifficulty) + 1
 
-	if enemyData.enemyAttackType == "Melee":
+	difficultySelection.selected = REQUIREMENTS.enemy_difficulty.keys().find(enemyData.get("enemyDifficulty")) + 1
+	
+	selectedEnemyDifficulty = enemyData.get("enemyDifficulty")
+	selectedEnemyType = enemyData.get("enemyAttackType")
+	enemyHealthPoints = int(enemyData.get("healthPoints"))
+	enemyAttackPoints = int(enemyData.get("attackPoints"))
+	enemyAttackSpeed = int(enemyData.get("enemyShootTime"))
+	enemySpeed = enemyData.get("speed")
+	numberOfEnemiesToSpawn = str(data.get("numberOfEnemiesToSpawn"))
+
+	if enemyData.get("enemyAttackType") == "Melee":
 		meleeSelection.button_pressed = true
 		rangedSelection.button_pressed = false
 	else:
 		meleeSelection.button_pressed = false
 		rangedSelection.button_pressed = true
-	healthPointsSelection.value = enemyData.healthPoints
-	attackPointsSelection.value = enemyData.attackPoints
-	enemyAttackSpeedSetter.value = enemyData.enemyShootTime
-	enemySpeedSetter.value = enemyData.speed
+	healthPointsSelection.value = enemyData.get("healthPoints")
+	attackPointsSelection.value = enemyData.get("attackPoints")
+	enemyAttackSpeedSetter.value = enemyData.get("enemyShootTime")
+	enemySpeedSetter.value = enemyData.get("speed")
+
 
 
 func _on_move_placed_enemy_clicked(button):
-	move_enemy_editor_mode.emit(buttonsDictionary.get(button).get("enemyData"), buttonsDictionary.get(button).get("enemyToPlaceSprite").texture)
-	parent.parent.remove_child(button)
-	
-	
+	if parent.parent.ENTITIES_TO_PLACE:
+		var enemies = parent.parent.ENTITIES_TO_PLACE.get("enemy")
+		for key in enemies.keys():
+			if enemies.get(key).get("type") == "enemy" and str(key) == str(button.name):
+				var enemy = enemies.get(key).get("enemy_data")
+				var texture = load("res://Game Assets/MapEditor/Enemy/" + enemy.enemyType + "_" + enemy.enemyVariant + ".png")
+				parent.parent.remove_child(button)
+				button.queue_free()
+				move_enemy_editor_mode.emit(str(key), texture, enemy)
+			elif enemies.get(key).get("type") == "spawnpoint" and str(key) == str(button.name):
+				var enemy = enemies.get(key)
+				var texture = load("res://Game Assets/MapEditor/spawnpoints.png")
+				parent.parent.remove_child(button)
+				button.queue_free()
+				move_enemy_editor_mode.emit(str(key), texture, enemy)
+
+
 func _on_delete_placed_enemy_clicked(button):
 	parent.parent.remove_child(button)
-	buttonsDictionary.erase(button)
-	delete_enemy.emit(oldEnemy, button)
+	delete_enemy.emit(oldEnemy, str(button.name))
 	
 
 func _on_enemy_selected(selectedEnemyName: String, texture) -> void:
@@ -320,6 +358,7 @@ func _on_custom_enemy_spawn_pressed():
 	customNumberOfEnemiesSpinner.editable = true
 	if not customNumberOfEnemiesToSpawnSpin.button_pressed:
 		customNumberOfEnemiesSpinner.editable = false
+	print("_on_custom_enemy_spawn_pressed numberOfEnemiesToSpawn:   ", numberOfEnemiesToSpawn)
 
 
 func _on_spawn_cooldown_spinner_value_changed(value):
@@ -365,6 +404,7 @@ func _on_cancel_configuration():
 
 func _single_enemy_selected():
 	selectedEnemyAmount = "single"
+	isEnemy = true
 	enemyEditor.visible = true
 	enemyAmountSelector.visible = false
 	$EnemyEditor/ProceedToSpawnConfigurator.visible = false
@@ -375,12 +415,14 @@ func _single_enemy_selected():
 func _multiple_enemies_selected():
 	selectedEnemyAmount = "multiple"
 	enemyEditor.visible = true
+	isEnemy = false
 	enemyAmountSelector.visible = false
 	$EnemyEditor/EnemyEditorLabel.text = "Next"
 	$EnemyEditor/ProceedToSpawnConfigurator.visible = true
 	$EnemyEditor/ProceedButton.visible = false
 	
 func _on_proceed_to_spawn_configurator_pressed():
+	print("gets clicked")
 	enemyEditor.visible = false
 	$SpawnPointEditor.visible = true
 
@@ -394,27 +436,31 @@ func _on_select_single_enemy():
 
 func _on_proceed_button_pressed():
 	if selectedEnemyType and selectedEnemyTypeName and selectedEnemyVariantName and enemySpeed and enemyAttackPoints and enemyHealthPoints  and enemyAttackSpeed and selectedEnemyDifficulty:
+		print("first if passed")
 		if selectedEnemyAmount == "single":
+			print("selectedEnemyAmount == single")
 			if not isEnemyEdited:
+				print("not isEnemyEdited")
 				get_tree().paused = false
 				enemyToPlaceObject = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
 				enemyEditor.visible = false
 				enemy_to_place_selected.emit(enemyToPlaceObject, selectedTexture)
 				_reset_values(true)
 			else:
+				print("else")
 				get_tree().paused = false
 				enemyEditor.visible = false
 				var newEnemyData = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
-				buttonsDictionary.get(oldEnemyButton)["enemyData"] = newEnemyData
+				pressedEnemy.name = str(newEnemyData)
 				edit_enemy_editor_mode.emit(newEnemyData, oldEnemy)
 				_reset_values(true)
 				isEnemyEdited = false
 		else:
-			if spawnCooldown and ((numberOfEnemiesToSpawn == "Infinite") || (numberOfEnemiesToSpawn == "Custom" && enemiesToSpawnNumber != 0)):
+			if spawnCooldown:
 				if not isEnemyEdited:
 					get_tree().paused = false
 					var newEnemyData = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
-					var newSpawnPoint = ENEMY_SPAWN_POINT.new(enemiesToSpawnNumber, spawnCooldown, newEnemyData, parent)
+					var newSpawnPoint = ENEMY_SPAWN_POINT.new(enemiesToSpawnNumber, spawnCooldown, newEnemyData)
 					$SpawnPointEditor.visible = false
 					place_spawn_point.emit(newSpawnPoint)
 					_reset_values(true)
@@ -423,7 +469,7 @@ func _on_proceed_button_pressed():
 					get_tree().paused = false
 					$SpawnPointEditor.visible = false
 					var newEnemyData = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
-					var newSpawnPoint = ENEMY_SPAWN_POINT.new(enemiesToSpawnNumber, spawnCooldown, newEnemyData, parent)
-					buttonsDictionary.get(oldEnemyButton)["enemyData"] = newSpawnPoint
+					var newSpawnPoint = ENEMY_SPAWN_POINT.new(enemiesToSpawnNumber, spawnCooldown, newEnemyData)
+					pressedEnemy.name = str(newSpawnPoint)
 					edit_enemy_editor_mode.emit(newSpawnPoint, oldEnemy)
 					_reset_values(true)

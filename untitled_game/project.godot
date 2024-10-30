@@ -24,6 +24,7 @@ createNewScene="*res://MapEditor/create-new-scene.gd"
 TileNames="*res://MapEditor/tile_names.gd"
 FileLoader="*res://shared/file-loader.gd"
 SelectedMap="*res://MapEditor/selected-map.gd"
+JSON_FILE_FUNCTIONS="*res://shared/create-and-load-json.gd"
 
 [display]
 

@@ -17,9 +17,10 @@ var atlasCoordsString: String
 var previousTileMaps: Array
 var selectedRoom: int = 1
 var player 
+var title
 
 
-
+var enemyButtonsAndSprites = {}
 
 var tileMap: TileMap
 var floorTileMap: TileMap
@@ -53,17 +54,15 @@ func _ready():
 		_set_map_information()
 
 	
-	if get_meta_list().has("NUMBER_OF_ROOMS"): #If the room has the number of rooms meta, initialize the number of rooms in the editor, so that the correct number of buttons show at the beginning of editing
+	if get_meta_list().has("NUMBER_OF_ROOMS") and decorationEditor: #If the room has the number of rooms meta, initialize the number of rooms in the editor, so that the correct number of buttons show at the beginning of editing
 		decorationEditor.set_number_of_rooms(get_meta("NUMBER_OF_ROOMS"))
 	
-	#if has_meta("ENTITIES_TO_PLACE"):
-		#ENTITIES_TO_PLACE = get_meta("ENTITIES_TO_PLACE")
+	decorationEditor.set_up_initial_dictionay_value(enemyButtonsAndSprites)
+	decorationEditor.enemyEditor.set_up_initial_dictionay_value(enemyButtonsAndSprites)
 	
-	if get_children().size() > 1: #If the loaded tscn file already has children, and the children are TileMap's initialize the editor's tilemaps with the tscn's saved tilemaps
+	
+	if get_children().size() > 1 and decorationEditor: #If the loaded tscn file already has children, and the children are TileMap's initialize the editor's tilemaps with the tscn's saved tilemaps
 		for child in get_children():
-			#if child is TextureButton:
-				##child.pressed.connect( _on_enemy_placeholder_clicked.bind(child))
-				#print(child.get_signal_connection_list("pressed"))
 			if child is TileMap:
 				child.visible
 				var duplicate = child.duplicate()
@@ -81,59 +80,82 @@ func _ready():
 						else:
 							decorationEditor.wallTileMap = duplicate
 							wallTileMap = decorationEditor.wallTileMap
-	else:
+	elif decorationEditor:
 		floorTileMap = decorationEditor.floorTileMap
 		wallTileMap = decorationEditor.wallTileMap
 		
-		
-	tiles = decorationEditor.tiles
-	sourceIDString = decorationEditor.sourceID
-	atlasCoordsString = decorationEditor.atlasCoords
+	if decorationEditor:
+		tiles = decorationEditor.tiles
+		sourceIDString = decorationEditor.sourceID
+		atlasCoordsString = decorationEditor.atlasCoords
 	
 	tileEditorMode = "Place"
 	currentLayer = 0
+	
+	
 
-	
-	decorationEditor.editor_mode_changed.connect(_editor_mode_changed)
-	decorationEditor.mouse_in_floor_area.connect(_input_event_on_floor_area_collision)
-	decorationEditor.mouse_in_wall_area.connect(_input_event_on_wall_area_collision)
-	decorationEditor.layer_changed.connect(_layer_changed)
-	decorationEditor.tile_to_place_changed.connect(_tile_to_place_changed)
-	decorationEditor.save_button_pressed.connect(_map_is_ready_to_save)
-	decorationEditor.discard_button_pressed.connect(_discard_button_pressed)
-	decorationEditor.room_number_changed.connect(_room_number_changed)
-	decorationEditor.difficulty_selected.connect(_set_difficulty)
-	decorationEditor.set_difficulty.connect(_set_difficulty_if_not_set)
-	decorationEditor.selected_room_changed.connect(_selected_room_changed)
-	decorationEditor.room_size_set.connect(_room_size_set)
-	decorationEditor.enemy_ready_to_place.connect(_place_enemy)
-	decorationEditor.spawnpoint_ready_to_place.connect(_place_spawnpoint)
-	decorationEditor.emit_enemy.connect(_place_enemy_placeholder)
-	
-	decorationEditor.enemyEditor.edit_enemy_editor_mode.connect(_enemy_edited)
-	decorationEditor.enemyEditor.delete_enemy.connect(_enemy_delete)
+	if decorationEditor:
+		decorationEditor.editor_mode_changed.connect(_editor_mode_changed)
+		decorationEditor.mouse_in_floor_area.connect(_input_event_on_floor_area_collision)
+		decorationEditor.mouse_in_wall_area.connect(_input_event_on_wall_area_collision)
+		decorationEditor.layer_changed.connect(_layer_changed)
+		decorationEditor.tile_to_place_changed.connect(_tile_to_place_changed)
+		decorationEditor.save_button_pressed.connect(_map_is_ready_to_save)
+		decorationEditor.discard_button_pressed.connect(_discard_button_pressed)
+		decorationEditor.room_number_changed.connect(_room_number_changed)
+		decorationEditor.difficulty_selected.connect(_set_difficulty)
+		decorationEditor.set_difficulty.connect(_set_difficulty_if_not_set)
+		decorationEditor.selected_room_changed.connect(_selected_room_changed)
+		decorationEditor.room_size_set.connect(_room_size_set)
+		decorationEditor.enemy_ready_to_place.connect(_place_enemy)
+		decorationEditor.spawnpoint_ready_to_place.connect(_place_spawnpoint)
+		decorationEditor.emit_enemy.connect(_place_enemy_placeholder)
+		decorationEditor.emit_new_enemy_name.connect(_entities_dictionary_changed)
+		
+		if decorationEditor.enemyEditor:
+			decorationEditor.enemyEditor.edit_enemy_editor_mode.connect(_enemy_edited)
+			decorationEditor.enemyEditor.delete_enemy.connect(_enemy_delete)
 
 	
 	_check_room_sizes()
 	_set_difficulty_if_not_set()
-	_load_player()
-
+	ENTITIES_TO_PLACE = _load_enemies_on_ready()
+	_make_entity_buttons(ENTITIES_TO_PLACE)
 
 func _set_map_information():
-	set_meta("MAP_NAME", '')
+	set_meta("MAP_NAME", scene_file_path.split("/")[3].split(".")[0])
 	set_meta("MAP_DIFFICULTY", '')
 	set_meta("NUMBER_OF_ROOMS", 1)
 	set_meta("CREATION_DATE", Time.get_datetime_dict_from_system())
 	
-func _load_player():
-	pass
-	#player = load("res://Creatures/Player/Player.tscn").instantiate()
-	#player.visible = false
-	#add_child(player)
-
+func _load_enemies_on_ready():
+	var file = JSON_FILE_FUNCTIONS.load_json_file("res://PlayerMaps/" + scene_file_path.split("/")[3].split(".")[0] + ".json")
+	if file:
+		return JSON.parse_string(file.get_as_text())
+	else:
+		return {
+			"enemy": {},
+			"items": {}
+		}
+	
+func _make_entity_buttons(entities):
+	if entities:
+		var enemies = ENTITIES_TO_PLACE.get("enemy")
+		for key in enemies.keys():
+			if enemies.get(key).get("type") == "enemy":
+				var enemy = enemies.get(key).get("enemy_data")
+				var pos_string = enemies.get(key).get("position").replace("(","").replace(")","")
+				var pos = Vector2(float(pos_string.split(",")[0]),float(pos_string.split(",")[1]))
+				var texture = load("res://Game Assets/MapEditor/Enemy/" + enemy.enemyType + "_" + enemy.enemyVariant + ".png")
+				decorationEditor._create_placed_enemy_button(true, texture, str(key), pos)
+			else:
+				var pos_string = enemies.get(key).get("position").replace("(","").replace(")","")
+				var pos = Vector2(float(pos_string.split(",")[0]),float(pos_string.split(",")[1]))
+				var texture = load("res://Game Assets/MapEditor/spawnpoints.png")
+				decorationEditor._create_placed_enemy_button(true, texture, str(key), pos)
 
 func _input_event_on_floor_area_collision(event: InputEvent): #for when the player wants to either place or delete a tile
-	if event.is_action_pressed("room_changer_click") and selectedTileName and (currentLayer == 0 or currentLayer == 2):
+	if event.is_action_pressed("room_changer_click") and decorationEditor.isInFloorArea and selectedTileName and (currentLayer == 0 or currentLayer == 2):
 		_editing_logic(floorTileMap)
 
 
@@ -193,13 +215,16 @@ func _add_editor_nodes_to_map():
 	
 func _map_is_ready_to_save(): #Takes out the editor node, and makes the tileMaps the tscn's children
 	var rootNode = get_tree().current_scene
-	remove_child(decorationEditor)
-	set_meta("ENTITIES_TO_PLACE", ENTITIES_TO_PLACE)
-	
+	var path = "res://PlayerMaps/" + scene_file_path.split("/")[3].split(".")[0] + ".json"
+
+
 	for child in rootNode.get_children():
-		if child is TextureRect:
-			child.disconnect("pressed", decorationEditor._on_placed_enemy_or_spawnpoint_clicked)
+		if child is TextureButton:
+			remove_child(child)
 	
+	JSON_FILE_FUNCTIONS.save_json_file(path,JSON.stringify(ENTITIES_TO_PLACE))
+	remove_child(decorationEditor)
+			
 	floorTileMap = decorationEditor.floorTileMap.duplicate()
 	wallTileMap = decorationEditor.wallTileMap.duplicate()
 	
@@ -225,7 +250,7 @@ func _set_difficulty(difficulty) -> void:
 
 
 func _set_difficulty_if_not_set() -> void:
-	if not get_meta_list().has("MAP_DIFFICULTY") or not get_meta("MAP_DIFFICULTY"):
+	if not get_meta_list().has("MAP_DIFFICULTY") or not get_meta("MAP_DIFFICULTY") and decorationEditor:
 		decorationEditor.open_difficulty_dialog()
 	
 	
@@ -235,42 +260,59 @@ func _selected_room_changed(number: int):
 	
 func _room_size_set(size: String):
 	set_meta(roomSizeMetaKey + str(selectedRoom), size)
-	decorationEditor.is_room_size_set.emit(selectedRoom, size)
+	if decorationEditor:
+		decorationEditor.is_room_size_set.emit(selectedRoom, size)
 	
 	
 func _check_room_sizes():
 	for meta in get_meta_list():
-		if meta.begins_with(roomSizeMetaKey):
+		if meta.begins_with(roomSizeMetaKey) and decorationEditor:
 			decorationEditor.is_room_size_set.emit(int(meta.get_slice("_", 3)), get_meta(meta))
 
 
-func _place_enemy(enemy, event):
-	if event.is_action_pressed("room_changer_click") and enemy:
-		var globPosition = get_global_mouse_position()
-		ENTITIES_TO_PLACE.get("enemy")[enemy] = globPosition
+func _place_enemy(enemy, event, sprite):
+	var globPosition = get_global_mouse_position()
+	ENTITIES_TO_PLACE.get("enemy")[str(enemy)] = {}
+	ENTITIES_TO_PLACE.get("enemy")[str(enemy)]["enemy_data"] = enemy.return_dictionary()
+	ENTITIES_TO_PLACE.get("enemy")[str(enemy)]["position"] = globPosition
+	ENTITIES_TO_PLACE.get("enemy")[str(enemy)]["type"] = "enemy"
 
 
 func _enemy_edited(newEnemy, oldEnemy):
-	var enemyPos = ENTITIES_TO_PLACE.get("enemy").get(oldEnemy)
-	ENTITIES_TO_PLACE.get("enemy").erase(oldEnemy)
-	ENTITIES_TO_PLACE.get("enemy")[newEnemy] = enemyPos
+	print("new enemy : ", newEnemy)
+	var enemyPos = ENTITIES_TO_PLACE.get("enemy").get(str(oldEnemy)).get("position")
+	ENTITIES_TO_PLACE.get("enemy").erase(str(oldEnemy))
+	ENTITIES_TO_PLACE.get("enemy")[str(newEnemy)] = {}
+	ENTITIES_TO_PLACE.get("enemy")[str(newEnemy)]["enemy_data"] = newEnemy.return_dictionary()
+	ENTITIES_TO_PLACE.get("enemy")[str(newEnemy)]["position"] = enemyPos
+	
+	if newEnemy is Marker2D:
+		ENTITIES_TO_PLACE.get("enemy")[str(newEnemy)]["type"] = "spawnpoint"
+	else:
+		ENTITIES_TO_PLACE.get("enemy")[str(newEnemy)]["type"] = "enemy"
 	
 	
 func _enemy_delete(oldEnemy, oldEnemyButton):
 	ENTITIES_TO_PLACE.get("enemy").erase(oldEnemyButton)
 	
 
-func _place_spawnpoint(spawnpoint, event):
-	if spawnpoint:
-		var globPosition = get_global_mouse_position()
-		ENTITIES_TO_PLACE.get("enemy")[spawnpoint] = globPosition
-		
+func _place_spawnpoint(spawnpoint, event, sprite):
+	var globPosition = get_global_mouse_position()
+	ENTITIES_TO_PLACE.get("enemy")[str(spawnpoint)] = {}
+	ENTITIES_TO_PLACE.get("enemy")[str(spawnpoint)] = spawnpoint.return_dictionary()
+	ENTITIES_TO_PLACE.get("enemy")[str(spawnpoint)]["position"] = globPosition
+	ENTITIES_TO_PLACE.get("enemy")[str(spawnpoint)]["type"] = "spawnpoint"
+
+
+
 func _place_enemy_placeholder(enemyPlaceholder):
 	add_child(enemyPlaceholder)
-	enemyPlaceholder.set_owner(self)
+
 	
-func _on_enemy_placeholder_clicked(button):
-	on_load_connect_enemy.emit(button, ENTITIES_TO_PLACE)
+func _entities_dictionary_changed(oldEnemyName, newEnemyName):
+	var oldData = ENTITIES_TO_PLACE.get("enemy")[str(oldEnemyName)]
+	ENTITIES_TO_PLACE.get("enemy").erase(str(oldEnemyName))
+	ENTITIES_TO_PLACE.get("enemy")[str(newEnemyName)] = oldData
 
 
 

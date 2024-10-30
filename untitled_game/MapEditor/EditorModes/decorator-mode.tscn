@@ -212,6 +212,8 @@ texture = ExtResource("15_u5h8u")
 texture = ExtResource("15_u5h8u")
 
 [node name="Decorator-mode" type="Node2D"]
+show_behind_parent = true
+z_index = -1
 script = ExtResource("1_exevj")
 
 [node name="WallTileMap" type="TileMap" parent="."]
@@ -240,8 +242,7 @@ format = 2
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+mouse_filter = 1
 
 [node name="Area2D" type="Area2D" parent="Control"]
 position = Vector2(554, 330)
@@ -692,13 +693,18 @@ theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
 theme_override_fonts/font = ExtResource("3_0c21j")
 theme_override_font_sizes/font_size = 32
 
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-
-[node name="EnemyAndLogicEditor" parent="." instance=ExtResource("17_y8j08")]
+[node name="Enemy-and-logic-editor" parent="Control" instance=ExtResource("17_y8j08")]
 visible = false
 
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
 [connection signal="input_event" from="Control/Area2D" to="." method="_on_floor_area_detector_input_event"]
+[connection signal="mouse_exited" from="Control/Area2D" to="." method="_on_floor_area_mouse_exited"]
 [connection signal="input_event" from="Control/WallAreaDetector" to="." method="_on_wall_area_detector_input_event"]
 [connection signal="pressed" from="Control/MenuBar/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/DiscardButton" to="." method="_on_discard_button_pressed"]

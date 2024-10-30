@@ -16,15 +16,30 @@ var player
 
 @onready var node = get_node(".")
 
-func _init(_numberOfEnemiesToSpawn: int, _timerSpeed: int, _enemyData: ENEMY_DATA, _map: Node2D):
+func _init(_numberOfEnemiesToSpawn: int, _timerSpeed: int, _enemyData: ENEMY_DATA, ):
 	numberOfEnemiesToSpawn = _numberOfEnemiesToSpawn
 	timerSpeed = _timerSpeed
 	enemyData = _enemyData
-	map = _map
+	
+func return_dictionary():
+	return {
+		"numberOfEnemiesToSpawn": numberOfEnemiesToSpawn,
+		"timerSpeed": timerSpeed,
+		"enemyData": {
+			"speed": enemyData.speed,
+			"enemyType": enemyData.enemyType,
+			"enemyVariant": enemyData.enemyVariant,
+			"enemyAttackType": enemyData.enemyAttackType,
+			"enemyShootTime": enemyData.enemyShootTime,
+			"enemyDifficulty": enemyData.enemyDifficulty,
+			"healthPoints": enemyData.healthPoints,
+			"attackPoints": enemyData.attackPoints
+			},
+	}
 
-func _on_timer_timeout():
-	spawn_monsters(map) 
-		
+#func _on_timer_timeout():
+	#spawn_monsters(map) 
+		#
 func spawn_monsters(r):
 	var randomNumberOfEnemies = 1#randi_range(1,2) #the 3 will need to be changed to maxenemies when making different levels of maps and for the editor mode.
 	for i in range(randomNumberOfEnemies):

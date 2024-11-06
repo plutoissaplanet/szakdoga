@@ -5,7 +5,7 @@ signal ok_button_pressed()
 signal confirmation_cancelled()
 
 func set_label_text(text: String) -> void:
-	$Title.text = text
+	$CanvasLayer/Title.text = text
 
 func _on_ok_button_pressed():
 	ok_button_pressed.emit()

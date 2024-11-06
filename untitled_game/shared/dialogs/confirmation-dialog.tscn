@@ -234,12 +234,14 @@ sources/1 = SubResource("TileSetAtlasSource_nfetd")
 process_mode = 3
 script = ExtResource("1_xer16")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TileMap" type="TileMap" parent="CanvasLayer"]
 tile_set = SubResource("TileSet_gvirf")
 format = 2
 layer_0/tile_data = PackedInt32Array(1, 1, 0, 2, 65537, 0, 3, 1, 0, 4, 65537, 0, 5, 1, 0, 6, 65537, 0, 7, 1, 0, 8, 65537, 0, 9, 1, 0, 10, 65537, 0, 11, 1, 0, 13, 1, 0, 14, 65537, 0, 12, 65537, 0, 15, 1, 0, 16, 65537, 0, 196607, 1, 1610612736, 262143, 65537, 1610612736, 327679, 1, 1610612736, 393215, 65537, 1610612736, 458751, 1, 1610612736, 524287, 65537, 1610612736, 589823, 1, 1610612736, 655359, 65537, 1610612736, 17, 1, 0, 0, 65537, 0, 65535, 65537, 1610612736, 786431, 65537, 1610612736, 720895, 1, 1610612736, 131071, 1, 1610612736, 20, 1, 1342177280, 65556, 65537, 1342177280, 131092, 65537, 1342177280, 196628, 1, 1342177280, 262164, 65537, 1342177280, 327700, 1, 1342177280, 393236, 65537, 1342177280, 458772, 1, 1342177280, 524308, 65537, 1342177280, 589844, 1, 1342177280, 655380, 65537, 1342177280, 720916, 1, 1342177280, 18, 65537, 0, 19, 1, 0, 786432, 1, 805306368, 786433, 1, 805306368, 786434, 65537, 805306368, 786435, 1, 805306368, 786436, 65537, 805306368, 786437, 1, 805306368, 786438, 65537, 805306368, 786439, 1, 805306368, 786440, 65537, 805306368, 786441, 1, 805306368, 786442, 65537, 805306368, 786443, 1, 805306368, 786444, 65537, 805306368, 786445, 1, 805306368, 786446, 65537, 805306368, 786447, 1, 805306368, 786448, 65537, 805306368, 786449, 1, 805306368, 786450, 65537, 805306368, 786451, 1, 805306368, 786452, 65537, 1342177280, 851967, 1, 1610612736)
 
-[node name="Background" type="TextureRect" parent="TileMap"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/TileMap"]
 show_behind_parent = true
 offset_left = -7.0
 offset_top = 8.0
@@ -249,7 +251,7 @@ texture = ExtResource("3_hd62k")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="CanvasLayer"]
 offset_left = 23.0
 offset_top = 29.0
 offset_right = 286.0
@@ -260,7 +262,7 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
 offset_left = 94.0
 offset_top = 141.0
 offset_right = 225.0
@@ -269,7 +271,7 @@ texture_normal = ExtResource("4_7kwe3")
 texture_pressed = ExtResource("5_61mwr")
 stretch_mode = 0
 
-[node name="OkButton" type="Label" parent="TextureButton"]
+[node name="OkButton" type="Label" parent="CanvasLayer/TextureButton"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.382
@@ -284,12 +286,12 @@ theme_override_fonts/font = ExtResource("6_216u7")
 theme_override_font_sizes/font_size = 25
 text = "Ok"
 
-[node name="Exit" type="TextureButton" parent="."]
+[node name="Exit" type="TextureButton" parent="CanvasLayer"]
 offset_left = 293.0
 offset_top = 17.0
 offset_right = 320.0
 offset_bottom = 44.0
 texture_normal = ExtResource("7_igert")
 
-[connection signal="pressed" from="TextureButton" to="." method="_on_ok_button_pressed"]
-[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Exit" to="." method="_on_exit_pressed"]

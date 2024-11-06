@@ -1,11 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://wb843brcr06o"]
+[gd_scene load_steps=39 format=3 uid="uid://wb843brcr06o"]
 
 [ext_resource type="Script" path="res://MapEditor/EditorModes/decorator-mode.gd" id="1_exevj"]
 [ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="2_mj8dh"]
-[ext_resource type="TileSet" uid="uid://dv8jnbvavtrqt" path="res://MapEditor/Requirements/wall_tile_set.tres" id="2_wrwp1"]
 [ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_0c21j"]
-[ext_resource type="TileSet" uid="uid://dq6smg8duygmt" path="res://MapEditor/Requirements/floor-tile-set.tres" id="3_3fm5y"]
-[ext_resource type="TileSet" uid="uid://b7ugw6a6tsnfm" path="res://MapEditor/Requirements/boundary-tile-set.tres" id="4_0sdb1"]
+[ext_resource type="Texture2D" uid="uid://f62xlblqt43g" path="res://Game Assets/Home/walls.png" id="3_op4d7"]
+[ext_resource type="Texture2D" uid="uid://baaw238fe3kws" path="res://Game Assets/Home/Flooring.png" id="4_kolun"]
+[ext_resource type="Texture2D" uid="uid://dtelftkc0r80m" path="res://Game Assets/MapEditor/map_separator.png" id="5_avbn2"]
+[ext_resource type="Texture2D" uid="uid://clff1w4x8yhfq" path="res://Game Assets/Home/TopDownHouse_FurnitureState1.png" id="5_i3jbb"]
 [ext_resource type="Texture2D" uid="uid://c7ihulgcsf6k4" path="res://Game Assets/GUI/backdrop.png" id="8_wklju"]
 [ext_resource type="Texture2D" uid="uid://bckjurq5yr6w" path="res://Game Assets/GUI/Buttons/Button1.png" id="9_0ft5m"]
 [ext_resource type="Texture2D" uid="uid://wu7wcjl8r41l" path="res://Game Assets/MapEditor/Icons/eraser.png" id="9_0oamb"]
@@ -17,6 +18,170 @@
 [ext_resource type="Texture2D" uid="uid://qtp5jl15i4wo" path="res://Game Assets/GUI/Buttons/Button2.png" id="15_u5h8u"]
 [ext_resource type="PackedScene" uid="uid://tv6xl43fjll0" path="res://MapEditor/EditorModes/enemy-and-logic-editor.tscn" id="17_y8j08"]
 [ext_resource type="PackedScene" uid="uid://bybhdom2ygbhs" path="res://MapEditor/EditorModes/logic-editor.tscn" id="18_v5tbh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by8ik"]
+texture = ExtResource("3_op4d7")
+separation = Vector2i(1, 0)
+texture_region_size = Vector2i(32, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_kervl"]
+tile_size = Vector2i(32, 64)
+sources/1 = SubResource("TileSetAtlasSource_by8ik")
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_uu30p"]
+tile_data = PackedInt32Array(0, 655360, 6, 65536, 655360, 6, 1, 720896, 6, 65537, 720896, 6)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_dj7xb"]
+tile_data = PackedInt32Array(0, 393216, 6, 65536, 393216, 6, 1, 458752, 6, 65537, 458752, 6)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_84b8d"]
+texture = ExtResource("4_kolun")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/size_in_atlas = Vector2i(2, 2)
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+9:0/size_in_atlas = Vector2i(2, 2)
+9:0/0 = 0
+9:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:0/0/physics_layer_0/angular_velocity = 0.0
+13:0/size_in_atlas = Vector2i(2, 2)
+13:0/0 = 0
+13:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+13:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jbx8d"]
+texture = ExtResource("5_i3jbb")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/size_in_atlas = Vector2i(1, 2)
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/size_in_atlas = Vector2i(1, 2)
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/size_in_atlas = Vector2i(1, 2)
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/size_in_atlas = Vector2i(1, 2)
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+6:0/size_in_atlas = Vector2i(1, 2)
+6:0/0 = 0
+6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:0/0/physics_layer_0/angular_velocity = 0.0
+7:0/size_in_atlas = Vector2i(1, 2)
+7:0/0 = 0
+7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:0/0/physics_layer_0/angular_velocity = 0.0
+8:0/size_in_atlas = Vector2i(1, 2)
+8:0/0 = 0
+8:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:0/0/physics_layer_0/angular_velocity = 0.0
+9:0/size_in_atlas = Vector2i(1, 2)
+9:0/0 = 0
+9:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+9:0/0/physics_layer_0/angular_velocity = 0.0
+10:0/size_in_atlas = Vector2i(1, 2)
+10:0/0 = 0
+10:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+10:0/0/physics_layer_0/angular_velocity = 0.0
+11:0/size_in_atlas = Vector2i(1, 2)
+11:0/0 = 0
+11:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:0/0/physics_layer_0/angular_velocity = 0.0
+12:0/size_in_atlas = Vector2i(1, 2)
+12:0/0 = 0
+12:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+12:0/0/physics_layer_0/angular_velocity = 0.0
+0:2/size_in_atlas = Vector2i(3, 2)
+0:2/0 = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/size_in_atlas = Vector2i(2, 2)
+3:2/0 = 0
+3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_0/angular_velocity = 0.0
+5:2/size_in_atlas = Vector2i(2, 2)
+5:2/0 = 0
+5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:2/0/physics_layer_0/angular_velocity = 0.0
+7:2/size_in_atlas = Vector2i(1, 2)
+7:2/0 = 0
+7:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:2/0/physics_layer_0/angular_velocity = 0.0
+8:2/size_in_atlas = Vector2i(2, 1)
+8:2/0 = 0
+8:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:2/0/physics_layer_0/angular_velocity = 0.0
+8:3/size_in_atlas = Vector2i(2, 1)
+8:3/0 = 0
+8:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:3/0/physics_layer_0/angular_velocity = 0.0
+10:2/size_in_atlas = Vector2i(3, 2)
+10:2/0 = 0
+10:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+10:2/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_awunu"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_84b8d")
+sources/1 = SubResource("TileSetAtlasSource_jbx8d")
+pattern_0 = SubResource("TileMapPattern_uu30p")
+pattern_1 = SubResource("TileMapPattern_dj7xb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4axn1"]
+texture = ExtResource("5_avbn2")
+texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 4
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 14.375, 16, 13.0625, -16, 13, -16, 14.375)
+0:0/1 = 1
+0:0/1/transpose = true
+0:0/1/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/1/physics_layer_0/angular_velocity = 0.0
+0:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(14.0166, -16, 13.8591, 16, 12.7567, 16, 12.8163, -16)
+0:0/2 = 2
+0:0/2/flip_h = true
+0:0/2/transpose = true
+0:0/2/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/2/physics_layer_0/angular_velocity = 0.0
+0:0/2/physics_layer_0/polygon_0/points = PackedVector2Array(-12.8976, 16, -14.2866, 16, -14.1874, -16, -12.7984, -16)
+0:0/3 = 3
+0:0/3/flip_v = true
+0:0/3/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/3/physics_layer_0/angular_velocity = 0.0
+0:0/3/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -16, 16, -14.625, -16, -14.875)
+
+[sub_resource type="TileSet" id="TileSet_gmrco"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/2 = SubResource("TileSetAtlasSource_4axn1")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_js7sj"]
+size = Vector2(640, 288)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4c55"]
+size = Vector2(640, 64)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jqvq7"]
 texture = ExtResource("2_mj8dh")
@@ -53,13 +218,13 @@ script = ExtResource("1_exevj")
 
 [node name="WallTileMap" type="TileMap" parent="."]
 position = Vector2(234, 122)
-tile_set = ExtResource("2_wrwp1")
+tile_set = SubResource("TileSet_kervl")
 format = 2
 layer_1/tile_data = PackedInt32Array()
 
 [node name="FloorTileMap" type="TileMap" parent="."]
 position = Vector2(234, 186)
-tile_set = ExtResource("3_3fm5y")
+tile_set = SubResource("TileSet_awunu")
 navigation_visibility_mode = 1
 format = 2
 layer_0/name = "Floor"
@@ -71,13 +236,27 @@ layer_2/tile_data = PackedInt32Array()
 
 [node name="MapBoundary" type="TileMap" parent="."]
 position = Vector2(234, 186)
-tile_set = ExtResource("4_0sdb1")
+tile_set = SubResource("TileSet_gmrco")
 format = 2
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 1
+
+[node name="Area2D" type="Area2D" parent="Control"]
+position = Vector2(554, 330)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Area2D"]
+shape = SubResource("RectangleShape2D_js7sj")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="WallAreaDetector" type="Area2D" parent="Control"]
+position = Vector2(554, 154)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/WallAreaDetector"]
+modulate = Color(0.466667, 0.866667, 0.403922, 1)
+shape = SubResource("RectangleShape2D_e4c55")
 
 [node name="Requirements" type="TextureRect" parent="Control"]
 modulate = Color(1, 1, 1, 0.239216)
@@ -522,6 +701,9 @@ visible = false
 
 [node name="Enemy-and-logic-editor" parent="." instance=ExtResource("17_y8j08")]
 
+[connection signal="input_event" from="Control/Area2D" to="." method="_on_floor_area_detector_input_event"]
+[connection signal="mouse_exited" from="Control/Area2D" to="." method="_on_floor_area_mouse_exited"]
+[connection signal="input_event" from="Control/WallAreaDetector" to="." method="_on_wall_area_detector_input_event"]
 [connection signal="pressed" from="Control/MenuBar/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/DiscardButton" to="." method="_on_discard_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/LogicMode" to="." method="_on_logic_mode_pressed"]

@@ -253,18 +253,19 @@ process_mode = 3
 position = Vector2(445, 212)
 script = ExtResource("1_bvorr")
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
 z_index = 1
-offset_left = 88.0
-offset_top = 248.0
-offset_right = 224.0
-offset_bottom = 296.0
+offset_left = 533.0
+offset_top = 460.0
+offset_right = 669.0
+offset_bottom = 508.0
 texture_normal = ExtResource("1_l2aem")
 texture_pressed = ExtResource("2_8vphv")
 stretch_mode = 0
-metadata/_edit_use_anchors_ = true
 
-[node name="ButtonLabel" type="Label" parent="TextureButton"]
+[node name="ButtonLabel" type="Label" parent="CanvasLayer/TextureButton"]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 3.0
@@ -275,87 +276,82 @@ theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("4_s148r")
 theme_override_font_sizes/font_size = 30
 text = "Submit"
-metadata/_edit_use_anchors_ = true
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="CanvasLayer"]
 z_index = 3
-offset_left = 47.0
-offset_top = 20.0
-offset_right = 267.0
-offset_bottom = 80.0
+offset_left = 492.0
+offset_top = 232.0
+offset_right = 712.0
+offset_bottom = 292.0
 theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("4_s148r")
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer"]
 process_mode = 3
 z_index = 1
-offset_left = 67.0
-offset_top = 96.0
-offset_right = 247.0
-offset_bottom = 140.0
+offset_left = 512.0
+offset_top = 308.0
+offset_right = 692.0
+offset_bottom = 352.0
 theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("4_s148r")
 theme_override_styles/normal = SubResource("StyleBoxTexture_40ior")
 max_length = 30
-metadata/_edit_use_anchors_ = true
 
-[node name="ErrorLabel" type="Label" parent="."]
+[node name="ErrorLabel" type="Label" parent="CanvasLayer"]
 z_index = 3
-offset_left = 66.0
-offset_top = 147.0
-offset_right = 246.0
-offset_bottom = 187.0
+offset_left = 511.0
+offset_top = 359.0
+offset_right = 691.0
+offset_bottom = 399.0
 theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("4_s148r")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="TextureButton2" type="TextureButton" parent="."]
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer"]
 z_index = 3
-offset_left = 3.0
-offset_top = 18.0
-offset_right = 26.0
-offset_bottom = 41.0
+offset_left = 448.0
+offset_top = 230.0
+offset_right = 471.0
+offset_bottom = 253.0
 theme = SubResource("Theme_jbf3v")
 texture_normal = ExtResource("8_dtklu")
 ignore_texture_size = true
 stretch_mode = 0
-metadata/_edit_use_anchors_ = true
 
-[node name="OptionButton" type="OptionButton" parent="."]
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer"]
 visible = false
 z_index = 3
-offset_left = 67.0
-offset_top = 99.0
-offset_right = 247.0
-offset_bottom = 134.0
+offset_left = 512.0
+offset_top = 311.0
+offset_right = 692.0
+offset_bottom = 346.0
 theme_override_styles/focus = SubResource("StyleBoxTexture_8y2xj")
 theme_override_styles/normal = SubResource("StyleBoxTexture_3a3bk")
 theme_override_styles/hover = SubResource("StyleBoxTexture_56apa")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_kguxj")
 
-[node name="TileMap2" type="TileMap" parent="."]
+[node name="TileMap2" type="TileMap" parent="CanvasLayer"]
+position = Vector2(445, 212)
 tile_set = SubResource("TileSet_5rgdg")
 format = 2
 layer_0/tile_data = PackedInt32Array(1, 65536, 0, 2, 0, 0, 3, 65536, 0, 4, 0, 0, 5, 65536, 0, 6, 0, 0, 7, 65536, 0, 8, 0, 0, 9, 65536, 0, 10, 0, 0, 11, 65536, 0, 13, 65536, 0, 14, 0, 0, 12, 0, 0, 15, 65536, 0, 16, 0, 0, 196607, 65536, 1610612736, 262143, 0, 1610612736, 327679, 65536, 1610612736, 393215, 0, 1610612736, 458751, 65536, 1610612736, 524287, 65536, 1610612736, 589823, 65536, 1610612736, 655359, 0, 1610612736, 17, 0, 0, 0, 65536, 0, 65535, 65536, 1610612736, 786431, 0, 1610612736, 720895, 65536, 1610612736, 131071, 0, 1610612736, 20, 65536, 0, 65556, 0, 1342177280, 131092, 65536, 1342177280, 196628, 65536, 1342177280, 262164, 0, 1342177280, 327700, 65536, 1342177280, 393236, 0, 1342177280, 458772, 65536, 1342177280, 524308, 0, 1342177280, 589844, 65536, 1342177280, 655380, 0, 1342177280, 720916, 65536, 1342177280, 18, 0, 0, 19, 65536, 0, 786432, 0, 805306368, 786433, 65536, 805306368, 786434, 0, 805306368, 786435, 65536, 805306368, 786436, 0, 805306368, 786437, 65536, 805306368, 786438, 0, 805306368, 786439, 65536, 805306368, 786440, 0, 805306368, 786441, 65536, 805306368, 786442, 0, 805306368, 786443, 65536, 805306368, 786444, 0, 805306368, 786445, 65536, 805306368, 786446, 0, 805306368, 786447, 65536, 805306368, 786448, 65536, 805306368, 786449, 0, 805306368, 786450, 65536, 805306368, 786451, 0, 805306368, 786452, 0, 1342177280, 851967, 0, 1610612736)
 
-[node name="TextureRect" type="TextureRect" parent="TileMap2"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/TileMap2"]
 show_behind_parent = true
-offset_left = -379.0
-offset_top = -116.0
-offset_right = -49.0
-offset_bottom = 74.0
+offset_top = 8.0
+offset_right = 330.0
+offset_bottom = 198.0
+mouse_filter = 2
 texture = ExtResource("5_kq5lc")
 expand_mode = 1
-metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="TextureButton" to="." method="_on_submit_button_pressed"]
-[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]
-[connection signal="pressed" from="TextureButton2" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_on_submit_button_pressed"]
+[connection signal="text_changed" from="CanvasLayer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/TextureButton2" to="." method="_on_back_button_pressed"]

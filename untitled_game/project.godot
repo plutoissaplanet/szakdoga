@@ -21,14 +21,13 @@ nodes="*res://nodes.gd"
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 UserData="*res://Config Files/user_data.gd"
 createNewScene="*res://MapEditor/create-new-scene.gd"
-TileNames="*res://MapEditor/tile_names.gd"
+TileNames="*res://MapEditor/Requirements/tile_names.gd"
 FileLoader="*res://shared/file-loader.gd"
-SelectedMap="*res://MapEditor/selected-map.gd"
+SelectedMap="*res://MapEditor/Requirements/selected-map.gd"
 JSON_FILE_FUNCTIONS="*res://shared/create-and-load-json.gd"
 
 [display]
 
-window/size/mode=3
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
@@ -42,7 +41,8 @@ folder_colors={
 "res://Creatures/Monsters/": "red",
 "res://Creatures/Player/": "blue",
 "res://Game Assets/MapEditor/Enemy/": "red",
-"res://MapEditor/": "pink"
+"res://MapEditor/": "pink",
+"res://PlayerMaps/": "green"
 }
 
 [input]

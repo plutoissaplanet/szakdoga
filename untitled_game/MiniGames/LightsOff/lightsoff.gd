@@ -5,18 +5,15 @@ extends Node2D
 @onready var lightson_texture=load("res://Game Assets/Minigames/LightsOff/lightsoff_on.png")
 @onready var lightsoff_texture=load("res://Game Assets/Minigames/LightsOff/lightsoff_off-removebg-preview.png")
 
-# Called when the node enters the scene tree for the first time.
+signal minigame_completed
+
+
+
 func _ready():
 	rect_array = node.get_children()
-	print(rect_array)
-	
 	random_on_lights(rect_array)
 	connect_rect(rect_array)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 
 func random_on_lights(array):
@@ -38,9 +35,9 @@ func random_on_lights(array):
 
 func connect_rect(array):
 	for rect in array:
-		rect.gui_input.connect(onclick.bind(rect))
+		rect.gui_input.connect(on_click.bind(rect))
 
-func onclick(event, rect):
+func on_click(event, rect):
 	if Input.is_action_pressed("room_changer_click"):
 		gameplay(rect_array,rect)
 
@@ -94,4 +91,14 @@ func clicked_rect(rect_array,i):
 		rect_array[i].texture=lightson_texture
 	else:
 		rect_array[i].texture=lightsoff_texture
+	
+	var completed = false
+	for rect in rect_array:
+		if rect.texture == lightson_texture:
+			completed = true
+		else:
+			completed = false
+			
+	if completed:
+		minigame_completed.emit()
 	

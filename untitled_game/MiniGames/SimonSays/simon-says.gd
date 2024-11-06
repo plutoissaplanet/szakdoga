@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var numberOfLights: int #possible numbers: 3,4,6
-@export var difficultyLevel: String
+var difficulty: String
 @export var difficultySettings = {
 	'easy': 4,
 	'medium': 6,
@@ -20,14 +20,15 @@ var playerSequence = []
 var currentSequenceIndex = 0
 var currentSequenceLightIndex = 0
 
+signal minigame_completed
+
 func _ready():
 	_load_all_lights_on_textures()
 	numberOfLights = 3
 	_add_texture_rects_to_scene()
-	difficultyLevel = 'easy'
-	_generate_sequence(difficultyLevel)
+	_generate_sequence(difficulty)
 	currentSequence = solution[currentSequenceIndex]
-	_assign_colors_to_lights(difficultyLevel)
+	_assign_colors_to_lights(difficulty)
 	$Timer.start()
 
 	
@@ -70,16 +71,14 @@ func _generate_sequence(difficulty: String):
 			temporarySegment.append(lightSequenceNumber)
 			solution.append(temporarySegment)
 		
-	print(solution)
 	
 func _assign_colors_to_lights(difficulty: String):
 	var colors = ['blue', 'green', 'orange', 'purple', 'red', 'yellow']
-	print("colors,", colors.size())
 	for i in range(numberOfLights):
 		var randomColor = randi_range(0,lightsOnTextures.size()-2)
 		solutionTextures[i] = colors[randomColor]
 		colors.remove_at(randomColor)
-	print(solutionTextures)
+		
 
 func _light_up_pattern_sequence(sequence: Array, index: int):
 	var currentColor = solutionTextures.get(sequence[index])
@@ -95,8 +94,6 @@ func clicked_on_a_light(event, light):
 			_validate_player_input()
 
 func _validate_player_input():
-	print(playerSequence)
-	print(currentSequence)
 	if playerSequence == currentSequence:
 		currentSequenceIndex +=1
 		if currentSequenceIndex < solution.size():
@@ -106,7 +103,7 @@ func _validate_player_input():
 			patternPhase = false
 		else:
 			$Timer.stop()
-			print("sequence ended")
+			minigame_completed.emit()
 	else:
 		print("wrong sequence")
 	

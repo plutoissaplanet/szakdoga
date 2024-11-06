@@ -1,0 +1,19 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dv8jnbvavtrqt"]
+
+[ext_resource type="Texture2D" uid="uid://f62xlblqt43g" path="res://Game Assets/Home/walls.png" id="1_t8ue1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by8ik"]
+texture = ExtResource("1_t8ue1")
+separation = Vector2i(1, 0)
+texture_region_size = Vector2i(32, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 64)
+sources/1 = SubResource("TileSetAtlasSource_by8ik")

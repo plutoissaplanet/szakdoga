@@ -27,7 +27,8 @@ var difficultySetting: Dictionary = {
 	'hard': Vector2(6,6)
 }
 
-@export var difficulty: String
+var difficulty: String
+signal minigame_completed
 
 func _ready():
 	difficulty = 'easy'
@@ -37,7 +38,6 @@ func _ready():
 	pictureFrame.visible = false
 	add_child(pictureFrame)
 	_sizing_and_positioning()
-	print(scaling)
 	_define_puzzle_pieces()
 	_deep_copy_puzzle_piece_dictionary()
 	_select_random_puzzle_pieces()
@@ -188,7 +188,6 @@ func _make_piece_after_pickup(positionOfThePiece, texture):
 	newPiece.gui_input.connect(_out_of_order_piece_on_click.bind(newPiece))
 	var area = _make_areas()
 	newPiece.add_child(area )
-	print(newPiece.scale)
 	add_child(newPiece)
 	return newPiece
 	
@@ -212,10 +211,8 @@ func _deep_copy_puzzle_piece_dictionary():
 		
 
 func _verify_player_sequence():
-	print( "outOfOrderPuzzlePieces2", outOfOrderPuzzlePieces2)
-	print("playerSequence", playerSequence)
 	if(playerSequence == outOfOrderPuzzlePieces2):
-		print("success")
+		minigame_completed.emit()
 	else:
 		print("failed")
 	

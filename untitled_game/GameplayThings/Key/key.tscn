@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://1sy0wk3ftaqm"]
+
+[ext_resource type="Script" path="res://GameplayThings/Key/key.gd" id="1_53e6e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_43d5k"]
+radius = 25.02
+
+[node name="Key" type="Node2D"]
+position = Vector2(1, 1)
+script = ExtResource("1_53e6e")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_43d5k")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = -14.0
+offset_top = -14.0
+offset_right = 14.0
+offset_bottom = 15.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

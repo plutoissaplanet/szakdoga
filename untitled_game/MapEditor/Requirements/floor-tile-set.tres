@@ -1,9 +1,7 @@
-[gd_scene load_steps=12 format=3]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://dq6smg8duygmt"]
 
-[ext_resource type="Script" path="res://MapEditor/map-editor.gd" id="1_ui34m"]
-[ext_resource type="Texture2D" path="res://Game Assets/Home/Flooring.png" id="2_224lg"]
-[ext_resource type="Texture2D" path="res://Game Assets/Home/TopDownHouse_FurnitureState1.png" id="3_1k548"]
-[ext_resource type="Texture2D" path="res://Game Assets/Home/walls.png" id="4_fmjfp"]
+[ext_resource type="Texture2D" uid="uid://baaw238fe3kws" path="res://Game Assets/Home/Flooring.png" id="1_8hwq2"]
+[ext_resource type="Texture2D" uid="uid://clff1w4x8yhfq" path="res://Game Assets/Home/TopDownHouse_FurnitureState1.png" id="2_wfv1d"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_uu30p"]
 tile_data = PackedInt32Array(0, 655360, 6, 65536, 655360, 6, 1, 720896, 6, 65537, 720896, 6)
@@ -12,7 +10,7 @@ tile_data = PackedInt32Array(0, 655360, 6, 65536, 655360, 6, 1, 720896, 6, 65537
 tile_data = PackedInt32Array(0, 393216, 6, 65536, 393216, 6, 1, 458752, 6, 65537, 458752, 6)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_84b8d"]
-texture = ExtResource("2_224lg")
+texture = ExtResource("1_8hwq2")
 0:0/size_in_atlas = Vector2i(2, 2)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -31,7 +29,7 @@ texture = ExtResource("2_224lg")
 13:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jbx8d"]
-texture = ExtResource("3_1k548")
+texture = ExtResource("2_wfv1d")
 0:0/size_in_atlas = Vector2i(2, 2)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -109,61 +107,10 @@ texture = ExtResource("3_1k548")
 10:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 10:2/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="TileSet" id="TileSet_awunu"]
+[resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_84b8d")
 sources/1 = SubResource("TileSetAtlasSource_jbx8d")
 pattern_0 = SubResource("TileMapPattern_uu30p")
 pattern_1 = SubResource("TileMapPattern_dj7xb")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by8ik"]
-texture = ExtResource("4_fmjfp")
-separation = Vector2i(1, 0)
-texture_region_size = Vector2i(32, 64)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-6:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_kervl"]
-tile_size = Vector2i(32, 64)
-sources/1 = SubResource("TileSetAtlasSource_by8ik")
-
-[node name="@Node2D@148" type="Node2D"]
-script = ExtResource("1_ui34m")
-metadata/MAP_NAME = "asdasd"
-metadata/MAP_DIFFICULTY = "easy"
-metadata/NUMBER_OF_ROOMS = 1
-metadata/CREATION_DATE = {
-"day": 30,
-"dst": false,
-"hour": 16,
-"minute": 18,
-"month": 10,
-"second": 14,
-"weekday": 3,
-"year": 2024
-}
-metadata/ROOM_SIZE_NUMBER_1 = "small"
-
-[node name="FloorTileMap" type="TileMap" parent="."]
-position = Vector2(234, 186)
-tile_set = SubResource("TileSet_awunu")
-navigation_visibility_mode = 1
-format = 2
-layer_0/name = "Floor"
-layer_1/name = "Wall"
-layer_1/z_index = 1
-layer_1/tile_data = PackedInt32Array()
-layer_2/name = "Furniture"
-layer_2/tile_data = PackedInt32Array()
-
-[node name="WallTileMap" type="TileMap" parent="."]
-position = Vector2(234, 122)
-tile_set = SubResource("TileSet_kervl")
-format = 2
-layer_1/tile_data = PackedInt32Array()

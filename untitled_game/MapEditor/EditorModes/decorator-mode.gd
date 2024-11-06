@@ -10,7 +10,9 @@ const tileSize = Vector2i(32,32)
 const chosenSizeLabelPosition = Vector2i(453, 512)
 const floorGridPositionOffset = Vector2i(234, 186)
 const wallGridPositionOffset = Vector2i(234, 122)
-var isInFloorArea: bool = false
+
+
+
 
 
 const possibleLayerIDs = { #The possible layers
@@ -177,8 +179,6 @@ var loadedFloors = {}
 var loadedWalls = {}
 var loadedDecor = {}
 var buttonsAndTheirTextures = {}
-var floorArea: Area2D
-var wallArea: Area2D
 var roomSize: Vector2i
 var roomSizeString: String = "small"
 var floorGridSizes: Vector2i
@@ -215,26 +215,25 @@ signal emit_new_enemy_name(oldEnemy, newEnemy)
 
 var floorTileMap: TileMap
 var wallTileMap: TileMap
+var boundaryTileMap: TileMap
 var selectedEnemyTexture
 var enemyToPlaceSprite
 
 var placedEnemiesAndButtons = {}
 
 var enemyEditor
+var logicEditor
 var parent
 
 func _ready():
 	floorTileMap = get_node("FloorTileMap")
 	wallTileMap = get_node("WallTileMap")
-	floorArea = get_node("Control/Area2D")
-	wallArea = get_node("Control/WallAreaDetector")
+	boundaryTileMap = $MapBoundary
 	parent = get_parent()
 	
-	#if parent is Node2D:
-		#parent.on_load_connect_enemy.connect(_on_placed_enemy_or_spawnpoint_clicked)
-	
 	roomSize = REQUIREMENTS.room_sizes.get("small")
-	enemyEditor = $"Control/Enemy-and-logic-editor"
+	enemyEditor = $"Enemy-and-logic-editor"
+	logicEditor = $"Logic-editor"
 	
 	$Control/Rooms/GridContainer/Room1.pressed.connect(_on_room_button_pressed.bind($Control/Rooms/GridContainer/Room1.get_meta("ROOM_NUMBER")))
 	is_room_size_set.connect(_is_room_size_set)
@@ -250,9 +249,6 @@ func _ready():
 		_add_texture_buttons_to_grid(loadedFloors, $Control/DecoratorSelection/DecorationTabContainer/Floors/ScrollContainer/GridContainer)
 	_add_size_options_to_options_button()
 
-
-func set_up_initial_dictionay_value(value):
-	placedEnemiesAndButtons = value
 
 func _process(delta):
 	if enemyToPlaceSprite and enemyToPlace:
@@ -281,6 +277,7 @@ func set_number_of_rooms(number: int):
 	if roomNumber != 1:
 		for num in range(roomNumber-1):
 			_create_new_room(num+2)
+	logicEditor.numberOfRooms = roomNumber
 	
 	
 func _add_floor_grid(sizing: String):
@@ -296,18 +293,17 @@ func _add_floor_grid(sizing: String):
 	grid.position = roomPositions.get(selectedRoomNumber) + floorGridPositionOffset
 	grid.add_theme_constant_override("h_separation", 0)
 	grid.add_theme_constant_override("v_separation", 0)
-	grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	grid.gui_input.connect(_on_floor_area_detector_input_event)
+	grid.mouse_filter = Control.MOUSE_FILTER_PASS
 	add_child(grid)
 	
 	for i in range(0, numberOfRows*numberOfColumns):
 		var newPanel = Panel.new()
 		newPanel.custom_minimum_size = tileSize
 		newPanel.add_theme_stylebox_override("panel", styleboxTexture)
-		newPanel.mouse_filter = Control.MOUSE_FILTER_PASS
+		newPanel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		grid.add_child(newPanel)
-	
-	floorArea.scale = Vector2($Control/Area2D/CollisionShape2D.shape.size.x / size.x * tileSize.x, $Control/Area2D/CollisionShape2D.shape.size.y / size.y * tileSize.y )
-	floorArea.position = grid.position
+
 
 
 func _add_wall_grid(sizing: String):
@@ -325,18 +321,18 @@ func _add_wall_grid(sizing: String):
 	add_child(grid)
 	grid.add_theme_constant_override("h_separation", 0)
 	grid.add_theme_constant_override("v_separation", 0)
-	grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	grid.gui_input.connect(_on_wall_area_detector_input_event)
+	grid.mouse_filter = Control.MOUSE_FILTER_PASS
 	for i in range(numberOfColumns):
 		var newPanel = Panel.new()
 		newPanel.custom_minimum_size = tileSize
 		newPanel.custom_minimum_size.y = tileSize.y * 2
 		newPanel.add_theme_stylebox_override("panel", styleboxTexture)
-		newPanel.mouse_filter = Control.MOUSE_FILTER_PASS
+		newPanel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		grid.add_child(newPanel)
 
 func _add_boundary_to_map(sizeString: String) -> void: #THIS TILEMAP WILL HAVE TO BE SAVED TO THE .TSCN TOO!!!!!!!
 	var size = REQUIREMENTS.room_sizes.get(sizeString)
-	var boundaryTileMap: TileMap = $MapBoundary
 	var localizeMapToTileMapPosition = boundaryTileMap.local_to_map(roomPositions.get(selectedRoomNumber)) 
 	const boundarySourceID = 2
 	const boundaryAtlasCoords = Vector2i(0, 0)
@@ -348,9 +344,8 @@ func _add_boundary_to_map(sizeString: String) -> void: #THIS TILEMAP WILL HAVE T
 	for i in range(size.x):
 		boundaryTileMap.set_cell(0, Vector2i(i, size.y) + localizeMapToTileMapPosition, boundarySourceID, Vector2i(0,0), 3)
 	
-func _on_floor_area_detector_input_event(viewport, event, shape_idx):
+func _on_floor_area_detector_input_event(event):
 	mouse_in_floor_area.emit(event)
-	isInFloorArea = true
 	if enemyToPlace and !enemyPlaced and event.is_action_pressed("room_changer_click"):
 		print("should enemy be placed")
 		enemy_ready_to_place.emit(enemyToPlace, event, enemyToPlaceSprite)
@@ -380,6 +375,7 @@ func _create_placed_enemy_button(isButtonEnemy: bool, texture: Texture, data, po
 	button.custom_minimum_size = Vector2(50,50)
 	button.ignore_texture_size = true
 	button.stretch_mode = TextureButton.STRETCH_SCALE
+	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	if pos == Vector2(-1,-1):
 		button.position = get_global_mouse_position() - Vector2(25,25)
 	else:
@@ -388,7 +384,7 @@ func _create_placed_enemy_button(isButtonEnemy: bool, texture: Texture, data, po
 
 	emit_enemy.emit(button)
 	
-func _on_wall_area_detector_input_event(viewport, event, shape_idx):
+func _on_wall_area_detector_input_event(event):
 	mouse_in_wall_area.emit(event)
 
 func _on_tab_changed(tab): #on the tab's change the current layer changes too
@@ -441,7 +437,7 @@ func _on_save_button_pressed(): # Save the map button
 func _on_discard_button_pressed(): # Discard the changes
 	var confirmationDialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
 	confirmationDialog.set_label_text("Are you sure you want to discard the changes?")
-	confirmationDialog.position=  roomPositions.get(selectedRoomNumber) + windowSize/2 - Vector2i(confirmationDialog.get_node("TileMap/Background").size)/2
+	confirmationDialog.position=  roomPositions.get(selectedRoomNumber) + windowSize/2 - Vector2i(confirmationDialog.get_node("CanvasLayer/TileMap/Background").size)/2
 	get_tree().paused= true
 	add_child(confirmationDialog)
 	confirmationDialog.ok_button_pressed.connect(_discard_confirmed.bind(confirmationDialog))
@@ -461,21 +457,26 @@ func _confirmation_cancelled(dialog):
 func _on_decorator_mode_pressed():
 	$Control/DecoratorSelection.visible = true 
 	$Control/MenuBar/TilePlacementModifiers.visible = true
-	enemyEditor.visible= false
+	enemyEditor.get_children()[0].visible = false
+	logicEditor.visible = false
 
 func _on_enemy_mode_pressed():
 	$Control/DecoratorSelection.visible = false 
 	$Control/MenuBar/TilePlacementModifiers.visible = false
-	enemyEditor.visible = true 
-	tile_to_place_changed.emit("", -5)
+	enemyEditor.get_children()[0].visible = true
+	logicEditor.visible = false
+
 	
 func _on_logic_mode_pressed():
-	pass # Replace with function body.
-
+	$Control/DecoratorSelection.visible = false 
+	$Control/MenuBar/TilePlacementModifiers.visible = false
+	logicEditor.visible = true
+	enemyEditor.get_children()[0].visible = false
+	
 func _on_ok_button_pressed():
 	var confirmationDialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
 	confirmationDialog.set_label_text("You will not be able to change this room's size later")
-	confirmationDialog.position = roomPositions.get(selectedRoomNumber) + windowSize/2 - Vector2i(confirmationDialog.get_node("TileMap/Background").size)/2
+	confirmationDialog.position = roomPositions.get(selectedRoomNumber) + windowSize/2 - Vector2i(confirmationDialog.get_node("CanvasLayer/TileMap/Background").size)/2
 	confirmationDialog.ok_button_pressed.connect(_on_size_accepted.bind(confirmationDialog))
 
 	get_tree().paused= true
@@ -522,8 +523,6 @@ func _on_room_button_pressed(room: int):
 		_able_size_button()
 	$Control.position = roomPositions.get(selectedRoomNumber) 
 	enemyEditor.position = roomPositions.get(selectedRoomNumber)
-	print(enemyEditor.position)
-	print(enemyEditor.get_child(1).get_global_position())
 	$Camera2D.position = roomPositions.get(selectedRoomNumber) + windowSize/2 
 	$Control/ChosenSize.position = chosenSizeLabelPosition + Vector2i(roomPositions.get(selectedRoomNumber))
 	selected_room_changed.emit(selectedRoomNumber)
@@ -559,7 +558,7 @@ func _get_enemy_from_editor(enemy, texture):
 	enemyToPlaceSprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	enemyToPlaceSprite.custom_minimum_size = Vector2(50,50)
 	enemyToPlaceSprite.pivot_offset = Vector2(25,25)
-	enemyToPlaceSprite.mouse_filter = Control.MOUSE_FILTER_PASS
+	enemyToPlaceSprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	selectedEnemyTexture = texture
 	add_child(enemyToPlaceSprite)
 
@@ -573,7 +572,7 @@ func _enemy_moved(enemyName, texture, enemyData):
 		enemyToPlaceSprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		enemyToPlaceSprite.custom_minimum_size = Vector2(50,50)
 		enemyToPlaceSprite.pivot_offset = Vector2(25,25)
-		enemyToPlaceSprite.mouse_filter = Control.MOUSE_FILTER_PASS
+		enemyToPlaceSprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(enemyToPlaceSprite)
 		selectedEnemyTexture = texture
 		enemyToPlace = ENEMY_DATA.new(enemyData.get("speed"), enemyData.get("enemyType"), enemyData.get("enemyVariant"), enemyData.get("enemyAttackType"), enemyData.get("enemyShootTime"), enemyData.get("enemyDifficulty"), enemyData.get("healthPoints"), enemyData.get("attackPoints"))
@@ -587,7 +586,7 @@ func _enemy_moved(enemyName, texture, enemyData):
 		spawnPointSprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		spawnPointSprite.custom_minimum_size = Vector2(50,50)
 		spawnPointSprite.pivot_offset = Vector2(25,25)
-		spawnPointSprite.mouse_filter = Control.MOUSE_FILTER_PASS
+		spawnPointSprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		selectedEnemyTexture = texture
 		add_child(spawnPointSprite)
 		
@@ -609,8 +608,9 @@ func _place_spawn_point(spawnpoint):
 	spawnPointSprite.texture = spawnPointTexture
 	spawnPointSprite.pivot_offset = Vector2(25,25)
 	spawnPointSprite.position = get_global_mouse_position()
+	spawnPointToPlace.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(spawnPointSprite)
-	
-	
-func _on_floor_area_mouse_exited():
-	isInFloorArea = false
+
+
+
+

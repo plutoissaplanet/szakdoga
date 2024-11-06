@@ -1,22 +1,26 @@
 extends Node2D
-@onready var colors = []
-@onready var wireColors = []
-@onready var random_color_index
+
+var colors = []
+var wireColors = []
+var random_color_index
 
 @onready var vbox1 = get_node("VBoxContainer")
 @onready var vbox2 = get_node("VBoxContainer2")
 
-@onready var vbox1_rects = []
-@onready var vbox2_rects=[]
+var vbox1_rects = []
+var vbox2_rects=[]
 
-@onready var big_wire
-@onready var wire
+var big_wire
+var wire
 
-@onready var isclicked1=false
-@onready var isclicked2=false
-@onready var paired=false
+var isclicked1=false
+var isclicked2=false
+var paired=false
 
-@onready var pair_count=0
+var pair_count=0
+var difficulty
+
+signal minigame_completed
 
 
 
@@ -27,10 +31,6 @@ func _ready():
 	vbox1.position.x=window_sizing.x/4
 	load_colors()
 	load_text_rects()
-
-func _process(delta):
-	if pair_count == 6:
-		print("win")
 
 func load_colors():
 	var blue_circle = load("res://Game Assets/Minigames/Wiring/circle_blue_png.png")
@@ -100,14 +100,11 @@ func onclick(event,rect_array, rect):
 		if rect.get_meta('has_wire') == false:
 			createWire(rect, rect_array)
 			rect.set_meta('has_wire', true)
-			print("now it has wire")
-			
+
 		if rect.get_meta('group') == 1:
 			isclicked1=true
-			print("rect from group 1 is clciked")
 		elif rect.get_meta('group') == 2:
 			isclicked2=true
-			print("rect from group 2 is clciked")
 			
 		var diff = get_viewport().get_mouse_position() - wire.global_position
 		var angle = diff.angle()
@@ -117,19 +114,15 @@ func onclick(event,rect_array, rect):
 	if Input.is_action_just_released("room_changer_click"):
 		if isclicked1:
 			isclicked1=false
-			print("rect from group 1 is unclicked")
 		elif isclicked2:
 			isclicked2=false
-			print("rect from group 2 is unclicked")
 		if !paired:
 			rect.remove_child(wire)
 			rect.set_meta("has_wire", false)
-			print("wire from rect got removed, and has_wire is set to false")
 		if paired:
 			rect.gui_input.disconnect(onclick)
 			rect.mouse_entered.disconnect(_on_texture_rect_mouse_entered)
 			paired=false
-			print("rect got paired and is now disconnected from onclick and the other one")
 
 func createWire(c, c_array):
 	var index=c_array.find(c, 0)
@@ -169,13 +162,14 @@ func _on_texture_rect_mouse_entered(rect):
 
 func gameplay(rect):
 	if rect.get_meta("color") == wire.get_meta("color"):
-		print("rects got paired")
 		paired=true
 		rect.set_meta('has_wire', true)
 		pair_count+=1
 		wire.size.x==rect.position.x
 		rect.gui_input.disconnect(onclick)
 		rect.mouse_entered.disconnect(_on_texture_rect_mouse_entered)
+		if pair_count == 6:
+			minigame_completed.emit()
 	else:
 		print("not the same color")
 		

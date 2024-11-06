@@ -7,7 +7,7 @@ extends Node2D
 @onready var container2 = get_node("Container/Container")
 @onready var hbox= get_node("Container/HBoxContainer")
 @onready var vbox= get_node("Container/VBoxContainer")
-signal solvedSignal
+
 
 
 @onready var riddle1 = [
@@ -76,15 +76,13 @@ signal solvedSignal
 
 @onready var solved = false
 
+signal minigame_completed
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var spacing = 2
 	text()
 	initialize_problem()
-
-	print("selected solutions: ", solutions[riddle_index])
-	print("riddle number: ", riddle_index)
-	print("riddle_rows: ", riddle_rows, "riddle_cols ", riddle_cols)
 	
 	for i in range(riddle_rows):
 		var row = []
@@ -123,11 +121,12 @@ func onClick(_event,i,j):
 		cells[i][j].color=Color(1,0,0)
 		problem[i][j]=0
 
+
 func gameplay():
 	if  problem == solutions[riddle_index]:
 		print("success")
 		solved=true
-		solvedSignal.emit()
+		minigame_completed.emit()
 
 
 func size_and_position():

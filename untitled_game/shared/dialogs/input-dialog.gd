@@ -9,25 +9,25 @@ signal input_entered(input: String)
 signal input_cancelled()
 
 func create_input_dialog(titleText: String) -> void:
-	$TitleLabel.text = titleText
+	$CanvasLayer/TitleLabel.text = titleText
 	
 func _open_selection_input_dialog(options: Array) -> void:
-	$LineEdit.visible = false
-	$OptionButton.visible = true
-	$OptionButton.item_selected.connect(_on_option_button_item_selected.bind(options))
+	$CanvasLayer/LineEdit.visible = false
+	$CanvasLayer/OptionButton.visible = true
+	$CanvasLayer/OptionButton.item_selected.connect(_on_option_button_item_selected.bind(options))
 	selection_dialog = true
 	input = options[0]
 	for option in options:
-		$OptionButton.add_item(option, options.find(option))
+		$CanvasLayer/OptionButton.add_item(option, options.find(option))
 	
 func _on_submit_button_pressed():
 	if input.length() == 0:
-		$ErrorLabel.text = "Input too short."
+		$CanvasLayer/ErrorLabel.text = "Input too short."
 	else:
 		input_entered.emit(input)
 		
 func error_message(error: String):
-	$ErrorLabel.text = error
+	$CanvasLayer/ErrorLabel.text = error
 
 func _on_back_button_pressed():
 	input_cancelled.emit()

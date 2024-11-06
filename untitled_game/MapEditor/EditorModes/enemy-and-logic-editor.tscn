@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://tv6xl43fjll0"]
+[gd_scene load_steps=13 format=3 uid="uid://tv6xl43fjll0"]
 
 [ext_resource type="Script" path="res://MapEditor/EditorModes/enemy-and-logic-editor.gd" id="1_6hqn8"]
 [ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="2_kej3v"]
-[ext_resource type="Texture2D" uid="uid://dvjm4wqr83nyu" path="res://Game Assets/MapEditor/Icons/Icons_37.png" id="3_0xjvr"]
 [ext_resource type="Texture2D" uid="uid://dentiv7kcjumv" path="res://Game Assets/GUI/backdrop3.png" id="3_8aeki"]
 [ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="3_wl5ic"]
 [ext_resource type="Texture2D" uid="uid://3wrwa648yffq" path="res://Game Assets/GUI/Tiles/Tileset.png" id="4_d2ag0"]
@@ -244,9 +243,13 @@ default_font = ExtResource("2_kej3v")
 
 [node name="Enemy-and-logic-editor" type="Node2D"]
 top_level = true
+z_index = 100
 script = ExtResource("1_6hqn8")
 
-[node name="EnemySelection" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="EnemySelection" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 9.0
@@ -254,7 +257,7 @@ offset_top = 208.0
 offset_right = 209.0
 offset_bottom = 629.0
 
-[node name="TextureRect" type="TextureRect" parent="EnemySelection"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/EnemySelection"]
 modulate = Color(1, 0.992157, 1, 0.266667)
 layout_mode = 0
 offset_right = 200.0
@@ -262,7 +265,7 @@ offset_bottom = 433.0
 texture = ExtResource("3_wl5ic")
 expand_mode = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="EnemySelection"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/EnemySelection"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 34.0
@@ -270,13 +273,13 @@ offset_right = 195.0
 offset_bottom = 432.0
 horizontal_scroll_mode = 0
 
-[node name="GridContainer" type="GridContainer" parent="EnemySelection/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/EnemySelection/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
 columns = 2
 
-[node name="EnemyEditor" type="Control" parent="."]
+[node name="EnemyEditor" type="Control" parent="CanvasLayer"]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -284,37 +287,57 @@ anchor_left = 0.354167
 anchor_top = 0.115741
 anchor_right = 0.388889
 anchor_bottom = 0.177469
-offset_left = 437.0
-offset_top = 54.0
-offset_right = 437.0
-offset_bottom = 54.0
+offset_left = 28.9996
+offset_top = -21.0002
+offset_right = 28.9996
+offset_bottom = -21.0002
 metadata/_edit_use_anchors_ = true
 
-[node name="GoBackButton" type="TextureButton" parent="EnemyEditor"]
-z_index = 1
-layout_mode = 0
-offset_left = 9.0
-offset_top = 8.0
-offset_right = 33.0
-offset_bottom = 32.0
-texture_normal = ExtResource("3_0xjvr")
-
-[node name="ProceedButton" type="TextureButton" parent="EnemyEditor"]
+[node name="GoBackButton" type="TextureButton" parent="CanvasLayer/EnemyEditor"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.8
 anchor_top = 12.55
 anchor_right = 6.4
 anchor_bottom = 13.55
-offset_left = 85.0
-offset_top = 516.0
-offset_right = 235.0
-offset_bottom = 556.0
+offset_left = 106.0
+offset_top = -4.99677
+offset_right = 82.0016
+offset_bottom = -1.99652
 texture_normal = ExtResource("4_f2vwj")
 texture_pressed = ExtResource("5_4js7r")
 stretch_mode = 0
 
-[node name="EnemyEditorLabel" type="Label" parent="EnemyEditor/ProceedButton"]
+[node name="EnemyEditorLabel" type="Label" parent="CanvasLayer/EnemyEditor/GoBackButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.326
+anchor_top = 0.1
+anchor_right = 0.652
+anchor_bottom = 0.775
+offset_left = -8.90002
+offset_right = 13.2
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_kej3v")
+theme_override_font_sizes/font_size = 25
+text = "Cancel"
+
+[node name="ProceedButton" type="TextureButton" parent="CanvasLayer/EnemyEditor"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.8
+anchor_top = 12.55
+anchor_right = 6.4
+anchor_bottom = 13.55
+offset_left = -57.9996
+offset_top = -3.99677
+offset_right = -92.9984
+offset_bottom = -1.99652
+texture_normal = ExtResource("4_f2vwj")
+texture_pressed = ExtResource("5_4js7r")
+stretch_mode = 0
+
+[node name="EnemyEditorLabel" type="Label" parent="CanvasLayer/EnemyEditor/ProceedButton"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.326
@@ -328,7 +351,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 25
 text = "Place"
 
-[node name="ProceedToSpawnConfigurator" type="TextureButton" parent="EnemyEditor"]
+[node name="ProceedToSpawnConfigurator" type="TextureButton" parent="CanvasLayer/EnemyEditor"]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -336,15 +359,15 @@ anchor_left = 1.8
 anchor_top = 12.55
 anchor_right = 6.4
 anchor_bottom = 13.55
-offset_left = 84.0
-offset_top = 516.0
-offset_right = 234.0
-offset_bottom = 556.0
+offset_left = -58.9996
+offset_top = -4.99677
+offset_right = -87.9984
+offset_bottom = -2.99652
 texture_normal = ExtResource("4_f2vwj")
 texture_pressed = ExtResource("5_4js7r")
 stretch_mode = 0
 
-[node name="EnemyEditorLabel" type="Label" parent="EnemyEditor/ProceedToSpawnConfigurator"]
+[node name="EnemyEditorLabel" type="Label" parent="CanvasLayer/EnemyEditor/ProceedToSpawnConfigurator"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.326
@@ -358,34 +381,34 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 25
 text = "Next"
 
-[node name="Background" type="TextureRect" parent="EnemyEditor"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/EnemyEditor"]
 layout_mode = 0
 offset_right = 330.0
 offset_bottom = 484.0
 texture = ExtResource("3_8aeki")
 expand_mode = 1
 
-[node name="TileMap" type="TileMap" parent="EnemyEditor"]
+[node name="TileMap" type="TileMap" parent="CanvasLayer/EnemyEditor"]
 tile_set = SubResource("TileSet_2jjq0")
 format = 2
 
-[node name="EnemyEditorLabel" type="Label" parent="EnemyEditor"]
+[node name="EnemyEditorLabel" type="Label" parent="CanvasLayer/EnemyEditor"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.8
 anchor_top = 0.2
 anchor_right = 6.475
 anchor_bottom = 0.875
-offset_left = 68.0
-offset_top = 8.0
-offset_right = 255.0
-offset_bottom = 35.0
+offset_left = -2.99956
+offset_top = 5.19753e-05
+offset_right = -1.99841
+offset_bottom = 7.00023
 theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 25
 text = "Configure Enemy"
 
-[node name="SelectDifficulty" type="Control" parent="EnemyEditor"]
+[node name="SelectDifficulty" type="Control" parent="CanvasLayer/EnemyEditor"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 9.0
@@ -393,7 +416,7 @@ offset_top = 49.0
 offset_right = 49.0
 offset_bottom = 89.0
 
-[node name="SelectDifficultyLabel" type="Label" parent="EnemyEditor/SelectDifficulty"]
+[node name="SelectDifficultyLabel" type="Label" parent="CanvasLayer/EnemyEditor/SelectDifficulty"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 5.125
@@ -404,7 +427,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "Select enemy difficulty: "
 
-[node name="OptionButton" type="OptionButton" parent="EnemyEditor/SelectDifficulty"]
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/EnemyEditor/SelectDifficulty"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 5.175
@@ -416,7 +439,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 15
 alignment = 1
 
-[node name="EnemyTypeSelection" type="Control" parent="EnemyEditor"]
+[node name="EnemyTypeSelection" type="Control" parent="CanvasLayer/EnemyEditor"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -2.0
@@ -425,7 +448,7 @@ offset_right = 38.0
 offset_bottom = 66.0
 theme = SubResource("Theme_e74ja")
 
-[node name="EnemyType" type="Label" parent="EnemyEditor/EnemyTypeSelection"]
+[node name="EnemyType" type="Label" parent="CanvasLayer/EnemyEditor/EnemyTypeSelection"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.425
@@ -441,7 +464,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "Enemy type:"
 
-[node name="MeleeSelection" type="CheckBox" parent="EnemyEditor/EnemyTypeSelection"]
+[node name="MeleeSelection" type="CheckBox" parent="CanvasLayer/EnemyEditor/EnemyTypeSelection"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 5.65
@@ -463,7 +486,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 disabled = true
 text = "Melee"
 
-[node name="RangedSelection" type="CheckBox" parent="EnemyEditor/EnemyTypeSelection"]
+[node name="RangedSelection" type="CheckBox" parent="CanvasLayer/EnemyEditor/EnemyTypeSelection"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 3.075
@@ -485,7 +508,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 disabled = true
 text = "Ranged"
 
-[node name="EnemySetStatistics" type="Control" parent="EnemyEditor"]
+[node name="EnemySetStatistics" type="Control" parent="CanvasLayer/EnemyEditor"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -5.0
@@ -493,7 +516,7 @@ offset_top = 51.0
 offset_right = 35.0
 offset_bottom = 91.0
 
-[node name="HealthPoints" type="SpinBox" parent="EnemyEditor/EnemySetStatistics"]
+[node name="HealthPoints" type="SpinBox" parent="CanvasLayer/EnemyEditor/EnemySetStatistics"]
 layout_mode = 0
 offset_left = 170.0
 offset_top = 89.0
@@ -505,7 +528,7 @@ rounded = true
 alignment = 1
 editable = false
 
-[node name="AttackPoints" type="SpinBox" parent="EnemyEditor/EnemySetStatistics"]
+[node name="AttackPoints" type="SpinBox" parent="CanvasLayer/EnemyEditor/EnemySetStatistics"]
 layout_mode = 0
 offset_left = 170.0
 offset_top = 122.0
@@ -517,7 +540,7 @@ rounded = true
 alignment = 1
 editable = false
 
-[node name="AttackPointsLabel" type="Label" parent="EnemyEditor/EnemySetStatistics"]
+[node name="AttackPointsLabel" type="Label" parent="CanvasLayer/EnemyEditor/EnemySetStatistics"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.35
@@ -529,7 +552,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "Health pounts:"
 
-[node name="HealthPointsLabel" type="Label" parent="EnemyEditor/EnemySetStatistics"]
+[node name="HealthPointsLabel" type="Label" parent="CanvasLayer/EnemyEditor/EnemySetStatistics"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.35
@@ -541,7 +564,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "Attack points:"
 
-[node name="EnemySpeedSettings" type="Control" parent="EnemyEditor"]
+[node name="EnemySpeedSettings" type="Control" parent="CanvasLayer/EnemyEditor"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 9.0
@@ -549,7 +572,7 @@ offset_top = 223.0
 offset_right = 49.0
 offset_bottom = 263.0
 
-[node name="SetEnemySpeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+[node name="SetEnemySpeedLabel" type="Label" parent="CanvasLayer/EnemyEditor/EnemySpeedSettings"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.1
@@ -561,7 +584,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "Set walk speed:"
 
-[node name="EnemySppeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+[node name="EnemySppeedLabel" type="Label" parent="CanvasLayer/EnemyEditor/EnemySpeedSettings"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 6.85
@@ -573,7 +596,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "0"
 
-[node name="EnemySpeed" type="HSlider" parent="EnemyEditor/EnemySpeedSettings"]
+[node name="EnemySpeed" type="HSlider" parent="CanvasLayer/EnemyEditor/EnemySpeedSettings"]
 layout_mode = 0
 offset_left = 156.0
 offset_top = 7.0
@@ -584,7 +607,7 @@ value = 1.0
 rounded = true
 editable = false
 
-[node name="setEnemyAttackSpeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+[node name="setEnemyAttackSpeedLabel" type="Label" parent="CanvasLayer/EnemyEditor/EnemySpeedSettings"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.925
@@ -595,7 +618,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "Set attack speed:"
 
-[node name="EnemyAttackSpeedLabel" type="Label" parent="EnemyEditor/EnemySpeedSettings"]
+[node name="EnemyAttackSpeedLabel" type="Label" parent="CanvasLayer/EnemyEditor/EnemySpeedSettings"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 6.85
@@ -607,7 +630,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "0"
 
-[node name="EnemyAttackSpeed" type="HSlider" parent="EnemyEditor/EnemySpeedSettings"]
+[node name="EnemyAttackSpeed" type="HSlider" parent="CanvasLayer/EnemyEditor/EnemySpeedSettings"]
 layout_mode = 0
 offset_left = 156.0
 offset_top = 40.0
@@ -618,14 +641,14 @@ value = 1.0
 rounded = true
 editable = false
 
-[node name="EnemyAnimation" type="Control" parent="EnemyEditor"]
+[node name="EnemyAnimation" type="Control" parent="CanvasLayer/EnemyEditor"]
 anchors_preset = 0
 offset_left = 14.0
 offset_top = 344.0
 offset_right = 315.0
 offset_bottom = 472.0
 
-[node name="Error" type="Label" parent="EnemyEditor"]
+[node name="Error" type="Label" parent="CanvasLayer/EnemyEditor"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.425
@@ -642,48 +665,48 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
-[node name="Timer" type="Timer" parent="EnemyEditor/Error"]
+[node name="Timer" type="Timer" parent="CanvasLayer/EnemyEditor/Error"]
 wait_time = 10.0
 one_shot = true
 
-[node name="SpawnPointOrSingle" type="Control" parent="."]
+[node name="SpawnPointOrSingle" type="Control" parent="CanvasLayer"]
 process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 412.0
 offset_top = 242.0
-offset_right = 767.0
-offset_bottom = 414.0
+offset_right = 729.0
+offset_bottom = 407.0
 
-[node name="Background" type="TextureRect" parent="SpawnPointOrSingle"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/SpawnPointOrSingle"]
 layout_mode = 0
 offset_right = 329.0
 offset_bottom = 165.0
 texture = ExtResource("3_8aeki")
 expand_mode = 1
 
-[node name="ExitButton" type="TextureButton" parent="SpawnPointOrSingle"]
+[node name="ExitButton" type="TextureButton" parent="CanvasLayer/SpawnPointOrSingle"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="SpawnPoint" type="TextureButton" parent="SpawnPointOrSingle"]
+[node name="SpawnPoint" type="TextureButton" parent="CanvasLayer/SpawnPointOrSingle"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.072
 anchor_top = 0.622
 anchor_right = 0.408
 anchor_bottom = 0.849
-offset_left = -0.136002
-offset_top = 0.0159912
-offset_right = -0.104004
-offset_bottom = -0.0279999
+offset_left = 11.176
+offset_top = 2.37
+offset_right = 14.664
+offset_bottom = 8.91501
 texture_normal = ExtResource("4_f2vwj")
 texture_pressed = ExtResource("5_4js7r")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="SpawnPointOrSingle/SpawnPoint"]
+[node name="Label" type="Label" parent="CanvasLayer/SpawnPointOrSingle/SpawnPoint"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.197
@@ -700,22 +723,22 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 20
 text = "Multiple "
 
-[node name="SingleEnemy" type="TextureButton" parent="SpawnPointOrSingle"]
+[node name="SingleEnemy" type="TextureButton" parent="CanvasLayer/SpawnPointOrSingle"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.622
 anchor_right = 0.829
 anchor_bottom = 0.849
-offset_left = -2.5
-offset_top = 0.0159912
-offset_right = 0.0729675
-offset_bottom = -0.0279999
+offset_left = 8.5
+offset_top = 2.37
+offset_right = 16.207
+offset_bottom = 8.91501
 texture_normal = ExtResource("4_f2vwj")
 texture_pressed = ExtResource("5_4js7r")
 stretch_mode = 0
 
-[node name="Label2" type="Label" parent="SpawnPointOrSingle/SingleEnemy"]
+[node name="Label2" type="Label" parent="CanvasLayer/SpawnPointOrSingle/SingleEnemy"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.262
@@ -733,17 +756,17 @@ theme_override_font_sizes/font_size = 20
 text = "Single 
 "
 
-[node name="Label2" type="Label" parent="SpawnPointOrSingle"]
+[node name="Label2" type="Label" parent="CanvasLayer/SpawnPointOrSingle"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.107
-anchor_top = 0.205
-anchor_right = 0.926
-anchor_bottom = 0.872
-offset_left = -21.841
-offset_top = -22.26
-offset_right = -22.138
-offset_bottom = -49.984
+anchor_top = 0.073
+anchor_right = 1.0
+anchor_bottom = 0.57
+offset_left = -21.919
+offset_top = -0.045001
+offset_right = 1.0
+offset_bottom = -0.0500107
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("2_kej3v")
@@ -752,7 +775,7 @@ text = "Please select the amount of enemies you want!"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="SpawnPointEditor" type="Control" parent="."]
+[node name="SpawnPointEditor" type="Control" parent="CanvasLayer"]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -760,7 +783,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Background" type="TextureRect" parent="SpawnPointEditor"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/SpawnPointEditor"]
 layout_mode = 0
 offset_left = 412.0
 offset_top = 157.0
@@ -769,32 +792,31 @@ offset_bottom = 376.0
 texture = ExtResource("3_8aeki")
 expand_mode = 1
 
-[node name="TextureButton" type="TextureButton" parent="SpawnPointEditor"]
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/SpawnPointEditor"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 12.0
 anchor_top = 9.7
 anchor_right = 16.775
 anchor_bottom = 10.7
-offset_left = 6.99997
-offset_top = -3.05176e-05
-offset_right = -6.10352e-05
-offset_bottom = -3.05176e-05
+offset_left = 7.0
+offset_right = -22.0
+offset_bottom = 20.0
 texture_normal = ExtResource("4_f2vwj")
 texture_pressed = ExtResource("5_4js7r")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="SpawnPointEditor/TextureButton"]
+[node name="Label" type="Label" parent="CanvasLayer/SpawnPointEditor/TextureButton"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.425
 anchor_top = 7.6
 anchor_right = 7.679
 anchor_bottom = 8.277
-offset_left = -68.2
-offset_top = -302.0
-offset_right = -1235.94
-offset_bottom = -298.08
+offset_left = -15.85
+offset_top = -446.0
+offset_right = -1131.0
+offset_bottom = -442.08
 scale = Vector2(0.997065, 1.00274)
 theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("2_kej3v")
@@ -802,7 +824,7 @@ theme_override_font_sizes/font_size = 25
 text = "Place"
 horizontal_alignment = 1
 
-[node name="SpawnPointConfiguration" type="Label" parent="SpawnPointEditor"]
+[node name="SpawnPointConfiguration" type="Label" parent="CanvasLayer/SpawnPointEditor"]
 layout_mode = 0
 offset_left = 428.0
 offset_top = 166.0
@@ -813,12 +835,13 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 28
 text = "Configure Spawn Point"
 
-[node name="NumberOfEnemies" type="Control" parent="SpawnPointEditor"]
+[node name="NumberOfEnemies" type="Control" parent="CanvasLayer/SpawnPointEditor"]
+layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="NumberOfEnemiesLabel" type="Label" parent="SpawnPointEditor/NumberOfEnemies"]
+[node name="NumberOfEnemiesLabel" type="Label" parent="CanvasLayer/SpawnPointEditor/NumberOfEnemies"]
 layout_mode = 0
 offset_left = 428.0
 offset_top = 215.0
@@ -829,7 +852,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "Number of enemies:"
 
-[node name="NumberOfEnemiesSpinner" type="SpinBox" parent="SpawnPointEditor/NumberOfEnemies"]
+[node name="NumberOfEnemiesSpinner" type="SpinBox" parent="CanvasLayer/SpawnPointEditor/NumberOfEnemies"]
 layout_mode = 0
 offset_left = 610.0
 offset_top = 274.0
@@ -840,7 +863,7 @@ rounded = true
 alignment = 1
 editable = false
 
-[node name="Infinite" type="CheckBox" parent="SpawnPointEditor/NumberOfEnemies"]
+[node name="Infinite" type="CheckBox" parent="CanvasLayer/SpawnPointEditor/NumberOfEnemies"]
 layout_mode = 0
 offset_left = 606.0
 offset_top = 215.0
@@ -850,7 +873,7 @@ theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("2_kej3v")
 text = "Infinite"
 
-[node name="Custom" type="CheckBox" parent="SpawnPointEditor/NumberOfEnemies"]
+[node name="Custom" type="CheckBox" parent="CanvasLayer/SpawnPointEditor/NumberOfEnemies"]
 layout_mode = 0
 offset_left = 606.0
 offset_top = 241.0
@@ -860,14 +883,15 @@ theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("2_kej3v")
 text = "Custom"
 
-[node name="SpawnCooldown" type="Control" parent="SpawnPointEditor"]
+[node name="SpawnCooldown" type="Control" parent="CanvasLayer/SpawnPointEditor"]
+layout_mode = 3
 anchors_preset = 0
 offset_left = -1.0
 offset_top = 54.0
 offset_right = 39.0
 offset_bottom = 94.0
 
-[node name="NumberOfEnemiesLabel" type="Label" parent="SpawnPointEditor/SpawnCooldown"]
+[node name="NumberOfEnemiesLabel" type="Label" parent="CanvasLayer/SpawnPointEditor/SpawnCooldown"]
 layout_mode = 0
 offset_left = 429.0
 offset_top = 267.0
@@ -878,7 +902,7 @@ theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
 text = "Spawn cooldown:"
 
-[node name="SpawnCooldownSpinner" type="SpinBox" parent="SpawnPointEditor/SpawnCooldown"]
+[node name="SpawnCooldownSpinner" type="SpinBox" parent="CanvasLayer/SpawnPointEditor/SpawnCooldown"]
 layout_mode = 0
 offset_left = 611.0
 offset_top = 267.0
@@ -891,25 +915,26 @@ value = 1.0
 rounded = true
 alignment = 1
 
-[node name="SpawnColor" type="Control" parent="SpawnPointEditor"]
+[node name="SpawnColor" type="Control" parent="CanvasLayer/SpawnPointEditor"]
+layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[connection signal="pressed" from="EnemyEditor/GoBackButton" to="." method="_on_cancel_configuration"]
-[connection signal="pressed" from="EnemyEditor/ProceedButton" to="." method="_on_proceed_button_pressed"]
-[connection signal="pressed" from="EnemyEditor/ProceedToSpawnConfigurator" to="." method="_on_proceed_to_spawn_configurator_pressed"]
-[connection signal="item_selected" from="EnemyEditor/SelectDifficulty/OptionButton" to="." method="_on_enemy_difficulty_selected"]
-[connection signal="pressed" from="EnemyEditor/EnemyTypeSelection/MeleeSelection" to="." method="_on_melee_selection_pressed"]
-[connection signal="pressed" from="EnemyEditor/EnemyTypeSelection/RangedSelection" to="." method="_on_ranged_selection_pressed"]
-[connection signal="value_changed" from="EnemyEditor/EnemySetStatistics/HealthPoints" to="." method="_on_health_points_value_changed"]
-[connection signal="value_changed" from="EnemyEditor/EnemySetStatistics/AttackPoints" to="." method="_on_attack_points_value_changed"]
-[connection signal="value_changed" from="EnemyEditor/EnemySpeedSettings/EnemySpeed" to="." method="_on_enemy_speed_value_changed"]
-[connection signal="value_changed" from="EnemyEditor/EnemySpeedSettings/EnemyAttackSpeed" to="." method="_on_enemy_attack_speed_value_changed"]
-[connection signal="timeout" from="EnemyEditor/Error/Timer" to="." method="_on_error_timer_timeout"]
-[connection signal="pressed" from="SpawnPointOrSingle/SpawnPoint" to="." method="_on_select_multiple_enemy_button"]
-[connection signal="pressed" from="SpawnPointOrSingle/SingleEnemy" to="." method="_on_select_single_enemy"]
-[connection signal="pressed" from="SpawnPointEditor/TextureButton" to="." method="_on_proceed_button_pressed"]
-[connection signal="pressed" from="SpawnPointEditor/NumberOfEnemies/Infinite" to="." method="_on_infinite_enemy_spawn_pressed"]
-[connection signal="pressed" from="SpawnPointEditor/NumberOfEnemies/Custom" to="." method="_on_custom_enemy_spawn_pressed"]
-[connection signal="value_changed" from="SpawnPointEditor/SpawnCooldown/SpawnCooldownSpinner" to="." method="_on_spawn_cooldown_spinner_value_changed"]
+[connection signal="pressed" from="CanvasLayer/EnemyEditor/GoBackButton" to="." method="_on_cancel_configuration"]
+[connection signal="pressed" from="CanvasLayer/EnemyEditor/ProceedButton" to="." method="_on_proceed_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/EnemyEditor/ProceedToSpawnConfigurator" to="." method="_on_proceed_to_spawn_configurator_pressed"]
+[connection signal="item_selected" from="CanvasLayer/EnemyEditor/SelectDifficulty/OptionButton" to="." method="_on_enemy_difficulty_selected"]
+[connection signal="pressed" from="CanvasLayer/EnemyEditor/EnemyTypeSelection/MeleeSelection" to="." method="_on_melee_selection_pressed"]
+[connection signal="pressed" from="CanvasLayer/EnemyEditor/EnemyTypeSelection/RangedSelection" to="." method="_on_ranged_selection_pressed"]
+[connection signal="value_changed" from="CanvasLayer/EnemyEditor/EnemySetStatistics/HealthPoints" to="." method="_on_health_points_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/EnemyEditor/EnemySetStatistics/AttackPoints" to="." method="_on_attack_points_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/EnemyEditor/EnemySpeedSettings/EnemySpeed" to="." method="_on_enemy_speed_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/EnemyEditor/EnemySpeedSettings/EnemyAttackSpeed" to="." method="_on_enemy_attack_speed_value_changed"]
+[connection signal="timeout" from="CanvasLayer/EnemyEditor/Error/Timer" to="." method="_on_error_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/SpawnPointOrSingle/SpawnPoint" to="." method="_on_select_multiple_enemy_button"]
+[connection signal="pressed" from="CanvasLayer/SpawnPointOrSingle/SingleEnemy" to="." method="_on_select_single_enemy"]
+[connection signal="pressed" from="CanvasLayer/SpawnPointEditor/TextureButton" to="." method="_on_proceed_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SpawnPointEditor/NumberOfEnemies/Infinite" to="." method="_on_infinite_enemy_spawn_pressed"]
+[connection signal="pressed" from="CanvasLayer/SpawnPointEditor/NumberOfEnemies/Custom" to="." method="_on_custom_enemy_spawn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/SpawnPointEditor/SpawnCooldown/SpawnCooldownSpinner" to="." method="_on_spawn_cooldown_spinner_value_changed"]

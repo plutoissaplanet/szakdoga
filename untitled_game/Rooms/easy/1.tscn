@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cktwjw8quihi8"]
+[gd_scene load_steps=37 format=3 uid="uid://cktwjw8quihi8"]
 
 [ext_resource type="Script" path="res://Rooms/easy/easy_1.gd" id="1_xcacb"]
 [ext_resource type="Texture2D" uid="uid://dj77m42vdg8fd" path="res://Game Assets/Home/TopDownHouse_FloorsAndWalls.png" id="2_pdwyv"]
@@ -13,7 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://csw60lq5dy81w" path="res://Game Assets/Nature/TX Plant.png" id="11_tpovw"]
 [ext_resource type="PackedScene" uid="uid://by0flqyrw3k6e" path="res://Creatures/Player/Player.tscn" id="12_q5jk4"]
 [ext_resource type="PackedScene" uid="uid://cwg43g6jby4li" path="res://GameplayThings/Doors/door.tscn" id="14_1f463"]
-[ext_resource type="PackedScene" uid="uid://kixawcxvarv4" path="res://GameplayThings/EnemySpawnPoints/enemy_spawnpoint.tscn" id="17_mr8o8"]
+[ext_resource type="PackedScene" uid="uid://1sy0wk3ftaqm" path="res://GameplayThings/Key/key.tscn" id="16_54xp4"]
+[ext_resource type="PackedScene" uid="uid://dyreos48cvyjc" path="res://GameplayThings/MiniGameLocations/nonogramLocation.tscn" id="16_rdbqp"]
 [ext_resource type="PackedScene" uid="uid://bgyfajmd4uo8x" path="res://GameplayThings/Items/general_scene_for_items.tscn" id="18_ejblg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gpm7m"]
@@ -2330,18 +2331,6 @@ tile_set = SubResource("TileSet_s062y")
 format = 2
 layer_0/tile_data = PackedInt32Array(1507346, 131072, 12, 1572882, 131072, 13, 1507347, 196608, 12, 1572883, 196608, 13, 1507348, 262144, 12, 1572884, 786432, 13, 1507349, 327680, 12, 1572885, 851968, 13, 1507350, 393216, 12, 1572886, 393216, 13, 1507351, 458752, 12, 1572887, 458752, 13, 1507352, 524288, 12, 1572888, 524288, 13, 1507353, 589824, 12, 1572889, 589824, 13, 1507354, 131072, 12, 1572890, 131072, 13, 1507355, 196608, 12, 1572891, 196608, 13, 1507356, 262144, 12, 1572892, 262144, 13, 1507357, 327680, 12, 1572893, 327680, 13, 1507358, 393216, 12, 1572894, 393216, 13, 1507359, 458752, 12, 1572895, 786432, 13, 1507360, 524288, 12, 1572896, 851968, 13, 1507361, 589824, 12, 1572897, 786432, 13, 1507362, 131072, 12, 1572898, 851968, 13, 1507363, 196608, 12, 1572899, 196608, 13, 1507364, 262144, 12, 1572900, 262144, 13, 1507365, 327680, 12, 1572901, 327680, 13, 1507366, 393216, 12, 1572902, 393216, 13, 1507367, 458752, 12, 1572903, 458752, 13, 1507368, 524288, 12, 1572904, 524288, 13, 1507369, 589824, 12, 1572905, 589824, 13, 1507370, 131072, 12, 1572906, 131072, 13, 1507371, 196608, 12, 1572907, 196608, 13, 1507372, 262144, 12, 1572908, 262144, 13, 1507373, 327680, 12, 1572909, 327680, 13, 1507374, 393216, 12, 1572910, 786432, 13, 1507375, 458752, 12, 1572911, 851968, 13, 1507376, 524288, 12, 1572912, 524288, 13, 1507377, 589824, 12, 1572913, 589824, 13, 1638418, 131072, 14, 1638419, 196608, 14, 1638420, 786432, 14, 1638421, 851968, 14, 1638422, 393216, 14, 1638423, 458752, 14, 1638424, 524288, 14, 1638425, 589824, 14, 1703954, 131072, 14, 1703955, 196608, 14, 1703956, 262144, 14, 1703957, 327680, 14, 1703958, 393216, 14, 1703959, 458752, 14, 1703960, 524288, 14, 1703961, 589824, 14, 1638426, 131072, 14, 1638427, 196608, 14, 1638428, 262144, 14, 1638429, 327680, 14, 1638430, 393216, 14, 1638431, 786432, 14, 1638432, 851968, 14, 1638433, 786432, 14, 1703962, 131072, 14, 1703963, 196608, 14, 1703964, 262144, 14, 1703965, 327680, 14, 1703966, 393216, 14, 1703967, 458752, 14, 1703968, 524288, 14, 1703969, 589824, 14, 1638434, 851968, 14, 1638435, 196608, 14, 1638436, 262144, 14, 1638437, 327680, 14, 1638438, 393216, 14, 1638439, 458752, 14, 1638440, 524288, 14, 1638441, 589824, 14, 1703970, 131072, 14, 1703971, 196608, 14, 1703972, 262144, 14, 1703973, 327680, 14, 1703974, 393216, 14, 1703975, 458752, 14, 1703976, 524288, 14, 1703977, 589824, 14, 1638442, 131072, 14, 1638443, 196608, 14, 1638444, 262144, 14, 1638445, 327680, 14, 1638446, 786432, 14, 1638447, 851968, 14, 1638448, 524288, 14, 1638449, 589824, 14, 1703978, 131072, 14, 1703979, 196608, 14, 1703980, 262144, 14, 1703981, 327680, 14, 1703982, 393216, 14, 1703983, 458752, 14, 1703984, 524288, 14, 1703985, 589824, 14, 1769490, 131072, 15, 1769491, 196608, 15, 1769492, 262144, 15, 1769493, 327680, 15, 1769494, 393216, 15, 1769495, 458752, 15, 1769496, 524288, 15, 1769497, 589824, 15, 1769498, 131072, 15, 1769499, 196608, 15, 1769500, 262144, 15, 1769501, 327680, 15, 1769502, 393216, 15, 1769503, 458752, 15, 1769504, 524288, 15, 1769505, 589824, 15, 1769506, 131072, 15, 1769507, 196608, 15, 1769508, 262144, 15, 1769509, 327680, 15, 1769510, 393216, 15, 1769511, 458752, 15, 1769512, 524288, 15, 1769513, 589824, 15, 1769514, 131072, 15, 1769515, 196608, 15, 1769516, 262144, 15, 1769517, 327680, 15, 1769518, 393216, 15, 1769519, 458752, 15, 1769520, 524288, 15, 1769521, 589824, 15)
 
-[node name="Container" type="Container" parent="."]
-offset_left = 527.0
-offset_top = 163.0
-offset_right = 562.0
-offset_bottom = 207.0
-
-[node name="Door" parent="Container" instance=ExtResource("14_1f463")]
-position = Vector2(17, 21)
-
-[node name="EnemySpawnpoint" parent="." instance=ExtResource("17_mr8o8")]
-position = Vector2(723, 258)
-
 [node name="Player" parent="." instance=ExtResource("12_q5jk4")]
 position = Vector2(529, 253)
 
@@ -2349,4 +2338,20 @@ position = Vector2(529, 253)
 position = Vector2(663, 268)
 scale = Vector2(0.5, 0.5)
 
-[connection signal="gui_input" from="Container" to="." method="_on_container_gui_input"]
+[node name="Key" parent="." instance=ExtResource("16_54xp4")]
+position = Vector2(395.546, 222.89)
+metadata/ID = "PROBA"
+
+[node name="Key2" parent="." instance=ExtResource("16_54xp4")]
+position = Vector2(315, 254)
+metadata/ID = "asd"
+
+[node name="Key3" parent="." instance=ExtResource("16_54xp4")]
+position = Vector2(371, 282)
+metadata/ID = "asda"
+
+[node name="Door" parent="." instance=ExtResource("14_1f463")]
+position = Vector2(544, 185)
+
+[node name="NonogramLocation" parent="." instance=ExtResource("16_rdbqp")]
+position = Vector2(345, 232)

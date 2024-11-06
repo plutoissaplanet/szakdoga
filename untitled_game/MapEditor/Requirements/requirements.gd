@@ -33,6 +33,17 @@ const difficulty = {
 #var enemyAttackSpeedSetter: HSlider
 #var enemyCooldownSetter: HSlider
 
+
+const roomPositions = {
+	1: Vector2i(0,0),
+	2: Vector2i(1152, 0),
+	3: Vector2i(2304, 0),
+	4: Vector2i(3456, 0),
+	5: Vector2i(4608, 0),
+	6: Vector2i(5760, 0)
+}
+
+
 const enemy_difficulty = {
 	"easy" : {
 		enemy_properties.enemyHealthPoints: Vector2i(10, 40),
@@ -58,4 +69,11 @@ const room_sizes = {
 	"extra large": Vector2i(20,9)
 }
 
+
+const from_door_positions_in_rooms = {
+	
+}
+
+const to_door_positions_in_rooms = {
+}
 

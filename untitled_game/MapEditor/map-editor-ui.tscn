@@ -29,6 +29,7 @@ offset_left = 532.0
 offset_top = 535.0
 offset_right = 688.0
 offset_bottom = 576.0
+mouse_filter = 1
 texture_normal = ExtResource("2_s1bxu")
 texture_pressed = ExtResource("3_3im2w")
 ignore_texture_size = true

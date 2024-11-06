@@ -5,7 +5,6 @@ var containerHeight = 40
 var containerWidth
 var scrollContainer: ScrollContainer
 var gridContainer: GridContainer
-
 var mapDirectory = "res://PlayerMaps/"
 var mapNames = []
 

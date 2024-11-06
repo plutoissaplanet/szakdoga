@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdkljyh3i0pei"]
+
+[ext_resource type="Script" path="res://MapEditor/Requirements/tilemaps.gd" id="1_mj5bt"]
+[ext_resource type="TileSet" uid="uid://dv8jnbvavtrqt" path="res://MapEditor/Requirements/wall_tile_set.tres" id="1_wohj6"]
+[ext_resource type="TileSet" uid="uid://dq6smg8duygmt" path="res://MapEditor/Requirements/floor-tile-set.tres" id="2_br6k4"]
+[ext_resource type="TileSet" uid="uid://b7ugw6a6tsnfm" path="res://MapEditor/Requirements/boundary-tile-set.tres" id="3_l6v7b"]
+
+[node name="Tilemaps" type="Node2D"]
+script = ExtResource("1_mj5bt")
+
+[node name="WallTileMap" type="TileMap" parent="."]
+position = Vector2(234, 122)
+tile_set = ExtResource("1_wohj6")
+format = 2
+layer_1/tile_data = PackedInt32Array()
+
+[node name="FloorTileMap" type="TileMap" parent="."]
+position = Vector2(234, 186)
+tile_set = ExtResource("2_br6k4")
+navigation_visibility_mode = 1
+format = 2
+layer_0/name = "Floor"
+layer_1/name = "Wall"
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Furniture"
+layer_2/tile_data = PackedInt32Array()
+
+[node name="BoundaryTileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_l6v7b")
+format = 2

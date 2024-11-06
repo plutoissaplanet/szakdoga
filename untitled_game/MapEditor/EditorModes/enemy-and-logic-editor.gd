@@ -73,7 +73,7 @@ var buttonsDictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	parent = get_parent().get_parent()
+	parent = get_parent()
 	_add_buttons_to_grids()
 	_set_nodes_variables()
 	_connect_signals()
@@ -94,35 +94,34 @@ func _add_buttons_to_grids():
 		button.stretch_mode = TextureButton.STRETCH_SCALE
 		button.ignore_texture_size = true
 		button.pressed.connect(_on_enemy_selected.bind(key, button.texture_normal))
-		$EnemySelection/ScrollContainer/GridContainer.add_child(button)
+		$CanvasLayer/EnemySelection/ScrollContainer/GridContainer.add_child(button)
 
 func _connect_signals():
 	show_error.connect(_show_error)
 	single_enemy.connect(_single_enemy_selected)
 	multiple_enemy.connect(_multiple_enemies_selected)
 	if parent is Node2D:
-		print("parentSet")
 		parent.placed_enemy_clicked.connect(_on_placed_enemy_clicked)
 		
 func _add_animation_to_editor():
 	pass
 	
 func _set_nodes_variables():
-	difficultySelection = $EnemyEditor/SelectDifficulty/OptionButton
-	meleeSelection = $EnemyEditor/EnemyTypeSelection/MeleeSelection
-	rangedSelection = $EnemyEditor/EnemyTypeSelection/RangedSelection
-	healthPointsSelection = $EnemyEditor/EnemySetStatistics/HealthPoints
-	attackPointsSelection = $EnemyEditor/EnemySetStatistics/AttackPoints
-	enemySpeedSetter = $EnemyEditor/EnemySpeedSettings/EnemySpeed
-	enemyAttackSpeedSetter = $EnemyEditor/EnemySpeedSettings/EnemyAttackSpeed
-	errorLabel = $EnemyEditor/Error
-	errorLabelTimer = $EnemyEditor/Error/Timer
-	enemyEditor =  $EnemyEditor
-	enemyAmountSelector = $SpawnPointOrSingle
+	difficultySelection = $CanvasLayer/EnemyEditor/SelectDifficulty/OptionButton
+	meleeSelection = $CanvasLayer/EnemyEditor/EnemyTypeSelection/MeleeSelection
+	rangedSelection = $CanvasLayer/EnemyEditor/EnemyTypeSelection/RangedSelection
+	healthPointsSelection = $CanvasLayer/EnemyEditor/EnemySetStatistics/HealthPoints
+	attackPointsSelection = $CanvasLayer/EnemyEditor/EnemySetStatistics/AttackPoints
+	enemySpeedSetter = $CanvasLayer/EnemyEditor/EnemySpeedSettings/EnemySpeed
+	enemyAttackSpeedSetter = $CanvasLayer/EnemyEditor/EnemySpeedSettings/EnemyAttackSpeed
+	errorLabel = $CanvasLayer/EnemyEditor/Error
+	errorLabelTimer = $CanvasLayer/EnemyEditor/Error/Timer
+	enemyEditor =  $CanvasLayer/EnemyEditor
+	enemyAmountSelector = $CanvasLayer/SpawnPointOrSingle
 	
-	infiniteNumberOfEnemiesToSpawnSpin = $SpawnPointEditor/NumberOfEnemies/Infinite
-	customNumberOfEnemiesToSpawnSpin = $SpawnPointEditor/NumberOfEnemies/Custom
-	customNumberOfEnemiesSpinner = $SpawnPointEditor/NumberOfEnemies/NumberOfEnemiesSpinner
+	infiniteNumberOfEnemiesToSpawnSpin = $CanvasLayer/SpawnPointEditor/NumberOfEnemies/Infinite
+	customNumberOfEnemiesToSpawnSpin = $CanvasLayer/SpawnPointEditor/NumberOfEnemies/Custom
+	customNumberOfEnemiesSpinner = $CanvasLayer/SpawnPointEditor/NumberOfEnemies/NumberOfEnemiesSpinner
 	
 	errorLabel.text = ""
 	
@@ -143,18 +142,18 @@ func _show_error(error: String):
 
 func _open_enemy_editor_dialog(selectedEnemyName: String, isFirstSelection: bool):
 	_get_enemy_type_and_variant_from_file_name(selectedEnemyName)
-	#get_tree().paused = true
+	get_tree().paused = true
 	if isFirstSelection:
 		enemyAmountSelector.visible = true
 	else:
 		enemyEditor.visible = true
 		print("enemyEditor position: ", enemyEditor.position)
 		if isEnemy:
-			$EnemyEditor/ProceedButton.visible = true
-			$EnemyEditor/ProceedToSpawnConfigurator.visible = false
+			$CanvasLayer/EnemyEditor/ProceedButton.visible = true
+			$CanvasLayer/EnemyEditor/ProceedToSpawnConfigurator.visible = false
 		else:
-			$EnemyEditor/ProceedButton.visible = false
-			$EnemyEditor/ProceedToSpawnConfigurator.visible = true
+			$CanvasLayer/EnemyEditor/ProceedButton.visible = false
+			$CanvasLayer/EnemyEditor/ProceedToSpawnConfigurator.visible = true
 
 	
 func _add_difficulty_to_option_selection():
@@ -188,7 +187,7 @@ func _get_enemy_type_and_variant_from_file_name(selectedEnemyName: String) -> vo
 	selectedEnemyTypeName = selectedEnemyName.split("_")[0]
 	selectedEnemyVariantName = selectedEnemyName.split("_")[1]
 
-func _create_placed_enemy_editor(button):
+func create_placed_enemy_editor(button):
 	var background = TextureRect.new()
 	background.custom_minimum_size = Vector2i(80,25)
 	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -206,19 +205,19 @@ func _create_placed_enemy_editor(button):
 	background.add_child(grid)
 	
 	
-	var editEnemyButton = _create_placed_enemy_editor_buttons("res://Game Assets/MapEditor/Icons/pencil.png")
+	var editEnemyButton = create_placed_enemy_editor_buttons("res://Game Assets/MapEditor/Icons/pencil.png")
 	editEnemyButton.pressed.connect(_on_edit_placed_enemy_clicked.bind(button))
 	grid.add_child(editEnemyButton)
 	
-	var moveEnemyButton = _create_placed_enemy_editor_buttons("res://Game Assets/MapEditor/Icons/move.png")
+	var moveEnemyButton = create_placed_enemy_editor_buttons("res://Game Assets/MapEditor/Icons/move.png")
 	moveEnemyButton.pressed.connect(_on_move_placed_enemy_clicked.bind(button))
 	grid.add_child(moveEnemyButton)
 	
-	var deleteEnemyButton = _create_placed_enemy_editor_buttons("res://Game Assets/MapEditor/Icons/Icons_03.png")
+	var deleteEnemyButton = create_placed_enemy_editor_buttons("res://Game Assets/MapEditor/Icons/Icons_03.png")
 	deleteEnemyButton.pressed.connect(_on_delete_placed_enemy_clicked.bind(button))
 	grid.add_child(deleteEnemyButton)
 
-func _create_placed_enemy_editor_buttons(texturePath: String) -> TextureButton:
+func create_placed_enemy_editor_buttons(texturePath: String) -> TextureButton:
 	var button = TextureButton.new()
 	button.texture_normal = load(texturePath)
 	button.ignore_texture_size = true
@@ -236,7 +235,7 @@ func _on_placed_enemy_clicked(button, buttonsDict):
 	buttonsDictionary = buttonsDict
 	oldEnemyButton = button
 	if button.get_child_count() == 0:
-		_create_placed_enemy_editor(button)
+		create_placed_enemy_editor(button)
 	else:
 		button.remove_child(button.get_children()[0])
 		
@@ -251,12 +250,10 @@ func _on_edit_placed_enemy_clicked(button):
 		enemyData = data.get("enemyData")
 		selectedEnemyAmount = "multiple"
 		isEnemy = false
-		print("selectedEnemyAmount: ", selectedEnemyAmount)
 	else:
 		enemyData = data.get("enemy_data")
 		isEnemy = true
 		selectedEnemyAmount = "single"
-		print("selectedEnemyAmount: ", selectedEnemyAmount)
 	
 	oldEnemy = button.name
 	isEnemyEdited = true
@@ -374,17 +371,17 @@ func _on_attack_points_value_changed(value):
 
 
 func _on_enemy_speed_value_changed(value):
-	$EnemyEditor/EnemySpeedSettings/EnemySppeedLabel.text = str(value)
+	$CanvasLayer/EnemyEditor/EnemySpeedSettings/EnemySppeedLabel.text = str(value)
 	enemySpeed = value
 	
 
 func _on_enemy_attack_speed_value_changed(value):
-	$EnemyEditor/EnemySpeedSettings/EnemyAttackSpeedLabel.text = str(value)
+	$CanvasLayer/EnemyEditor/EnemySpeedSettings/EnemyAttackSpeedLabel.text = str(value)
 	enemyAttackSpeed = value
 
 
 func _on_enemy_cooldown_value_changed(value):
-	$EnemyEditor/EnemySpeedSettings/EnemyCooldownSpeedLabel.text = str(value)
+	$CanvasLayer/EnemyEditor/EnemySpeedSettings/EnemyCooldownSpeedLabel.text = str(value)
 	enemyCooldown = value
 	
 func _on_number_of_enemies_spinner_value_changed(value):
@@ -396,6 +393,7 @@ func _on_check_if_disabled(event: InputEvent):
 
 
 func _on_cancel_configuration():
+	print("asdasd")
 	enemyEditor.visible = false
 	isEnemyEdited = false
 	get_tree().paused = false
@@ -407,8 +405,8 @@ func _single_enemy_selected():
 	isEnemy = true
 	enemyEditor.visible = true
 	enemyAmountSelector.visible = false
-	$EnemyEditor/ProceedToSpawnConfigurator.visible = false
-	$EnemyEditor/ProceedButton.visible = true
+	$CanvasLayer/EnemyEditor/ProceedToSpawnConfigurator.visible = false
+	$CanvasLayer/EnemyEditor/ProceedButton.visible = true
 
 
 
@@ -417,14 +415,15 @@ func _multiple_enemies_selected():
 	enemyEditor.visible = true
 	isEnemy = false
 	enemyAmountSelector.visible = false
-	$EnemyEditor/EnemyEditorLabel.text = "Next"
-	$EnemyEditor/ProceedToSpawnConfigurator.visible = true
-	$EnemyEditor/ProceedButton.visible = false
+	$CanvasLayer/EnemyEditor/EnemyEditorLabel.text = "Next"
+	$CanvasLayer/EnemyEditor/ProceedToSpawnConfigurator.visible = true
+	$CanvasLayer/EnemyEditor/ProceedButton.visible = false
 	
 func _on_proceed_to_spawn_configurator_pressed():
 	print("gets clicked")
+	get_tree().paused = false
 	enemyEditor.visible = false
-	$SpawnPointEditor.visible = true
+	$CanvasLayer/SpawnPointEditor.visible = true
 
 func _on_select_multiple_enemy_button():
 	multiple_enemy.emit()
@@ -461,13 +460,13 @@ func _on_proceed_button_pressed():
 					get_tree().paused = false
 					var newEnemyData = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
 					var newSpawnPoint = ENEMY_SPAWN_POINT.new(enemiesToSpawnNumber, spawnCooldown, newEnemyData)
-					$SpawnPointEditor.visible = false
+					$CanvasLayer/SpawnPointEditor.visible = false
 					place_spawn_point.emit(newSpawnPoint)
 					_reset_values(true)
 				else:
 					isEnemyEdited = false
 					get_tree().paused = false
-					$SpawnPointEditor.visible = false
+					$CanvasLayer/SpawnPointEditor.visible = false
 					var newEnemyData = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
 					var newSpawnPoint = ENEMY_SPAWN_POINT.new(enemiesToSpawnNumber, spawnCooldown, newEnemyData)
 					pressedEnemy.name = str(newSpawnPoint)

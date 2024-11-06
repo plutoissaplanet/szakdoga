@@ -120,9 +120,6 @@ libraries = {
 "": SubResource("AnimationLibrary_l8xk6")
 }
 
-[node name="DoorFrame" type="Sprite2D" parent="."]
-texture = ExtResource("2_s6ber")
-
 [node name="player_detector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
@@ -134,5 +131,13 @@ shape = SubResource("RectangleShape2D_ci34j")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="near_the_door_detector"]
 shape = SubResource("CircleShape2D_bgw4v")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -16.0
+offset_top = -25.0
+offset_right = 16.0
+offset_bottom = 24.0
+texture = ExtResource("2_s6ber")
+
 [connection signal="body_entered" from="near_the_door_detector" to="." method="_on_near_the_door_detector_body_entered"]
 [connection signal="body_exited" from="near_the_door_detector" to="." method="_on_near_the_door_detector_body_exited"]
+[connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]

@@ -1,7 +1,7 @@
 extends Node
 
 
-var filePath = "res://PlayerMaps/"
+var filePath = "res://PlayerMaps/EditorMaps/"
 
 
 func create_new_scene(mapName: String):
@@ -31,6 +31,23 @@ func map_on_save_button_pressed(node: Node2D):
 	
 	if result == OK:
 		var saveResult = ResourceSaver.save(newScene, mapPath)
+		if saveResult == OK:
+			print("Save was successful!")
+		else:
+			print("Save failed!")
+	else:
+		print("Error packing the scene.")
+		
+func save_map(node, filePath, optionalScript = null):
+	if optionalScript:
+		node.set_script(optionalScript)
+	var newScene = PackedScene.new()
+	var result = newScene.pack(node)
+	
+	
+	
+	if result == OK:
+		var saveResult = ResourceSaver.save(newScene, filePath)
 		if saveResult == OK:
 			print("Save was successful!")
 		else:

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://MapEditor/map-editor.gd" id="1_djyc0"]
+
+[node name="@Node2D@32" type="Node2D"]
+script = ExtResource("1_djyc0")
+metadata/MAP_NAME = "EditorMaps"
+metadata/MAP_DIFFICULTY = "easy"
+metadata/NUMBER_OF_ROOMS = 1
+metadata/CREATION_DATE = {
+"day": 16,
+"dst": false,
+"hour": 17,
+"minute": 4,
+"month": 11,
+"second": 21,
+"weekday": 6,
+"year": 2024
+}

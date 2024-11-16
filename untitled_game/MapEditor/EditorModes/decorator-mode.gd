@@ -10,6 +10,7 @@ const tileSize = Vector2i(32,32)
 const chosenSizeLabelPosition = Vector2i(453, 512)
 const floorGridPositionOffset = Vector2i(234, 186)
 const wallGridPositionOffset = Vector2i(234, 122)
+var spawnPointLoaded = load("res://GameplayThings/EnemySpawnPoints/enemy_spawnpoint.tscn")
 
 
 
@@ -191,6 +192,9 @@ var spawnPointSprite
 var enemyPlaced = false
 var spawnPointPlaced = false
 
+
+var minimumRoomNumberReached: bool
+
 signal editor_mode_changed(mode: String) #For the editor type (eg. radír, or rectangular tile placement, or singular)
 signal layer_changed(layer: int) #For when a new tab in the decorator tab is selected, it emits the new layer we are on, it emits an integer
 signal mouse_in_floor_area(event: InputEvent) #For when the user has entered the area where they can actually edit the map
@@ -223,7 +227,29 @@ var placedEnemiesAndButtons = {}
 
 var enemyEditor
 var logicEditor
+var requirementEditor
 var parent
+
+var violations = {
+		"enemy": {
+			"easy": 0,
+			"medium": 0,
+			"hard": 0
+		},
+		"spawnpoint": {
+			"easy": 0,
+			"medium": 0,
+			"hard": 0},
+		"minigame": {
+			"easy": 0,
+			"medium": 0,
+			"hard": 0
+		},
+		"room": 0
+	}
+	
+var mapOKToPublish: bool = false
+
 
 func _ready():
 	floorTileMap = get_node("FloorTileMap")
@@ -232,8 +258,16 @@ func _ready():
 	parent = get_parent()
 	
 	roomSize = REQUIREMENTS.room_sizes.get("small")
+	requirementEditor = $"Requirement-section"
 	enemyEditor = $"Enemy-and-logic-editor"
 	logicEditor = $"Logic-editor"
+
+	
+	if requirementEditor:
+		requirementEditor.MAX_AMOUNT_REACHED.connect(_block_given_feature)
+		requirementEditor.MAX_AMOUNT_NOT_REACHED.connect(_unblock_given_feature)
+		requirementEditor.MAP_PUBLISHABLE.connect(_violation_counter)
+	
 	
 	$Control/Rooms/GridContainer/Room1.pressed.connect(_on_room_button_pressed.bind($Control/Rooms/GridContainer/Room1.get_meta("ROOM_NUMBER")))
 	is_room_size_set.connect(_is_room_size_set)
@@ -278,6 +312,26 @@ func set_number_of_rooms(number: int):
 		for num in range(roomNumber-1):
 			_create_new_room(num+2)
 	logicEditor.numberOfRooms = roomNumber
+	
+func _block_given_feature(type: String, diff: String):
+	if type == "room":
+		$Control/Rooms/NewRoomButton.disconnect("pressed", _on_new_room_button_pressed)
+		$Control/Rooms/NewRoomButton.pressed.connect(_max_room_amount_reached)
+		minimumRoomNumberReached = true #TODO only be able to publish if every minimum is reached
+	if type == "minigame":
+		logicEditor.MAX_AMOUNT_REACHED.emit(type, diff)
+	else:
+		enemyEditor.MAX_AMOUNT_REACHED.emit(type, diff)
+	
+
+func _unblock_given_feature(type: String, diff: String):
+	if type == "room":
+		$Control/Rooms/NewRoomButton.disconnect("pressed", _max_room_amount_reached)
+		$Control/Rooms/NewRoomButton.pressed.connect(_on_new_room_button_pressed)
+	if type == "minigame":
+		logicEditor.MAX_AMOUNT_NOT_REACHED.emit(type, diff)
+	else:
+		enemyEditor.MAX_AMOUNT_NOT_REACHED.emit(type, diff)
 	
 	
 func _add_floor_grid(sizing: String):
@@ -331,18 +385,6 @@ func _add_wall_grid(sizing: String):
 		newPanel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		grid.add_child(newPanel)
 
-func _add_boundary_to_map(sizeString: String) -> void: #THIS TILEMAP WILL HAVE TO BE SAVED TO THE .TSCN TOO!!!!!!!
-	var size = REQUIREMENTS.room_sizes.get(sizeString)
-	var localizeMapToTileMapPosition = boundaryTileMap.local_to_map(roomPositions.get(selectedRoomNumber)) 
-	const boundarySourceID = 2
-	const boundaryAtlasCoords = Vector2i(0, 0)
-	
-	for i in range(size.y):
-		boundaryTileMap.set_cell(0, Vector2i(-1, i) + localizeMapToTileMapPosition, boundarySourceID, Vector2i(0,0), 1)
-		boundaryTileMap.set_cell(0, Vector2i(size.x, i) + localizeMapToTileMapPosition, boundarySourceID, Vector2i(0,0), 2)
-	
-	for i in range(size.x):
-		boundaryTileMap.set_cell(0, Vector2i(i, size.y) + localizeMapToTileMapPosition, boundarySourceID, Vector2i(0,0), 3)
 	
 func _on_floor_area_detector_input_event(event):
 	mouse_in_floor_area.emit(event)
@@ -431,8 +473,50 @@ func _on_rectangle_draw_button_pressed(): # The tile placement is rectangle plac
 func _on_eraser_button_pressed(): # The tile placement is eraser
 	editor_mode_changed.emit("Delete")
 
+
+func _violation_counter(publishable, type, diff):
+	print("_____________________________")
+	print("publishable: ", publishable)
+	print("type: ", type)
+	print("diff: ", diff)
+	var violationCounter: int 
+	if type == "room":
+		violationCounter = violations.get(type)
+	else:
+		violationCounter = violations.get(type).get(diff)
+		print("violationCounter: ", violationCounter)
+	
+	if not publishable:
+		print("not publishable")
+		violationCounter += 1
+		violations[type][diff] = violationCounter
+	else:
+		print("publishable")
+		violations[type][diff] = 0
+		
+	print("violations[type][diff]: ", violations[type][diff])
+	print("violations: ", violations)
+	print("_____________________________")
+	
+	mapOKToPublish = _check_violations(type, diff)
+
+
+func _check_violations(type, diff):
+	for violation in violations.keys():
+		if violation == "room":
+			print("room v counter: ",violations.get(violation) )
+			if violations.get(violation) != 0:
+				return false
+		else:
+			for violationCounters in violations.get(violation):
+				print("other v counter: ", violations.get(violation).get(violationCounters))
+				if violations.get(violation).get(violationCounters) != 0:
+					return false
+	return true
+
 func _on_save_button_pressed(): # Save the map button
-	save_button_pressed.emit()
+	save_button_pressed.emit(mapOKToPublish)
+	
 
 func _on_discard_button_pressed(): # Discard the changes
 	var confirmationDialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
@@ -488,8 +572,8 @@ func _on_option_button_item_selected(index):
 	roomSizeString = size
 
 	
-func _on_size_accepted( dialog) -> void:
-	room_size_set.emit(roomSizeString)
+func _on_size_accepted(dialog) -> void:
+	room_size_set.emit(roomSizeString, selectedRoomNumber)
 	get_tree().paused= false
 	remove_child(dialog)
 	dialog.queue_free()
@@ -515,6 +599,9 @@ func _on_new_room_button_pressed():
 		_create_new_room(roomNumber)
 	else:
 		print("you cant make any more rooms") #make an error toast
+		
+func _max_room_amount_reached():
+	pass
 
 
 func _on_room_button_pressed(room: int):
@@ -523,6 +610,7 @@ func _on_room_button_pressed(room: int):
 		_able_size_button()
 	$Control.position = roomPositions.get(selectedRoomNumber) 
 	enemyEditor.position = roomPositions.get(selectedRoomNumber)
+	logicEditor.position = roomPositions.get(selectedRoomNumber)
 	$Camera2D.position = roomPositions.get(selectedRoomNumber) + windowSize/2 
 	$Control/ChosenSize.position = chosenSizeLabelPosition + Vector2i(roomPositions.get(selectedRoomNumber))
 	selected_room_changed.emit(selectedRoomNumber)
@@ -534,7 +622,6 @@ func _is_room_size_set(roomNumber: int, sizeString: String): #if its set then re
 		selectedRoomNumber = roomNumber
 		_add_floor_grid(sizeString)
 		_add_wall_grid(sizeString)
-		_add_boundary_to_map(roomSizeString)
 		selectedRoomNumber = 1
 	roomsWithSetSizes[roomNumber] = sizeString
 	disable_size_selection.emit(sizeString)
@@ -564,7 +651,7 @@ func _get_enemy_from_editor(enemy, texture):
 
 
 func _enemy_moved(enemyName, texture, enemyData):
-	if str(enemyName).contains("Node"):
+	if str(enemyName).contains("Resource"):
 		enemyPlaced = false
 		enemyToPlaceSprite = TextureRect.new()
 		enemyToPlaceSprite.texture = texture
@@ -579,7 +666,8 @@ func _enemy_moved(enemyName, texture, enemyData):
 	else:
 		spawnPointPlaced = false
 		var newEnemy = ENEMY_DATA.new(enemyData.get("enemyData").get("speed"), enemyData.get("enemyData").get("enemyType"), enemyData.get("enemyData").get("enemyVariant"), enemyData.get("enemyData").get("enemyAttackType"), enemyData.get("enemyData").get("enemyShootTime"), enemyData.get("enemyData").get("enemyDifficulty"), enemyData.get("enemyData").get("healthPoints"), enemyData.get("enemyData").get("attackPoints"))
-		spawnPointToPlace = ENEMY_SPAWN_POINT.new(enemyData.get("numberOfEnemiesToSpawn"), enemyData.get("timerSpeed"), newEnemy)
+		spawnPointToPlace = spawnPointLoaded.instantiate()
+		spawnPointToPlace.initialitze(enemyData.get("numberOfEnemiesToSpawn"), enemyData.get("timerSpeed"), newEnemy)
 		spawnPointSprite = TextureRect.new()
 		spawnPointSprite.texture = texture
 		spawnPointSprite.position = get_global_mouse_position()
@@ -594,13 +682,14 @@ func _enemy_moved(enemyName, texture, enemyData):
 	emit_new_enemy_name.emit(enemyName, str(enemyToPlace))
 
 
-	
 func _on_placed_enemy_or_spawnpoint_clicked(button):
 	placed_enemy_clicked.emit(button, placedEnemiesAndButtons)
-	
+
+
 func _delete_enemy_from_dictionary(oldEnemy, oldEnemyButton):
 	buttonsAndTheirTextures.erase(oldEnemyButton)
-	
+
+
 func _place_spawn_point(spawnpoint):
 	spawnPointToPlace = spawnpoint
 	var spawnPointTexture = load("res://Game Assets/MapEditor/spawnpoints.png")
@@ -608,9 +697,23 @@ func _place_spawn_point(spawnpoint):
 	spawnPointSprite.texture = spawnPointTexture
 	spawnPointSprite.pivot_offset = Vector2(25,25)
 	spawnPointSprite.position = get_global_mouse_position()
-	spawnPointToPlace.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	spawnPointSprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(spawnPointSprite)
 
 
+func _on_back_button_pressed():
+	var confirmationDialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
+	confirmationDialog.set_label_text("Unsaved changes will be lost. Please save your changes")
+	confirmationDialog.position=  roomPositions.get(selectedRoomNumber) + windowSize/2 - Vector2i(confirmationDialog.get_node("CanvasLayer/TileMap/Background").size)/2
+	get_tree().paused= true
+	add_child(confirmationDialog)
+	confirmationDialog.ok_button_pressed.connect(_go_back_confirmed.bind(confirmationDialog))
+	confirmationDialog.confirmation_cancelled.connect(_go_back_cancelled.bind(confirmationDialog))
 
 
+func _go_back_confirmed(dialog):
+	get_tree().change_scene_to_file("res://MapEditor/map-editor-ui.tscn")
+
+
+func _go_back_cancelled(dialog):
+	remove_child(dialog)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dyreos48cvyjc"]
 
-[ext_resource type="Script" path="res://GameplayThings/MiniGameLocations/nonogramLocation.gd" id="1_ah121"]
+[ext_resource type="Script" path="res://GameplayThings/MiniGameLocations/minigame-location.gd" id="1_ah121"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lhw01"]
 radius = 28.0179

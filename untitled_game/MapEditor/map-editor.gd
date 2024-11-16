@@ -31,15 +31,13 @@ var GLOBAL_DELTA
 
 const roomSizeMetaKey = "ROOM_SIZE_NUMBER_"
 
-var ENTITIES_TO_PLACE = {
-	"enemy": {},
-	"items": {},
-	"minigames": {},
-	"keys": {},
-	"tiles": {},
-}
+var ENTITIES_TO_PLACE = {}
 
 var TILES_TO_PLACE
+
+var difficulty: String
+
+
 
 
 #TODO
@@ -48,6 +46,7 @@ var TILES_TO_PLACE
 # save button
 
 signal on_load_connect_enemy(enemy, dictionary)
+signal ENTITIES_TO_PLACE_CHANGED()
 
 func _ready():
 	decorationEditor = preload("res://MapEditor/EditorModes/decorator-mode.tscn").instantiate()
@@ -59,10 +58,6 @@ func _ready():
 	if get_meta_list().size() == 0: #Check if the room has any meta, if not, set it 
 		_set_map_information()
 
-	
-	if get_meta_list().has("NUMBER_OF_ROOMS") and decorationEditor: #If the room has the number of rooms meta, initialize the number of rooms in the editor, so that the correct number of buttons show at the beginning of editing
-		decorationEditor.set_number_of_rooms(get_meta("NUMBER_OF_ROOMS"))
-	
 	
 	if decorationEditor:
 		floorTileMap = decorationEditor.floorTileMap
@@ -101,15 +96,24 @@ func _ready():
 			
 		if decorationEditor.logicEditor:
 			decorationEditor.logicEditor.minigames_to_palce_changed.connect(_minigames_to_place_changed)
-			
-		
-	
-	_check_room_sizes()
+
+
+
 	_set_difficulty_if_not_set()
-	ENTITIES_TO_PLACE = _load_enemies_on_ready()
+	ENTITIES_TO_PLACE = _load_json_on_ready()
+	_get_difficulty_from_json()
+	_check_room_sizes()
 	_place_tiles_on_ready()
 	_make_enemy_buttons()
 	_make_minigame_buttons()
+	
+	if decorationEditor:
+		var numberOfRooms = ENTITIES_TO_PLACE.get("rooms").keys().size()
+		if numberOfRooms == 0:
+			decorationEditor.set_number_of_rooms(numberOfRooms+1)
+		else:
+			decorationEditor.set_number_of_rooms(numberOfRooms)
+		print(numberOfRooms)
 
 func _set_map_information():
 	set_meta("MAP_NAME", scene_file_path.split("/")[3].split(".")[0])
@@ -117,9 +121,10 @@ func _set_map_information():
 	set_meta("NUMBER_OF_ROOMS", 1)
 	set_meta("CREATION_DATE", Time.get_datetime_dict_from_system())
 	
-func _load_enemies_on_ready():
-	var file = JSON_FILE_FUNCTIONS.load_json_file("res://PlayerMaps/" + scene_file_path.split("/")[3].split(".")[0] + ".json")
+func _load_json_on_ready():
+	var file = JSON_FILE_FUNCTIONS.load_json_file("res://PlayerMaps/EditorMaps/" + scene_file_path.split("/")[4].split(".")[0] + ".json")
 	if file:
+		decorationEditor.requirementEditor.set_entities_to_palce.emit(JSON.parse_string(file.get_as_text()))
 		return JSON.parse_string(file.get_as_text())
 	else:
 		return {
@@ -128,19 +133,25 @@ func _load_enemies_on_ready():
 			"minigames": {},
 			"keys": {},
 			"tiles": {},
+			"rooms": {},
+			"difficulty": '',
+			"creation_date": '',
+			"already_generated": '0',
+			"doors": {}
+
 		}
+		
+func _get_difficulty_from_json():
+	difficulty = ENTITIES_TO_PLACE.get("difficulty")
+	decorationEditor.requirementEditor.difficulty_set.emit(difficulty)
 		
 func _place_tiles_on_ready():
 	var tilesDictionary = ENTITIES_TO_PLACE.get("tiles")
 	TILES_TO_PLACE = ENTITIES_TO_PLACE.get("tiles")
-	print("___________________________")
-	print(tilesDictionary)
-	print("___________________________")
+
 	if tilesDictionary != null:
 		for key in tilesDictionary.keys():
-			print(key)
 			if key == "0" or key == "2":
-				print("floor and decor: ", key)
 				for tile in tilesDictionary.get(key):
 					var pos = Vector2i(int(tile.split(",")[0]),int(tile.split(",")[1]))
 					var atlasCoordString = tilesDictionary.get(key).get(tile).get("atlasCoords")
@@ -152,10 +163,8 @@ func _place_tiles_on_ready():
 					var atlasCoordString = tilesDictionary.get(key).get(tile).get("atlasCoords")
 					var atlasCoordinates = Vector2i(int(atlasCoordString.split(",")[0]), int(atlasCoordString.split(",")[1]))
 					wallTileMap.set_cell(int(key), wallTileMap.local_to_map(pos), tilesDictionary.get(key).get(tile).get("sourceId"), atlasCoordinates)
-				
-					#currentTileMap.set_cell(currentLayer, localizedPosition, sourceID, atlasCoordinatesOfSelectedTile)
-		
-	
+
+
 func _make_enemy_buttons():
 	var enemies = ENTITIES_TO_PLACE.get("enemy")
 	if enemies != null:
@@ -178,7 +187,8 @@ func _make_minigame_buttons():
 	if minigames != null:
 		for key in minigames.keys():
 			var posString = minigames.get(key).get("position").replace("(", "").replace(")","").split(",")
-			decorationEditor.logicEditor.create_texture_button(minigames.get(key).get("texturePath"),Vector2(float(posString[0]), float(posString[1])), key, minigames.get(key).get("reward"), minigames.get(key).get("difficulty"))
+			decorationEditor.logicEditor.create_texture_button(minigames.get(key).get("texturePath"),Vector2(float(posString[0]), float(posString[1])), key, minigames.get(key).get("reward"), minigames.get(key).get("difficulty"), minigames.get(key).get("minigame_name"), str(minigames.get(key).get("room")))
+
 
 func _input_event_on_floor_area_collision(event: InputEvent): #for when the player wants to either place or delete a tile
 	if event.is_action_pressed("room_changer_click")  and selectedTileName and (currentLayer == 0 or currentLayer == 2):
@@ -187,7 +197,6 @@ func _input_event_on_floor_area_collision(event: InputEvent): #for when the play
 
 func _input_event_on_wall_area_collision(event: InputEvent): #if the player wants to place a wall
 	if event.is_action_pressed("room_changer_click") and selectedTileName and currentLayer == 1:
-		print("should place")
 		_editing_logic(wallTileMap)
 		
 		
@@ -200,6 +209,7 @@ func _editing_logic(currentTileMap: TileMap):
 			_place_tile(selectedTileId, worldPosition, currentTileMap)
 		"Rectangle":
 			pass
+
 
 func _place_tile(tileToPlace: int, pos: Vector2i, currentTileMap: TileMap) -> void:
 	if currentLayer == 1:
@@ -240,17 +250,34 @@ func _add_editor_nodes_to_map():
 	add_child(decorationEditor)
 	
 	
-func _map_is_ready_to_save(): #Takes out the editor node, and makes the tileMaps the tscn's children
-	var rootNode = get_tree().current_scene
-	var path = "res://PlayerMaps/" + scene_file_path.split("/")[3].split(".")[0] + ".json"
+func _map_is_ready_to_save(violations): #Takes out the editor node, and makes the tileMaps the tscn's children
+	print("save map violations: ", violations)
+	if violations:
+		_save_map()
+	else:
+		var dialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
+		dialog.set_label_text("Map will be saved, but its not publishable")
+		dialog.ok_button_pressed.connect(_violation_button_ok.bind(dialog))
+		dialog.confirmation_cancelled.connect(_violation_button_close.bind(dialog))
+		add_child(dialog)
 	
+
+func _violation_button_ok(dialog):
+	remove_child(dialog)
+	_save_map()
+	
+func _violation_button_close(dialog):
+	remove_child(dialog)
+	
+func _save_map():
+	var rootNode = get_tree().current_scene
+	var path = "res://PlayerMaps/EditorMaps/" + scene_file_path.split("/")[4].split(".")[0] + ".json"
+
 	var tilemapParser = TILEMAP_TO_JSON.new(floorTileMap, wallTileMap, boundaryTileMap)
 	var TILES_TO_PLACE = tilemapParser.get_tiles_to_place()
 	ENTITIES_TO_PLACE["tiles"] = TILES_TO_PLACE
-	print("_____________________________")
-	print(TILES_TO_PLACE)
-	print("___________________________")
-
+	ENTITIES_TO_PLACE["difficulty"] = difficulty
+	
 	for child in rootNode.get_children():
 		if child is TextureButton:
 			remove_child(child)
@@ -268,30 +295,33 @@ func _discard_button_pressed():
 func _room_number_changed(number: int): #if a new room was added or removed, set the new meta data
 	set_meta("NUMBER_OF_ROOMS", number)
 	
-	
-func _set_difficulty(difficulty) -> void:
+
+func _set_difficulty(diff) -> void:
+	difficulty = diff
 	set_meta("MAP_DIFFICULTY", difficulty)
+	ENTITIES_TO_PLACE["difficulty"] = diff
+	decorationEditor.requirementEditor.difficulty_set.emit(difficulty)
 
 
 func _set_difficulty_if_not_set() -> void:
 	if not get_meta_list().has("MAP_DIFFICULTY") or not get_meta("MAP_DIFFICULTY") and decorationEditor:
 		decorationEditor.open_difficulty_dialog()
-	
-	
+
+
 func _selected_room_changed(number: int):
 	selectedRoom = number
 	
 	
-func _room_size_set(size: String):
-	set_meta(roomSizeMetaKey + str(selectedRoom), size)
+func _room_size_set(size: String, roomNumber):
+	ENTITIES_TO_PLACE["rooms"][roomNumber] = size
 	if decorationEditor:
 		decorationEditor.is_room_size_set.emit(selectedRoom, size)
 	
 	
 func _check_room_sizes():
-	for meta in get_meta_list():
-		if meta.begins_with(roomSizeMetaKey) and decorationEditor:
-			decorationEditor.is_room_size_set.emit(int(meta.get_slice("_", 3)), get_meta(meta))
+	var rooms = ENTITIES_TO_PLACE.get("rooms").keys()
+	for room in rooms:
+		decorationEditor.is_room_size_set.emit(int(room), ENTITIES_TO_PLACE.get("rooms").get(room))
 
 
 func _place_enemy(enemy, event, sprite):
@@ -300,6 +330,7 @@ func _place_enemy(enemy, event, sprite):
 	ENTITIES_TO_PLACE.get("enemy")[str(enemy)]["enemy_data"] = enemy.return_dictionary()
 	ENTITIES_TO_PLACE.get("enemy")[str(enemy)]["position"] = globPosition
 	ENTITIES_TO_PLACE.get("enemy")[str(enemy)]["type"] = "enemy"
+	ENTITIES_TO_PLACE_CHANGED.emit("enemy", enemy.enemyDifficulty, true, false)
 
 
 func _enemy_edited(newEnemy, oldEnemy):
@@ -311,12 +342,19 @@ func _enemy_edited(newEnemy, oldEnemy):
 	
 	if newEnemy is Marker2D:
 		ENTITIES_TO_PLACE.get("enemy")[str(newEnemy)]["type"] = "spawnpoint"
+		ENTITIES_TO_PLACE_CHANGED.emit("spawnpoint", newEnemy.get("enemyData").get("enemyDifficulty"), false, true)
 	else:
 		ENTITIES_TO_PLACE.get("enemy")[str(newEnemy)]["type"] = "enemy"
+		ENTITIES_TO_PLACE_CHANGED.emit("enemy", newEnemy.get("enemyDifficulty"), false, true)
 	
 	
 func _enemy_delete(oldEnemy, oldEnemyButton):
+	if ENTITIES_TO_PLACE.get("enemy").get(oldEnemyButton).get("type") == "enemy":
+		ENTITIES_TO_PLACE_CHANGED.emit("enemy", ENTITIES_TO_PLACE.get("enemy").get(oldEnemyButton).get("enemy_data").get("enemyDifficulty"), false, false)
+	else: 
+		ENTITIES_TO_PLACE_CHANGED.emit("spawnpoint", ENTITIES_TO_PLACE.get("enemy").get(oldEnemyButton).get("enemyData").get("enemyDifficulty"), false, false)
 	ENTITIES_TO_PLACE.get("enemy").erase(oldEnemyButton)
+
 	
 
 func _place_spawnpoint(spawnpoint, event, sprite):
@@ -325,7 +363,7 @@ func _place_spawnpoint(spawnpoint, event, sprite):
 	ENTITIES_TO_PLACE.get("enemy")[str(spawnpoint)] = spawnpoint.return_dictionary()
 	ENTITIES_TO_PLACE.get("enemy")[str(spawnpoint)]["position"] = globPosition
 	ENTITIES_TO_PLACE.get("enemy")[str(spawnpoint)]["type"] = "spawnpoint"
-
+	ENTITIES_TO_PLACE_CHANGED.emit("spawnpoint", spawnpoint.return_dictionary().get("enemyData").get("enemyDifficulty"), true, false)
 
 
 func _place_enemy_placeholder(enemyPlaceholder):
@@ -336,10 +374,11 @@ func _entities_dictionary_changed(oldEnemyName, newEnemyName):
 	var oldData = ENTITIES_TO_PLACE.get("enemy")[str(oldEnemyName)]
 	ENTITIES_TO_PLACE.get("enemy").erase(str(oldEnemyName))
 	ENTITIES_TO_PLACE.get("enemy")[str(newEnemyName)] = oldData
+	
 
 func _minigames_to_place_changed(minigamesToPlace):
 	ENTITIES_TO_PLACE["minigames"] = minigamesToPlace
-	print("_minigames_to_place_changed : ", ENTITIES_TO_PLACE)
+
 
 
 

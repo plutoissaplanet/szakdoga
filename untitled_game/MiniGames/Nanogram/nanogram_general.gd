@@ -77,6 +77,7 @@ extends Node2D
 @onready var solved = false
 
 signal minigame_completed
+var difficulty
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

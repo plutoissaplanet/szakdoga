@@ -7,6 +7,7 @@ extends Node2D
 
 signal minigame_completed
 
+var difficulty: String
 
 
 func _ready():

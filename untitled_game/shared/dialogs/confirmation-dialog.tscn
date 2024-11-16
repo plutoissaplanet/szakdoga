@@ -258,7 +258,7 @@ offset_right = 286.0
 offset_bottom = 134.0
 theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("6_216u7")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 26
 horizontal_alignment = 1
 autowrap_mode = 3
 

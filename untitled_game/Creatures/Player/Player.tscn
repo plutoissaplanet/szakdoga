@@ -138,6 +138,9 @@ scale = Vector2(0.1, 0.1)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
+[node name="MinigameLayer" type="CanvasLayer" parent="Camera2D"]
+visible = false
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 1
 libraries = {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://wb843brcr06o"]
+[gd_scene load_steps=29 format=3 uid="uid://wb843brcr06o"]
 
 [ext_resource type="Script" path="res://MapEditor/EditorModes/decorator-mode.gd" id="1_exevj"]
 [ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="2_mj8dh"]
@@ -13,10 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://brl0x1rvwinsi" path="res://Game Assets/MapEditor/Icons/Icons_03.png" id="11_osipf"]
 [ext_resource type="Texture2D" uid="uid://d10qqjrcrne6b" path="res://Game Assets/MapEditor/Icons/pencil.png" id="12_xo4ih"]
 [ext_resource type="Texture2D" uid="uid://dcwymmsue8gi1" path="res://Game Assets/MapEditor/Icons/rectangular-shape-outline.png" id="13_fkctm"]
+[ext_resource type="Texture2D" uid="uid://ds0n657rkoxfs" path="res://Game Assets/GUI/Buttons/Icons_14.png" id="14_02e3f"]
 [ext_resource type="Texture2D" uid="uid://0bpb05fiart0" path="res://Game Assets/GUI/Tiles/Button2.png" id="14_pk42w"]
 [ext_resource type="Texture2D" uid="uid://qtp5jl15i4wo" path="res://Game Assets/GUI/Buttons/Button2.png" id="15_u5h8u"]
 [ext_resource type="PackedScene" uid="uid://tv6xl43fjll0" path="res://MapEditor/EditorModes/enemy-and-logic-editor.tscn" id="17_y8j08"]
 [ext_resource type="PackedScene" uid="uid://bybhdom2ygbhs" path="res://MapEditor/EditorModes/logic-editor.tscn" id="18_v5tbh"]
+[ext_resource type="PackedScene" uid="uid://blo7sfn8jeqyj" path="res://MapEditor/EditorModes/requirement-section.tscn" id="19_n8mhj"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jqvq7"]
 texture = ExtResource("2_mj8dh")
@@ -79,17 +81,8 @@ layout_mode = 3
 anchors_preset = 0
 mouse_filter = 1
 
-[node name="Requirements" type="TextureRect" parent="Control"]
-modulate = Color(1, 1, 1, 0.239216)
-layout_mode = 0
-offset_left = 897.0
-offset_top = 101.0
-offset_right = 1134.0
-offset_bottom = 290.0
-texture = ExtResource("2_mj8dh")
-expand_mode = 1
-
 [node name="MapData" type="TextureRect" parent="Control"]
+visible = false
 modulate = Color(1, 1, 1, 0.239216)
 layout_mode = 0
 offset_left = 899.0
@@ -226,17 +219,18 @@ text = "Enemy Mode"
 
 [node name="TilePlacementModifiers" type="Control" parent="Control/MenuBar"]
 anchors_preset = 0
-offset_right = 40.0
+offset_left = 66.0
+offset_right = 106.0
 offset_bottom = 40.0
 
 [node name="EraserButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
 texture_filter = 6
 layout_mode = 1
 anchors_preset = -1
-offset_left = 48.0
-offset_top = 21.0
-offset_right = 72.0
-offset_bottom = 45.0
+offset_left = 40.0
+offset_top = 24.0
+offset_right = 64.0
+offset_bottom = 48.0
 texture_normal = ExtResource("9_0oamb")
 ignore_texture_size = true
 stretch_mode = 0
@@ -258,10 +252,10 @@ text = "Eraser"
 [node name="DrawButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
 texture_filter = 6
 layout_mode = 0
-offset_left = 106.0
-offset_top = 20.0
-offset_right = 130.0
-offset_bottom = 44.0
+offset_left = 98.0
+offset_top = 23.0
+offset_right = 122.0
+offset_bottom = 47.0
 texture_normal = ExtResource("12_xo4ih")
 ignore_texture_size = true
 stretch_mode = 0
@@ -283,10 +277,10 @@ text = "Draw"
 [node name="RectangleDrawButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
 texture_filter = 6
 layout_mode = 0
-offset_left = 163.0
-offset_top = 16.0
-offset_right = 193.0
-offset_bottom = 46.0
+offset_left = 155.0
+offset_top = 19.0
+offset_right = 185.0
+offset_bottom = 49.0
 texture_normal = ExtResource("13_fkctm")
 ignore_texture_size = true
 stretch_mode = 0
@@ -302,6 +296,15 @@ theme_override_fonts/font = ExtResource("3_0c21j")
 text = "Rectangle
 Draw"
 horizontal_alignment = 1
+
+[node name="BackButton" type="TextureButton" parent="Control/MenuBar"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 28.0
+offset_right = 67.0
+offset_bottom = 68.0
+texture_normal = ExtResource("14_02e3f")
+stretch_mode = 0
 
 [node name="DecoratorSelection" type="Control" parent="Control"]
 anchors_preset = 0
@@ -521,6 +524,9 @@ position = Vector2(576, 324)
 visible = false
 
 [node name="Enemy-and-logic-editor" parent="." instance=ExtResource("17_y8j08")]
+visible = false
+
+[node name="Requirement-section" parent="." instance=ExtResource("19_n8mhj")]
 
 [connection signal="pressed" from="Control/MenuBar/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/DiscardButton" to="." method="_on_discard_button_pressed"]
@@ -530,6 +536,7 @@ visible = false
 [connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/EraserButton" to="." method="_on_eraser_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/DrawButton" to="." method="_on_draw_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/RectangleDrawButton" to="." method="_on_rectangle_draw_button_pressed"]
+[connection signal="pressed" from="Control/MenuBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="tab_changed" from="Control/DecoratorSelection/DecorationTabContainer" to="." method="_on_tab_changed"]
 [connection signal="pressed" from="Control/Rooms/NewRoomButton" to="." method="_on_new_room_button_pressed"]
 [connection signal="item_selected" from="Control/RoomSize/OptionButton" to="." method="_on_option_button_item_selected"]

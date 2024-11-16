@@ -25,7 +25,6 @@ enum {
 func _ready():
 	if player != null:
 		state_machine.player = player 
-		print(player.overlappingProjectileHitArea)
 		rangedAndIdleEnemyArea = player.overlappingProjectileHitArea
 		rangedAndIdleEnemyCollision = rangedAndIdleEnemyArea.get_children()[0]
 	
@@ -34,8 +33,7 @@ func _ready():
 	state_machine.enemySprite=enemy
 	state_machine.enemy = self
 	state_machine.animationTree = animationTree
-	state_machine.enemyObject = enemyObject
-	state_machine.set_stats(60, 10)
+	
 	
 	self.add_to_group(enemyObject.enemyAttackType)
 	
@@ -44,8 +42,13 @@ func _ready():
 	
 	animationTree.active=true
 	var animationMaker = ANIMATION_MAKER.new()
-	animationMaker.make_animation('Monsters/Assets', enemyObject.enemyType, enemyObject.enemyVariant, enemyObject.speed, '', animPlayer, 'enemyLibrary', enemy)
+	animationMaker.make_animation('Monsters/Assets', enemyObject.enemyType, enemyObject.enemyVariant, float(enemyObject.speed), '', animPlayer, 'enemyLibrary', enemy)
 	animationMaker.add_points_to_blendspace(animationTree, 'enemyLibrary/', animPlayer )
+
+func set_enemy_data(enemyData: ENEMY_DATA):
+	enemyObject = enemyData
+	state_machine.enemyObject = enemyObject
+	state_machine.set_stats(int(enemyObject.healthPoints), int(enemyObject.attackPoints))
 	
 func _physics_process(delta):
 	state_machine.update(delta, self)

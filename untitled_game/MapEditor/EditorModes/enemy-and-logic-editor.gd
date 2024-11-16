@@ -4,6 +4,7 @@ extends Node2D
 
 #-------------------------------------- CONSTANTS ---------------------------------------------------
 const textureScale = Vector2(0.1, 0.1)
+var spawnPointLoaded = load("res://GameplayThings/EnemySpawnPoints/enemy_spawnpoint.tscn")
 
 
 #-------------------------------------- SIGNALS ---------------------------------------------------
@@ -67,8 +68,16 @@ var pressedEnemy
 var loadedTextures = {}
 var selectedTexture
 
+var difficultyToRemove_SINGLE: String = ""
+var difficultyToRemove_MULTI: String = ""
+var difficultyToAdd_SINGLE: String = ""
+var difficultyToAdd_MULTI: String = ""
+
 var parent
 var buttonsDictionary
+
+signal MAX_AMOUNT_REACHED
+signal MAX_AMOUNT_NOT_REACHED
 
 
 # Called when the node enters the scene tree for the first time.
@@ -78,7 +87,6 @@ func _ready():
 	_set_nodes_variables()
 	_connect_signals()
 	_add_difficulty_to_option_selection()
-
 
 
 #-------------------------------------- SET UP FUNCTIONS ---------------------------------------------------
@@ -103,8 +111,6 @@ func _connect_signals():
 	if parent is Node2D:
 		parent.placed_enemy_clicked.connect(_on_placed_enemy_clicked)
 		
-func _add_animation_to_editor():
-	pass
 	
 func _set_nodes_variables():
 	difficultySelection = $CanvasLayer/EnemyEditor/SelectDifficulty/OptionButton
@@ -142,12 +148,12 @@ func _show_error(error: String):
 
 func _open_enemy_editor_dialog(selectedEnemyName: String, isFirstSelection: bool):
 	_get_enemy_type_and_variant_from_file_name(selectedEnemyName)
-	get_tree().paused = true
+	get_tree().paused = false
+	
 	if isFirstSelection:
 		enemyAmountSelector.visible = true
 	else:
 		enemyEditor.visible = true
-		print("enemyEditor position: ", enemyEditor.position)
 		if isEnemy:
 			$CanvasLayer/EnemyEditor/ProceedButton.visible = true
 			$CanvasLayer/EnemyEditor/ProceedToSpawnConfigurator.visible = false
@@ -155,12 +161,12 @@ func _open_enemy_editor_dialog(selectedEnemyName: String, isFirstSelection: bool
 			$CanvasLayer/EnemyEditor/ProceedButton.visible = false
 			$CanvasLayer/EnemyEditor/ProceedToSpawnConfigurator.visible = true
 
-	
+
 func _add_difficulty_to_option_selection():
 	difficultySelection.add_item("select", 0)
 	for key in REQUIREMENTS.enemy_difficulty.keys():
 		difficultySelection.add_item(key, REQUIREMENTS.enemy_difficulty.keys().find(key)+1)
-		
+
 		
 func _toggle_button_disability():
 	meleeSelection.disabled = !meleeSelection.disabled
@@ -180,8 +186,22 @@ func _reset_values(closed: bool):
 	enemyAttackSpeedSetter.value = 1
 	enemySpeedSetter.value = 1
 	
-func _set_values_based_on_difficulty():
-	pass
+func _set_values_based_on_difficulty(diff : String):
+	var enemyProps = REQUIREMENTS.enemy_properties
+	var enemyRequirements = REQUIREMENTS.enemy_difficulty.get(diff)
+	
+	attackPointsSelection.min_value = enemyRequirements.get(enemyProps.enemyAttackPoints).x
+	attackPointsSelection.max_value = enemyRequirements.get(enemyProps.enemyAttackPoints).y
+	
+	healthPointsSelection.min_value = enemyRequirements.get(enemyProps.enemyHealthPoints).x
+	attackPointsSelection.max_value = enemyRequirements.get(enemyProps.enemyHealthPoints).y
+	
+	enemySpeedSetter.min_value = enemyRequirements.get(enemyProps.enemySpeed).x
+	enemySpeedSetter.max_value = enemyRequirements.get(enemyProps.enemySpeed).y
+	
+	enemyAttackSpeedSetter.min_value = enemyRequirements.get(enemyProps.enemyAttackSpeed).x
+	enemyAttackSpeedSetter.max_value = enemyRequirements.get(enemyProps.enemyAttackSpeed).y
+	
 	
 func _get_enemy_type_and_variant_from_file_name(selectedEnemyName: String) -> void:
 	selectedEnemyTypeName = selectedEnemyName.split("_")[0]
@@ -243,8 +263,8 @@ func _on_placed_enemy_clicked(button, buttonsDict):
 func _on_edit_placed_enemy_clicked(button):
 	var enemyData
 	pressedEnemy = button
-	var data = parent.parent.ENTITIES_TO_PLACE.get("enemy").get(button.name)
-	var dataType = parent.parent.ENTITIES_TO_PLACE.get("enemy").get(button.name).get("type")
+	var data = parent.parent.ENTITIES_TO_PLACE.get("enemy").get(str(button.name).replace("_", ":"))
+	var dataType = parent.parent.ENTITIES_TO_PLACE.get("enemy").get(str(button.name).replace("_", ":")).get("type")
 	
 	if dataType == "spawnpoint":
 		enemyData = data.get("enemyData")
@@ -255,12 +275,13 @@ func _on_edit_placed_enemy_clicked(button):
 		isEnemy = true
 		selectedEnemyAmount = "single"
 	
-	oldEnemy = button.name
+	oldEnemy = str(button.name).replace("_", ":")
 	isEnemyEdited = true
+
 	_open_enemy_editor_dialog(enemyData.enemyType + "_" + enemyData.enemyVariant, false)
 
 	difficultySelection.selected = REQUIREMENTS.enemy_difficulty.keys().find(enemyData.get("enemyDifficulty")) + 1
-	
+	_set_values_based_on_difficulty(enemyData.get("enemyDifficulty"))
 	selectedEnemyDifficulty = enemyData.get("enemyDifficulty")
 	selectedEnemyType = enemyData.get("enemyAttackType")
 	enemyHealthPoints = int(enemyData.get("healthPoints"))
@@ -279,7 +300,6 @@ func _on_edit_placed_enemy_clicked(button):
 	attackPointsSelection.value = enemyData.get("attackPoints")
 	enemyAttackSpeedSetter.value = enemyData.get("enemyShootTime")
 	enemySpeedSetter.value = enemyData.get("speed")
-
 
 
 func _on_move_placed_enemy_clicked(button):
@@ -302,8 +322,8 @@ func _on_move_placed_enemy_clicked(button):
 
 func _on_delete_placed_enemy_clicked(button):
 	parent.parent.remove_child(button)
-	delete_enemy.emit(oldEnemy, str(button.name))
-	
+	delete_enemy.emit(oldEnemy, str(button.name).replace("_",":"))
+
 
 func _on_enemy_selected(selectedEnemyName: String, texture) -> void:
 	_open_enemy_editor_dialog(selectedEnemyName, true)
@@ -317,8 +337,7 @@ func _on_enemy_difficulty_selected(index):
 		_toggle_button_disability()
 	elif index != 0 and meleeSelection.disabled == true:
 		_toggle_button_disability()
-
-	_set_values_based_on_difficulty()
+	_set_values_based_on_difficulty(selectedEnemyDifficulty)
 
 
 func _on_error_timer_timeout():
@@ -355,7 +374,6 @@ func _on_custom_enemy_spawn_pressed():
 	customNumberOfEnemiesSpinner.editable = true
 	if not customNumberOfEnemiesToSpawnSpin.button_pressed:
 		customNumberOfEnemiesSpinner.editable = false
-	print("_on_custom_enemy_spawn_pressed numberOfEnemiesToSpawn:   ", numberOfEnemiesToSpawn)
 
 
 func _on_spawn_cooldown_spinner_value_changed(value):
@@ -393,7 +411,6 @@ func _on_check_if_disabled(event: InputEvent):
 
 
 func _on_cancel_configuration():
-	print("asdasd")
 	enemyEditor.visible = false
 	isEnemyEdited = false
 	get_tree().paused = false
@@ -435,21 +452,17 @@ func _on_select_single_enemy():
 
 func _on_proceed_button_pressed():
 	if selectedEnemyType and selectedEnemyTypeName and selectedEnemyVariantName and enemySpeed and enemyAttackPoints and enemyHealthPoints  and enemyAttackSpeed and selectedEnemyDifficulty:
-		print("first if passed")
 		if selectedEnemyAmount == "single":
-			print("selectedEnemyAmount == single")
 			if not isEnemyEdited:
-				print("not isEnemyEdited")
 				get_tree().paused = false
-				enemyToPlaceObject = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
+				enemyToPlaceObject = ENEMY_DATA.new(float(enemySpeed)/1000, selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
 				enemyEditor.visible = false
 				enemy_to_place_selected.emit(enemyToPlaceObject, selectedTexture)
 				_reset_values(true)
 			else:
-				print("else")
 				get_tree().paused = false
 				enemyEditor.visible = false
-				var newEnemyData = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
+				var newEnemyData = ENEMY_DATA.new(float(enemySpeed)/1000, selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
 				pressedEnemy.name = str(newEnemyData)
 				edit_enemy_editor_mode.emit(newEnemyData, oldEnemy)
 				_reset_values(true)
@@ -458,8 +471,9 @@ func _on_proceed_button_pressed():
 			if spawnCooldown:
 				if not isEnemyEdited:
 					get_tree().paused = false
-					var newEnemyData = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
-					var newSpawnPoint = ENEMY_SPAWN_POINT.new(enemiesToSpawnNumber, spawnCooldown, newEnemyData)
+					var newEnemyData = ENEMY_DATA.new(float(enemySpeed)/1000, selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
+					var newSpawnPoint = spawnPointLoaded.instantiate()
+					newSpawnPoint.initialitze(enemiesToSpawnNumber, spawnCooldown, newEnemyData)
 					$CanvasLayer/SpawnPointEditor.visible = false
 					place_spawn_point.emit(newSpawnPoint)
 					_reset_values(true)
@@ -467,8 +481,9 @@ func _on_proceed_button_pressed():
 					isEnemyEdited = false
 					get_tree().paused = false
 					$CanvasLayer/SpawnPointEditor.visible = false
-					var newEnemyData = ENEMY_DATA.new(float(enemySpeed), selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
-					var newSpawnPoint = ENEMY_SPAWN_POINT.new(enemiesToSpawnNumber, spawnCooldown, newEnemyData)
+					var newEnemyData = ENEMY_DATA.new(float(enemySpeed)/1000, selectedEnemyTypeName, selectedEnemyVariantName, selectedEnemyType, enemyAttackSpeed, selectedEnemyDifficulty, enemyHealthPoints, enemyAttackPoints)
+					var newSpawnPoint = spawnPointLoaded.instantiate()
+					newSpawnPoint.initialitze(enemiesToSpawnNumber, spawnCooldown, newEnemyData)
 					pressedEnemy.name = str(newSpawnPoint)
 					edit_enemy_editor_mode.emit(newSpawnPoint, oldEnemy)
 					_reset_values(true)

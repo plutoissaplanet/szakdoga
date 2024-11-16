@@ -15,7 +15,7 @@ var ENEMY_CONDITIONS = animationMachine.ENEMY_CONDITIONS
 @export var animationTree: AnimationTree
 
 var enemy
-var enemyObject: ENEMY_DATA
+var enemyObject: Resource
 var projectile: Sprite2D
 signal projectile_hit(projectile: Area2D)
 @onready var animationPlayer = $AnimationPlayer
@@ -86,10 +86,10 @@ func move(target, delta, node, dir):
 		enemySprite.flip_h=false
 	
 func attack(target, delta):
-	if enemyObject.enemyAttackType == 'MELEE':
+	if enemyObject.enemyAttackType == 'Melee':
 		_melee_attack(target)
 	else:
-		_ranged_attack(target, enemyObject.enemyShootTime, delta)
+		_ranged_attack(target, int(enemyObject.enemyShootTime), delta)
 		
 func enemy_hit(damage, obj):
 	stats.HealthPoints-=damage

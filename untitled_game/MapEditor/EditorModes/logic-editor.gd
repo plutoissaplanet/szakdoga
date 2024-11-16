@@ -1,12 +1,18 @@
 extends Node2D
 
 var numberOfRooms
+var currentRoom = 1
 var doorConnections = {}
 var DOORS_TO_PLACE = {}
 var MINIGAMES_TO_PALCE = {}
-var selectedMinigame: String = "Wiring"
-var selectedTexturePath: String
+
+
 var selectedTexture
+
+var selectedMinigame: String = "Wiring"
+var selectedDifficulty: String
+var selectedReward: String
+var selectedTexturePath: String
 
 var textures
 
@@ -17,10 +23,8 @@ var difficultySelector: OptionButton
 var keyCheckBox: CheckBox
 var itemCheckBox: CheckBox
 
-var selectedDifficulty
-var selectedReward
 
-var minigameLocationScene = load("res://GameplayThings/MiniGameLocations/nonogramLocation.tscn")
+
 var minigame
 var selectedMinigameButton
 var miniGameSprite
@@ -31,19 +35,12 @@ var parent
 
 signal doors_to_place_changed(dictionary)
 signal minigames_to_palce_changed(dictionary)
+signal MAX_AMOUNT_REACHED
+signal MAX_AMOUNT_NOT_REACHED
 
-var minigames = {
-	"Lights Out": "res://MiniGames/LightsOff/lightsoff.tscn",
-	"Memory Game": "res://MiniGames/MemoryGame/memory_game.tscn",
-	"Nanogram": "res://MiniGames/Nanogram/nanogram_cells.tscn",
-	"Puzzle": "res://MiniGames/Puzzle/puzzle.tscn",
-	"Simon Says": "res://MiniGames/SimonSays/simon-says.tscn",
-	"Wiring": "res://MiniGames/Wiring/wiring2.tscn"
-}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	generate_door_connections()
 	_get_nodes()
 	_load_textures()
 	_create_buttons()
@@ -52,6 +49,11 @@ func _ready():
 	if get_parent() is Node2D:
 		parent = get_parent()
 		parent.mouse_in_floor_area.connect(_mouse_in_floor_area)
+		parent.selected_room_changed.connect(_current_room_changed)
+		
+	MAX_AMOUNT_REACHED.connect(_block_feature)
+	MAX_AMOUNT_NOT_REACHED.connect(_unblock_feature)
+
 
 func _get_nodes():
 	textureGrid = $ScrollContainer/GridContainer
@@ -65,10 +67,17 @@ func _get_nodes():
 func _connect_signals():
 	get_parent().room_number_changed.connect(_number_of_rooms_changed)
 
+
 func _load_textures():
 	textures = FileLoader.load_assets_1_level_deep("res://Game Assets/MapEditor/MinigamePlaces/", ".png")
 
+
+func _block_feature(type: String, diff: String):
+	pass
 	
+func _unblock_feature(type: String, diff: String):
+	pass
+
 func _create_buttons():
 	for key in textures.keys():
 		var button = TextureButton.new()
@@ -103,7 +112,7 @@ func _on_texture_clicked(textureName, texture):
 	selectedTexture = texture
 	selectedTexturePath = textureName
 	$MiniGameConfiguratorLayer.visible = true
-	
+
 
 func _on_select_minigame(index):
 	selectedMinigame = minigameSelector.get_item_text(index)
@@ -112,51 +121,7 @@ func _on_select_minigame(index):
 func _process(delta):
 	if miniGameSprite:
 		miniGameSprite.position = get_global_mouse_position()
-		print("miniGameSprite: ", miniGameSprite)
 
-func generate_door_connections():
-	var doors = []
-	var middleDoors = []
-	var edgeDoors = []
-	var finalDoorOrder = []
-	for i in range(6):
-		doors.append(i+1)
-		middleDoors.append(i+1)
-		DOORS_TO_PLACE[i+1] = {
-		}
-	
-	var starterRoom = randi_range(1, doors.size())
-	DOORS_TO_PLACE.get(starterRoom)["oneDoor"] = true
-	middleDoors.erase(starterRoom)
-	
-	var endRoom = randi_range(1, doors.size())
-	DOORS_TO_PLACE.get(endRoom)["oneDoor"] = true
-	middleDoors.erase(endRoom)
-	
-	for door in middleDoors:
-		DOORS_TO_PLACE.get(door)["oneDoor"] = false
-		
-	while finalDoorOrder.size() != doors.size()-2:
-		var random = middleDoors.pick_random()
-		finalDoorOrder.append(random)
-		middleDoors.erase(random)
-		
-	finalDoorOrder.insert(0, starterRoom)
-	finalDoorOrder.append(endRoom)
-
-	for door in finalDoorOrder:
-		if door == starterRoom:
-			DOORS_TO_PLACE.get(door)["pointsTo"] = finalDoorOrder[finalDoorOrder.find(door)+1]
-		elif door == endRoom:
-			DOORS_TO_PLACE.get(door)["pointsFrom"] = finalDoorOrder[finalDoorOrder.find(door)-1]
-		else:
-			DOORS_TO_PLACE.get(door)["pointsTo"] = finalDoorOrder[finalDoorOrder.find(door)+1]
-			DOORS_TO_PLACE.get(door)["pointsFrom"] = finalDoorOrder[finalDoorOrder.find(door)-1]
-
-
-func generate_door_keys():
-	pass
-	
 
 func _reset_logic_configurator():
 	difficultySelector.selected = 0
@@ -177,6 +142,7 @@ func _on_proceed_button_pressed():
 			minigameConfigurator.visible = false
 			_reset_logic_configurator()
 			_create_minigame_sprite()
+			
 		else:
 			minigameConfigurator.visible = false
 			MINIGAMES_TO_PALCE.get(str(selectedMinigameButton))["difficulty"] = selectedDifficulty
@@ -184,8 +150,7 @@ func _on_proceed_button_pressed():
 			_reset_logic_configurator()
 			edited = false
 			minigames_to_palce_changed.emit(MINIGAMES_TO_PALCE)
-			print("edited: ",MINIGAMES_TO_PALCE)
-			
+			parent.requirementEditor.minigame_changed.emit("minigame", selectedDifficulty, false, true)
 
 
 func _create_minigame_sprite():
@@ -225,10 +190,12 @@ func _mouse_in_floor_area(event: InputEvent):
 			MINIGAMES_TO_PALCE[str(minigame)]["texturePath"] = "res://Game Assets/MapEditor/MinigamePlaces/" + selectedTexturePath + ".png"
 			MINIGAMES_TO_PALCE[str(minigame)]["reward"] = selectedReward
 			MINIGAMES_TO_PALCE[str(minigame)]["difficulty"] = selectedDifficulty
+			MINIGAMES_TO_PALCE.get(str(minigame))["minigame_name"] = selectedMinigame
+			MINIGAMES_TO_PALCE.get(str(minigame))["room"] = currentRoom
+			parent.requirementEditor.minigame_changed.emit("minigame", selectedDifficulty, true, false)
 		if moved:
 			var oldData = MINIGAMES_TO_PALCE.get(str(selectedMinigameButton))
 			MINIGAMES_TO_PALCE.erase(str(selectedMinigameButton))
-			print("OLD DATA: ", oldData)
 			MINIGAMES_TO_PALCE[str(minigame)] = oldData
 			MINIGAMES_TO_PALCE[str(minigame)]["position"] = get_global_mouse_position()
 			selectedMinigameButton = null
@@ -238,7 +205,7 @@ func _mouse_in_floor_area(event: InputEvent):
 		minigames_to_palce_changed.emit(MINIGAMES_TO_PALCE)
 		
 
-func create_texture_button(tPath: String = "OPTIONAL", pos: Vector2 = Vector2(-1,-1), buttonName: String = "OPTIONAL", reward: String = "OPTIONAL", difficulty: String = "OPTIONAL"):
+func create_texture_button(tPath: String = "OPTIONAL", pos: Vector2 = Vector2(-1,-1), buttonName: String = "OPTIONAL", reward: String = "OPTIONAL", difficulty: String = "OPTIONAL", minigameName: String = "OPTIONAL", room: String = "OPTIONAL"):
 	minigame = TextureButton.new()
 	if selectedTexture:
 		minigame.texture_normal = selectedTexture
@@ -257,6 +224,8 @@ func create_texture_button(tPath: String = "OPTIONAL", pos: Vector2 = Vector2(-1
 		MINIGAMES_TO_PALCE[str(minigame)]["texturePath"] = tPath
 		MINIGAMES_TO_PALCE[str(minigame)]["reward"] = reward
 		MINIGAMES_TO_PALCE[str(minigame)]["difficulty"] = difficulty
+		MINIGAMES_TO_PALCE[str(minigame)]["minigame_name"] = minigameName
+		MINIGAMES_TO_PALCE[str(minigame)]["room"] = room
 		minigames_to_palce_changed.emit(MINIGAMES_TO_PALCE)
 		
 	parent.get_parent().add_child(minigame)
@@ -333,7 +302,13 @@ func _on_move_placed_minigame(button):
 
 
 func _on_delete_placed_minigame(button):
+	parent.requirementEditor.minigame_changed.emit("minigame", MINIGAMES_TO_PALCE.get(str(button)).get("difficulty"), false, false)
 	MINIGAMES_TO_PALCE.erase(str(button))
 	parent.get_parent().remove_child(button)
 	minigames_to_palce_changed.emit(MINIGAMES_TO_PALCE)
+
+	
+
+func _current_room_changed(room):
+	currentRoom = room
 	

@@ -75,9 +75,9 @@ func _generate_sequence(difficulty: String):
 func _assign_colors_to_lights(difficulty: String):
 	var colors = ['blue', 'green', 'orange', 'purple', 'red', 'yellow']
 	for i in range(numberOfLights):
-		var randomColor = randi_range(0,lightsOnTextures.size()-2)
-		solutionTextures[i] = colors[randomColor]
-		colors.remove_at(randomColor)
+		var randomColor = colors.pick_random()
+		solutionTextures[i] = randomColor
+		colors.erase(randomColor)
 		
 
 func _light_up_pattern_sequence(sequence: Array, index: int):

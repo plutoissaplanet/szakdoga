@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://crh2huifv8c2r"]
+[gd_scene load_steps=12 format=3 uid="uid://crh2huifv8c2r"]
 
 [ext_resource type="Script" path="res://MapEditor/map-editor-ui.gd" id="1_ov2fi"]
 [ext_resource type="Texture2D" uid="uid://bckjurq5yr6w" path="res://Game Assets/GUI/Buttons/Button1.png" id="2_s1bxu"]
@@ -6,25 +6,29 @@
 [ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="4_6euhd"]
 [ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="5_yw56r"]
 [ext_resource type="Texture2D" uid="uid://c7ihulgcsf6k4" path="res://Game Assets/GUI/backdrop.png" id="6_db081"]
+[ext_resource type="Texture2D" uid="uid://ds0n657rkoxfs" path="res://Game Assets/GUI/Buttons/Icons_14.png" id="7_xt3mo"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5xq13"]
 texture = ExtResource("5_yw56r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6o3tb"]
 texture = ExtResource("6_db081")
+modulate_color = Color(1, 1, 1, 0.392157)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ci20q"]
 texture = ExtResource("5_yw56r")
-modulate_color = Color(1, 1, 1, 0.239216)
+modulate_color = Color(1, 1, 1, 0.392157)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6yqv0"]
 texture = ExtResource("5_yw56r")
-modulate_color = Color(1, 1, 1, 0.239216)
+modulate_color = Color(1, 1, 1, 0.509804)
 
 [node name="Map-editor-ui" type="Node2D"]
 script = ExtResource("1_ov2fi")
 
-[node name="CreateNewMap" type="TextureButton" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CreateNewMap" type="TextureButton" parent="CanvasLayer"]
 offset_left = 532.0
 offset_top = 535.0
 offset_right = 688.0
@@ -35,7 +39,7 @@ texture_pressed = ExtResource("3_3im2w")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="CreateNewMap"]
+[node name="Label" type="Label" parent="CanvasLayer/CreateNewMap"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.109
@@ -51,7 +55,7 @@ theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("4_6euhd")
 text = "Create new map"
 
-[node name="TabContainer" type="TabContainer" parent="."]
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer"]
 offset_left = 353.0
 offset_top = 138.0
 offset_right = 853.0
@@ -64,10 +68,10 @@ theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_ci20q")
 theme_override_styles/panel = SubResource("StyleBoxTexture_6yqv0")
 tab_alignment = 1
 
-[node name="Privated Rooms" type="TabBar" parent="TabContainer"]
+[node name="Privated Rooms" type="TabBar" parent="CanvasLayer/TabContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Privated Rooms"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/TabContainer/Privated Rooms"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.022
@@ -79,25 +83,34 @@ offset_right = 8.0
 offset_bottom = 2.004
 horizontal_scroll_mode = 0
 
-[node name="GridContainer" type="GridContainer" parent="TabContainer/Privated Rooms/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/TabContainer/Privated Rooms/ScrollContainer"]
 custom_minimum_size = Vector2(477, 312)
 layout_mode = 2
 theme_override_constants/v_separation = 50
 
-[node name="Public rooms" type="TabBar" parent="TabContainer"]
+[node name="Public rooms" type="TabBar" parent="CanvasLayer/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="BackButton" type="TextureButton" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/TabContainer/Public rooms"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 14.0
+offset_right = 496.0
+offset_bottom = 328.0
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/TabContainer/Public rooms/ScrollContainer"]
+custom_minimum_size = Vector2(477, 312)
+layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-offset_right = 40.0
+[node name="BackButton" type="TextureButton" parent="CanvasLayer"]
+texture_filter = 3
+offset_left = 2.0
+offset_right = 42.0
 offset_bottom = 40.0
+texture_normal = ExtResource("7_xt3mo")
+stretch_mode = 0
 
-[connection signal="pressed" from="CreateNewMap" to="." method="_on_create_new_map_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreateNewMap" to="." method="_on_create_new_map_pressed"]
+[connection signal="tab_selected" from="CanvasLayer/TabContainer" to="." method="_on_tab_container_tab_selected"]
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]

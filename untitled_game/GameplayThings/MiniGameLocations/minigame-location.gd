@@ -7,14 +7,18 @@ var player
 var minigamePath: String
 var difficulty: String
 var texturePath: String
-var reward: String #Should be Object
+var reward: String
+var keyID
 
 var texture
 var fallbackTexture
 var game
 
 
+
+
 signal initialized
+signal minigame_solved(minigame)
 
 
 func initialize(_difficulty: String, _texturePath: String, _minigamePath: String, _reward: String):
@@ -25,22 +29,37 @@ func initialize(_difficulty: String, _texturePath: String, _minigamePath: String
 	initialized.emit()
 
 
+
 func _ready():
 	initialized.connect(_on_ready)
+
 
 
 func _on_ready():
 	_load_and_add_minigame()
 	_load_texture()
-	
+
+
+func _make_reward():
+	if reward == "Item":
+		var item = load("res://GameplayThings/Items/general_scene_for_items.tscn").instantiate()
+		item.position = self.position + Vector2(0, 50)
+		self.get_parent().add_child(item)
+	else:
+		var key = load("res://GameplayThings/Key/key.tscn").instantiate()
+		key.position = self.position + Vector2(0,50)
+		if keyID:
+			key.set_door_to_open(keyID)
+		
+		self.get_parent().add_child(key)
+
 
 func _load_texture():
 	texture = load(texturePath)
 	fallbackTexture = load("res://Game Assets/MapEditor/MinigamePlaces/LARGE_BOOKCASE_BIRCH.png")
 	if texture == null:
 		texture = fallbackTexture
-	print(texture)
-		
+
 	$MinigameButton.texture_normal = texture
 	
 
@@ -60,7 +79,7 @@ func _process(delta):
 func _load_and_add_minigame():
 	game = load(minigamePath).instantiate()
 	game.difficulty = difficulty
-	game.minigame_completed.connect(_on_minigame_solved) 
+	game.minigame_completed.connect(on_minigame_solved) 
 
 
 func _on_area_2d_body_entered(body):
@@ -72,22 +91,25 @@ func _on_area_2d_body_exited(body):
 	if body.is_in_group("Player"):
 		entered = false
 		player = body
-		if $Minigame.visible:
-			$Minigame.visible = false
-			if $Minigame.get_child_count() > 0:
-				$Minigame.remove_child($Minigame.get_child(0))
+		if player.get_node("Camera2D/MinigameLayer").visible:
+			player.get_node("Camera2D/MinigameLayer").visible = false
+			player.get_node("Camera2D/MinigameLayer").remove_child(game)
 
 
 func _on_minigame_button_pressed():
-	if entered and not alreadySolved:
-		$Minigame.visible = true
-		#$Minigame.position = Vector2(376, 124)
-		if $Minigame.get_child_count() == 0:
-			$Minigame.add_child(game)
+	if entered and not alreadySolved and player:
+		if player.get_node("Camera2D/MinigameLayer"):
+			player.get_node("Camera2D/MinigameLayer").visible = true
+			player.get_node("Camera2D/MinigameLayer").add_child(game)
 		
 
-func _on_minigame_solved():
-	$Minigame.visible = false
-	alreadySolved = true
-	#THROW THE ITEM ON THE GROUND
+func on_minigame_solved():
+	if player.get_node("Camera2D/MinigameLayer"):
+		player.get_node("Camera2D/MinigameLayer").visible = false
+		player.get_node("Camera2D/MinigameLayer").remove_child(game)
+		minigame_solved.emit(self)
+		alreadySolved = true
+		_make_reward()
+
+
 	

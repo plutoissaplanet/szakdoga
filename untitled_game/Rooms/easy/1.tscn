@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://by0flqyrw3k6e" path="res://Creatures/Player/Player.tscn" id="12_q5jk4"]
 [ext_resource type="PackedScene" uid="uid://cwg43g6jby4li" path="res://GameplayThings/Doors/door.tscn" id="14_1f463"]
 [ext_resource type="PackedScene" uid="uid://1sy0wk3ftaqm" path="res://GameplayThings/Key/key.tscn" id="16_54xp4"]
-[ext_resource type="PackedScene" uid="uid://dyreos48cvyjc" path="res://GameplayThings/MiniGameLocations/nonogramLocation.tscn" id="16_rdbqp"]
+[ext_resource type="PackedScene" uid="uid://dyreos48cvyjc" path="res://GameplayThings/MiniGameLocations/minigame-location.tscn" id="16_rdbqp"]
 [ext_resource type="PackedScene" uid="uid://bgyfajmd4uo8x" path="res://GameplayThings/Items/general_scene_for_items.tscn" id="18_ejblg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gpm7m"]

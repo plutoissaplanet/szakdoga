@@ -25,6 +25,9 @@ var chestNr = 0
 
 var minigamesThatDropKey = {}
 
+var mapDifficulty
+var notOwnMap
+
 
 
 var minigamesPaths = {
@@ -42,42 +45,26 @@ func _ready():
 	jsonFilePath = scene_file_path.split(".")[0] +".json"
 	mapFilePath = scene_file_path
 	mapName = scene_file_path.split("/")[4].split(".")[0]
-	if not isOwnMap:
-		mapData = await get_data(mapName)
-	else:
+	if mapName and mapFilePath and jsonFilePath:
 		start_game(mapName, mapFilePath, jsonFilePath)
-	
-func get_data(mapName):
-	var collection: FirestoreCollection = Firebase.Firestore.collection("maps")
-	var document = await collection.get_doc(mapName)
-	return document
-
 
 func start_game(mapName, filePath, jsonFilePath: String):
-	var isAlreadyGenerated: bool
-	
-	if not jsonFilePath:
-		get_data(mapName) #TODO
+	mapData = JSON.parse_string(JSON_FILE_FUNCTIONS.load_json_file(jsonFilePath).get_as_text())
+	mapDifficulty = mapData.get("difficulty")
+	if mapData.has("notOwnMap"):
+		notOwnMap = mapData.get("notOwnMap")
 	else:
-		mapData = JSON.parse_string(JSON_FILE_FUNCTIONS.load_json_file(jsonFilePath).get_as_text())
-		isAlreadyGenerated = bool(int(mapData.get("already_generated")))
-	
-	if isAlreadyGenerated:
-		pass
-	else:
-		#mapData["already_generated"] = "1"
-		#JSON_FILE_FUNCTIONS.save_json_file(jsonFilePath,JSON.stringify(mapData))
-		_generate_map(filePath)
-
-		_place_minigames()
-		_generate_door_connections()
-		var rooms = mapData.get("rooms").keys()
-		for room in rooms:
-			_place_boundary(mapData.get("rooms").get(room),int(room))
-		_place_doors()
-		_generate_door_keys()
-		_place_items()
-		_place_enemies()
+		notOwnMap = false
+	_generate_map(filePath)
+	_place_minigames()
+	_generate_door_connections()
+	var rooms = mapData.get("rooms")
+	for room in rooms.keys() :
+		_place_boundary(rooms.get(room),int(room))
+	_place_doors()
+	_generate_door_keys()
+	_place_items()
+	_place_enemies()
 
 
 func _generate_map(filePath: String):
@@ -164,7 +151,7 @@ func _place_enemies():
 				var enemyDataDictionary = enemies.get(enemy).get("enemy_data")
 				var enemyData = ENEMY_DATA.new(float(enemyDataDictionary.speed), enemyDataDictionary.enemyType, enemyDataDictionary.enemyVariant, enemyDataDictionary.enemyAttackType, int(enemyDataDictionary.enemyShootTime), enemyDataDictionary.enemyDifficulty, int(enemyDataDictionary.healthPoints), int(enemyDataDictionary.attackPoints))
 				enemyInstance.set_enemy_data(enemyData)
-				#enemyInstance.player = player #UNDO THIS IF YOU WANT THE ENEMIES TO MOVE!!!!
+				enemyInstance.player = player #UNDO THIS IF YOU WANT THE ENEMIES TO MOVE!!!!
 				var posString = str(enemies.get(enemy).get("position")).replace("(", "").replace(")","").split(",")
 				var pos = Vector2(float(posString[0]), float(posString[1]))
 				enemyInstance.position = pos
@@ -185,7 +172,6 @@ func _place_enemies():
 func _place_minigames():
 	var minigames = mapData.get("minigames")
 	var minigamePlace = load("res://GameplayThings/MiniGameLocations/minigame-location.tscn")
-	
 	for minigame in minigames.keys():
 		var minigameInstance = minigamePlace.instantiate()
 		var currentMinigame = minigames.get(minigame)
@@ -248,7 +234,7 @@ func _place_chests():
 
 func _place_items():
 	var itemScene = load("res://GameplayThings/Items/general_scene_for_items.tscn")
-	var difficulty = mapData.get("difficulty")
+	var difficulty = mapDifficulty
 	var numberOfItemsToPlace = REQUIREMENTS.number_of_items_based_on_difficutly.get(difficulty) - chestNr
 	var minigameItemsNumber = 0
 	var totalMinigamesToPlace

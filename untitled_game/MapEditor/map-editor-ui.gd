@@ -12,6 +12,8 @@ var publicMapdirectory = "res://PlayerMaps/PlayableMaps/"
 var editorMapNames = []
 var publicMapNames = []
 
+var EDITED_MAP_DATA
+
 var editButtonTexture = preload("res://Game Assets/MapEditor/Icons/pencil.png")
 var deleteButtonTexture = preload("res://Game Assets/MapEditor/Icons/Icons_03.png")
 var shareButtonTexture = preload("res://Game Assets/MapEditor/Icons/Icons_51.png")
@@ -31,6 +33,9 @@ func _ready():
 	_load_all_map_names()
 	_load_public_map_names()
 	add_parallax()
+	
+	var file = JSON_FILE_FUNCTIONS.load_json_file("res://PlayerMaps/edited-maps.json")
+	EDITED_MAP_DATA = JSON.parse_string(file.get_as_text())
 
 
 func _load_all_map_names():
@@ -189,6 +194,7 @@ func _on_unshare_map_button_pressed(mapName: String, filePath: String, container
 		var firestoreCollection : FirestoreCollection = Firebase.Firestore.collection("maps")
 		var document: FirestoreDocument = await firestoreCollection.get_doc(mapName)
 		await firestoreCollection.delete(document)
+		$"CanvasLayer/TabContainer/Public rooms/ScrollContainer/GridContainer".remove_child(container)
 	
 	
 
@@ -218,15 +224,16 @@ func _confirm_delete_map(mapName: String, filePath: String, container: Container
 		
 
 func _on_share_map(mapName: String, filePath: String, container: Container):
-	var dialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
-	dialog.set_label_text("Share map with others?")
-	add_child(dialog)
-	dialog.ok_button_pressed.connect(_confirm_share_map.bind(dialog, mapName, filePath, container))
-	dialog.confirmation_cancelled.connect(_abort_share.bind(dialog))
+	var editorDir = "res://PlayerMaps/EditorMaps/"
+	if EDITED_MAP_DATA.get(editorDir+mapName+".tscn"):
+		var dialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
+		dialog.set_label_text("Share map with others?")
+		add_child(dialog)
+		dialog.ok_button_pressed.connect(_confirm_share_map.bind(dialog, mapName, filePath, container))
+		dialog.confirmation_cancelled.connect(_abort_share.bind(dialog))
 
 
 func _confirm_share_map(dialog, mapName, filePath: String, container):
-	#ADD TO FIREBASE TOO
 	privateGridContainer.remove_child(container)
 	
 	var publishedDir = "res://PlayerMaps/PlayableMaps/"
@@ -257,8 +264,10 @@ func _confirm_share_map(dialog, mapName, filePath: String, container):
 				firestore_data["map_data"][key] = {}
 				firestore_data["map_data"][key] = {"stringValue": str(json.get(key))}
 			
-			await Firebase.Firestore.collection("maps").add(mapName,{"asd": str(firestore_data)})
-	
+			print(mapName)
+			print(firestore_data)
+			await Firebase.Firestore.collection("maps").add(mapName,{"mapData": str(firestore_data), "user": UserData.username})
+			
 func _abort_share(dialog):
 	remove_child(dialog)
 	dialog.queue_free()

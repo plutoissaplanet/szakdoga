@@ -16,7 +16,7 @@ func _ready():
 	get_random_item()
 	finalItem = get_random_item()
 	$Sprite2D.texture = finalItem.ITEM_TEXT
-	if not finalItem.ITEM_NAME == "Sword":
+	if not finalItem.ITEM_NAME == "Sword" and not (finalItem is ATTACK_POTION) and not (finalItem is HEALTH_POTIONS) and not (finalItem is SPEED_POTION):
 		ARMOR = finalItem.ARMOR
 
 func load_every_item_rescource(rarity: String):

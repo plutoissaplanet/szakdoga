@@ -9,3 +9,5 @@ ATTACK_BONUS = 15
 ITEM_NAME = "Attack Potion"
 ITEM_TEXT = ExtResource("1_manun")
 SHOW_STATS = ""
+RARITY_INTERVAL = []
+RARITY = "Common"

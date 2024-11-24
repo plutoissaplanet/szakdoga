@@ -49,6 +49,9 @@ var totalNumberOfHardMinigames
 
 var placedSingleEnemyLabel = []
 var placedMultipleEnemyLabel = []
+var placedMinigameLabel = []
+
+var DIFFICULTY = ["easy", "medium", "hard"]
 
 signal MAX_AMOUNT_REACHED(type: String, diff: String)
 signal MAX_AMOUNT_NOT_REACHED(type: String, diff: String)
@@ -62,9 +65,9 @@ func _ready():
 	_get_nodes()
 	parent = get_parent()
 	minigame_changed.connect(_amount_changed)
+
 	if parent:
 		parent.room_number_changed.connect(_set_room_number)
-
 		if parent.get_parent():
 			parent.get_parent().ENTITIES_TO_PLACE_CHANGED.connect(_amount_changed)
 	set_entities_to_palce.connect(_set_up_dict)
@@ -112,6 +115,9 @@ func _get_nodes():
 	totalNumberOfMediumMinigames = $RequirementValues/NumberOfMinigamesMedium/TotalNumberOfMediumMinigames
 	totalNumberOfHardMinigames = $RequirementValues/NumberOfMinigamesHard/TotalNumberOfHardMinigames
 	
+	placedMinigameLabel.append(placedNumberOfEasyMinigames)
+	placedMinigameLabel.append(placedNumberOfMediumMinigames)
+	placedMinigameLabel.append(placedNumberOfHardMinigames)
 	
 func _set_difficulty(diff: String):
 	difficulty = diff
@@ -191,7 +197,7 @@ func _set_up_values():
 			var type
 			if enemies.get(enemy).has("enemyData"):
 				diff = enemies.get(enemy).get("enemyData").get("enemyDifficulty")
-				type = "multiple"
+				type = "spawnpoint"
 			else:
 				diff = enemies.get(enemy).get("enemy_data").get("enemyDifficulty")
 				type = "enemy"
@@ -203,6 +209,36 @@ func _set_up_values():
 			var type = "minigame"
 			var diff = minigames.get(minigame).get("difficulty")
 			_add_amount("minigame", diff)
+	_set_initial_violations()
+
+func _set_initial_violations():
+	var type
+	var diff
+	var min
+	var max
+	var placed
+	
+	for i in range(0, placedSingleEnemyLabel.size()):
+		if int(placedSingleEnemyLabel[i].text) == 0:
+			type = "enemy"
+			diff = DIFFICULTY[i]
+			min = REQUIREMENTS.number_of_enemies_to_place.get(difficulty).get("single").get(diff).get("min")
+			print("single enemy min: ", min)
+			MAP_PUBLISHABLE.emit(false, type, diff, min)
+	for i in range(0, placedMultipleEnemyLabel.size()):
+		if int(placedMultipleEnemyLabel[i].text) == 0:
+			type = "spawnpoint"
+			diff = DIFFICULTY[i]
+			min = REQUIREMENTS.number_of_enemies_to_place.get(difficulty).get("multiple").get(diff).get("min")
+			MAP_PUBLISHABLE.emit(false, type, diff, min)
+	for i in range(0, placedMinigameLabel.size()):
+		if int(placedMinigameLabel[i].text) == 0:
+			type = "minigame"
+			diff = DIFFICULTY[i]
+			min = REQUIREMENTS.number_of_minigames_to_place.get(difficulty).get(diff).get("min")
+			MAP_PUBLISHABLE.emit(false, type, diff, min)
+		
+		
 		
 
 func _set_room_number(roomNumber):
@@ -215,8 +251,6 @@ func _amount_changed(type: String, diff: String, added: bool, edited: bool):
 		_add_amount(type, diff)
 	elif !added and !edited:
 		_deduct_amount(type, diff)
-	elif edited:
-		_compare_with_previous_value(type, diff)
 	
 func _add_amount(type: String, diff: String):
 	var oldAmount: int
@@ -230,7 +264,6 @@ func _add_amount(type: String, diff: String):
 		min = NUMBER_OF_ENEMIES.get("single").get(diff).get("min")
 		match diff:
 			"easy":
-				
 				oldAmount = int(placedSingleEnemyLabel[0].text) 
 				placedSingleEnemyLabel[0].text = str(int(placedSingleEnemyLabel[0].text) + 1)
 				newAmount = int(placedSingleEnemyLabel[0].text) 
@@ -242,7 +275,7 @@ func _add_amount(type: String, diff: String):
 				oldAmount = int(placedSingleEnemyLabel[1].text)
 				placedSingleEnemyLabel[2].text = str(int(placedSingleEnemyLabel[2].text) + 1)
 				newAmount = int(placedSingleEnemyLabel[1].text) 
-	elif type == "multiple":
+	elif type == "spawnpoint":
 		max = NUMBER_OF_ENEMIES.get("multiple").get(diff).get("max")
 		min = NUMBER_OF_ENEMIES.get("multiple").get(diff).get("min")
 		placedNumberOfEnemiesLabel.text = str(int(placedNumberOfEnemiesLabel.text) + 1)
@@ -302,7 +335,7 @@ func _deduct_amount(type: String, diff: String):
 				oldAmount = int(placedSingleEnemyLabel[2].text)
 				placedSingleEnemyLabel[2].text = str(int(placedSingleEnemyLabel[2].text) - 1)
 				newAmount = int(placedSingleEnemyLabel[2].text) 
-	elif type == "multiple":
+	elif type == "spawnpoint":
 		max = NUMBER_OF_ENEMIES.get("multiple").get(diff).get("max")
 		min = NUMBER_OF_ENEMIES.get("multiple").get(diff).get("min")
 		placedNumberOfEnemiesLabel_MULTIPLE.text = str(int(placedNumberOfEnemiesLabel_MULTIPLE.text) - 1)
@@ -341,12 +374,6 @@ func _deduct_amount(type: String, diff: String):
 	
 
 func _check_violation(newAmount,oldAmount, min, max,type, diff):
-	print("_____________________________")
-	print("newAmount: ", newAmount)
-	print("oldAmount: ", oldAmount)
-	print("min: ", min)
-	print("max: ", max)
-	print("_____________________________")
 	if newAmount < min or newAmount > max:
 		MAP_PUBLISHABLE.emit(false, type, diff)
 	elif newAmount >= min or newAmount <= max:
@@ -372,13 +399,10 @@ func _check_amount(type: String, diff: String, oldAmount: int, newAmount: int):
 					$RequirementValues/GridContainer/NumberOfMinigamesEasy/SEPARATOR.add_theme_color_override("font_color", redColor)
 					$RequirementValues/GridContainer/NumberOfMinigamesEasy/Easy.add_theme_color_override("font_color", redColor)
 			"medium":
-				print("medium")
 				placedNumberOfMediumEnemiesLabel_SINGLE.add_theme_color_override("font_color", greenColor)
 				totalNumberOfMediumEnemiesLabel_SINGLE.add_theme_color_override("font_color", greenColor)
 				$RequirementValues/GridContainer/NumberOfMinigamesMedium/SEPARATOR.add_theme_color_override("font_color", greenColor)
 				$RequirementValues/GridContainer/NumberOfMinigamesMedium/Medium.add_theme_color_override("font_color", greenColor)
-				print(NUMBER_OF_ENEMIES.get("single").get(diff).get("min"))
-				print(int(placedNumberOfMediumEnemiesLabel_SINGLE.text))
 				if int(placedNumberOfMediumEnemiesLabel_SINGLE.text) < NUMBER_OF_ENEMIES.get("single").get(diff).get("min") or int(placedNumberOfMediumEnemiesLabel_SINGLE.text) > NUMBER_OF_ENEMIES.get("single").get(diff).get("max"):
 					placedNumberOfMediumEnemiesLabel_SINGLE.add_theme_color_override("font_color", redColor)
 					totalNumberOfMediumEnemiesLabel_SINGLE.add_theme_color_override("font_color", redColor)
@@ -394,7 +418,7 @@ func _check_amount(type: String, diff: String, oldAmount: int, newAmount: int):
 					totalNumberOfHardEnemiesLabel_SINGLE.add_theme_color_override("font_color", redColor)
 					$RequirementValues/GridContainer/NumberOfMinigamesHard/SEPARATOR.add_theme_color_override("font_color", redColor)
 					$RequirementValues/GridContainer/NumberOfMinigamesHard/Hard.add_theme_color_override("font_color", redColor)
-	elif type == "multiple":
+	elif type == "spawnpoint":
 		match diff:
 			"easy":
 				placedNumberOfEasyEnemiesLabel_MULTIPLE.add_theme_color_override("font_color", greenColor)
@@ -457,10 +481,23 @@ func _check_amount(type: String, diff: String, oldAmount: int, newAmount: int):
 					placedNumberOfHardMinigames.add_theme_color_override("font_color", redColor)
 					totalNumberOfHardMinigames.add_theme_color_override("font_color", redColor)
 					$RequirementValues/NumberOfMinigamesHard/SEPARATOR.add_theme_color_override("font_color", redColor)
-					$RequirementValues/NumberOfMinigamesHard/Hard.add_theme_color_override("font_color", redColor)
-	
-func _compare_with_previous_value(type: String, diff: String):
-	pass
+					$RequirementValues/NumberOfMinigamesHard/Hard.add_theme_color_override("font_color", redColor)	
 
+func _check_minigames_in_room(dict):
+	var minigames = dict.get("minigames")
+	var minigameRooms = []
+	var rooms = dict.get("rooms").keys()
+	
+	for minigame in minigames:
+		if minigames.get(minigame).get("reward") == "Key":
+			minigameRooms.append(minigames.get(minigame).get("room"))
+		
+	for room in rooms:
+		if not minigameRooms.has(room):
+			return false
+			
+	return true
+	
+	
 
 

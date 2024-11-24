@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dimfit2t0ewhg"]
 
 [ext_resource type="Script" path="res://GameplayThings/Items/General/Potion Script/potion_effects.gd" id="1_4qmy8"]
-[ext_resource type="Resource" uid="uid://chg4flbmceaej" path="res://GameplayThings/Items/Potions/Rescources/Speed/speed_potion_high.tres" id="2_pla01"]
+[ext_resource type="Resource" uid="uid://chg4flbmceaej" path="res://GameplayThings/Items/AllItems/Epic/speed_potion_high.tres" id="2_pla01"]
 
 [node name="ItemPotion" type="Sprite2D"]
 script = ExtResource("1_4qmy8")

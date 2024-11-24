@@ -275,6 +275,7 @@ theme_override_fonts/font = ExtResource("3_0c21j")
 text = "Draw"
 
 [node name="RectangleDrawButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
+visible = false
 texture_filter = 6
 layout_mode = 0
 offset_left = 155.0

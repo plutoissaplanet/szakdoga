@@ -71,8 +71,23 @@ func _on_back_button_pressed():
 
 func login_succeeded(auth):
 	userDoc = await Firebase.Firestore.collection('users').get_doc(auth['localid'])
+	var dirPath = "res://Users/"
+	if not DirAccess.dir_exists_absolute(dirPath + userDoc.document.get('username')['stringValue']):
+		DirAccess.make_dir_absolute(dirPath + userDoc.document.get('username')['stringValue'])
+		var createPointsJson = {
+			"points": 0,
+			"leaderboard_place": 0
+		}
+		
+		JSON_FILE_FUNCTIONS.save_json_file(dirPath + userDoc.document.get('username')['stringValue']+"/points.json", JSON.stringify(createPointsJson))
+
 	if userDoc:
 		UserData.username = userDoc.document.get('username')['stringValue']
+		UserData.userFolderPath = dirPath + UserData.username + "/"
+		 
+		var pointsJson = JSON.parse_string((JSON_FILE_FUNCTIONS.load_json_file(UserData.userFolderPath + "points.json")).get_as_text())
+		UserData.totalPoints = pointsJson.get("points")
+		
 		if not userDoc.document.get('characterSet')['booleanValue']:
 			get_tree().change_scene_to_file("res://MainMenuThings/CharCreator.tscn")
 			UserData.userID = auth['localid']
@@ -87,8 +102,9 @@ func login_failed(error, message):
 	print(message)
 	
 func signup_succeeded(auth):
-	#print(auth)
 	_set_user_in_users_collection(usernameInput.text, auth['localid'])
+
+	
 
 func signup_failed(error, message):
 	print(error)

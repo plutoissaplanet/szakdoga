@@ -7,6 +7,8 @@ func _ready():
 	get_tree().paused = false
 	var parallax = PARALLAX.new()
 	add_child(parallax)
+	print(UserData.totalPoints)
+	print(UserData.userFolderPath)
 
 
 func _on_start_button_pressed():

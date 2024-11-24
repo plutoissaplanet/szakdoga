@@ -5,9 +5,9 @@ class_name PLAYER
 
 @export var MAX_HEALTH_POINTS = 100
 signal consumed_potion #this signal need to be hooked up to the potions in the inventory, so when the player wants to consume the potion, this signal is emitted
-
+signal game_won
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-@onready var  deathScreen = load("res://GameplayThings/Death Screen/death_screen.tscn")
+var  deathScreen = load("res://GameplayThings/Death Screen/death_screen.tscn")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var enemyArea = get_node("EnemyAttackArea")
 @onready var attackEnemy = get_node("AttackTheEnemyArea")
@@ -24,6 +24,12 @@ var state
 var SPEED
 var totalHealth: int
 var playerConfig = PlayerConfig.new()
+
+var mapDifficulty: String
+var notOwnMap: bool
+
+var speedBonus
+var attackBonus
 
 
 @export var stats = Statistics
@@ -49,8 +55,22 @@ func _ready():
 	healthBar.player=self
 	ENEMY_CONDITIONS=animationMachine.ENEMY_CONDITIONS
 	PLAYER_CONDITIONS=animationMachine.PLAYER_CONDITIONS
+	game_won.connect(_game_won)
+	consumed_potion.connect(_potion_consumed)
 	
+	var parent = get_parent()
+	if parent:
+		if parent.mapDifficulty and parent.notOwnMap:
+			mapDifficulty = parent.mapDifficulty
+			notOwnMap = parent.notOwnMap
+
+
 func _process(event):
+	if not $Timer2Container/AttackTimer.is_stopped():
+		$Timer2Container/GridContainer/AttackTimer.text = str($Timer2Container/AttackTimer.time_left).left(2)
+	if not $Timer2Container/SpeedTimer.is_stopped():
+		$Timer2Container/GridContainer/SpeedTimer.text = str($Timer2Container/SpeedTimer.time_left).left(2)
+		
 	match state:
 			IDLE:
 				_set_state("idle", PLAYER_CONDITIONS.playerIdle)
@@ -71,6 +91,10 @@ func _process(event):
 					var deathScreenInstance = deathScreen.instantiate()
 					deathScreenInstance.z_index=100
 					deathScreenInstance.position.y-=100
+					if notOwnMap:
+						print("player in if notOwnMap")
+						deathScreenInstance.display_points(REQUIREMENTS.map_values.get(mapDifficulty).get("deduct"), UserData.totalPoints - REQUIREMENTS.map_values.get(mapDifficulty).get("deduct"))
+						POINTS_MANAGER.deduct_points(REQUIREMENTS.map_values.get(mapDifficulty).get("deduct"))
 					self.add_child(deathScreenInstance)
 			
 			
@@ -181,3 +205,39 @@ func attack_enemy(body):
 		body.set_meta("timer_started", false)
 		body.state_machine.enemy_hit(stats.AttackPoints, body)
 
+func _game_won():
+	var deathScreenInstance = deathScreen.instantiate()
+	deathScreenInstance.z_index=100
+	deathScreenInstance.position.y-=100
+	if notOwnMap:
+		deathScreenInstance.display_points(REQUIREMENTS.map_values.get(mapDifficulty).get("add"), UserData.totalPoints + REQUIREMENTS.map_values.get(mapDifficulty).get("add"))
+		POINTS_MANAGER.add_points(REQUIREMENTS.map_values.get(mapDifficulty).get("add"))
+	self.add_child(deathScreenInstance)
+	deathScreenInstance.set_up_winner_screen()
+	
+func _potion_consumed(potion):
+	
+	$Timer2Container.visible = true
+	
+	if potion is HEALTH_POTIONS:
+		stats.HealthPoints += potion.HEALTH_RESTORED
+	elif potion is ATTACK_POTION:
+		$Timer2Container/AttackTimer.start()
+		stats.AttackPoints += potion.ATTACK_BONUS
+		attackBonus = potion.ATTACK_BONUS
+	else:
+		$Timer2Container/SpeedTimer.start()
+		SPEED += potion.SPEED_BONUS
+		speedBonus = potion.SPEED_BONUS
+		
+
+func _on_attack_timer_timeout():
+	$Timer2Container/GridContainer/AttackTimer.visible = false
+	SPEED -= speedBonus
+	speedBonus = 0
+
+func _on_speed_timer_timeout():
+	$Timer2Container/GridContainer/SpeedTimer.visible = false
+	stats.AttackPoints -= attackBonus
+	attackBonus = 0
+	

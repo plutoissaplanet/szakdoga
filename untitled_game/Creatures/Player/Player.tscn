@@ -1,7 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://by0flqyrw3k6e"]
+[gd_scene load_steps=35 format=3 uid="uid://by0flqyrw3k6e"]
 
 [ext_resource type="Script" path="res://Creatures/Player/PlayerScript.gd" id="1_ghq8m"]
 [ext_resource type="Resource" uid="uid://b5ut1sfqskntw" path="res://Creatures/stats.tres" id="3_2i1sq"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="5_ihw4t"]
 [ext_resource type="PackedScene" uid="uid://0123bfmqcti6" path="res://GameplayThings/HealthBar/HealthBar.tscn" id="7_m3gb3"]
 [ext_resource type="PackedScene" uid="uid://cp8bsrcb5uhhu" path="res://GameplayThings/Inventory/Inventory.tscn" id="61_7s2nq"]
 
@@ -114,7 +115,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(69, 190.6)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6i0mc"]
-radius = 66.1211
+radius = 41.0122
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_utdi7"]
 radius = 7.07107
@@ -216,14 +217,53 @@ offset_bottom = 159.0
 
 [node name="GridContainer" type="GridContainer" parent="SpecialInventory"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = -0.467
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 0.0100002
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/v_separation = 20
 columns = 6
 
+[node name="Timer2Container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpeedTimer" type="Timer" parent="Timer2Container"]
+wait_time = 60.0
+
+[node name="AttackTimer" type="Timer" parent="Timer2Container"]
+wait_time = 60.0
+one_shot = true
+
+[node name="GridContainer" type="GridContainer" parent="Timer2Container"]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 129.0
+offset_right = 169.0
+offset_bottom = 161.0
+columns = 2
+
+[node name="AttackTimer" type="Label" parent="Timer2Container/GridContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.556863, 0.937255, 0.592157, 1)
+theme_override_fonts/font = ExtResource("5_ihw4t")
+text = "0"
+
+[node name="SpeedTimer" type="Label" parent="Timer2Container/GridContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.556863, 0.937255, 0.592157, 1)
+theme_override_fonts/font = ExtResource("5_ihw4t")
+text = "0"
+
 [connection signal="body_exited" from="EnemyAttackArea" to="." method="_on_enemy_attack_area_body_exited"]
 [connection signal="body_entered" from="AttackTheEnemyArea" to="." method="attack_enemy"]
 [connection signal="body_exited" from="IdleAndRangedEnemyDetectArea" to="." method="_on_enemy_attack_area_body_exited"]
+[connection signal="timeout" from="Timer2Container/SpeedTimer" to="." method="_on_speed_timer_timeout"]
+[connection signal="timeout" from="Timer2Container/AttackTimer" to="." method="_on_attack_timer_timeout"]

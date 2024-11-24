@@ -25,6 +25,7 @@ TileNames="*res://MapEditor/Requirements/tile_names.gd"
 FileLoader="*res://shared/file-loader.gd"
 SelectedMap="*res://MapEditor/Requirements/selected-map.gd"
 JSON_FILE_FUNCTIONS="*res://shared/create-and-load-json.gd"
+POINTS_MANAGER="*res://shared/leaderboard/points-manager.gd"
 
 [display]
 
@@ -42,7 +43,8 @@ folder_colors={
 "res://Creatures/Player/": "blue",
 "res://Game Assets/MapEditor/Enemy/": "red",
 "res://MapEditor/": "pink",
-"res://PlayerMaps/": "green"
+"res://PlayerMaps/": "green",
+"res://Users/": "yellow"
 }
 
 [input]

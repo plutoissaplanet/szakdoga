@@ -25,14 +25,6 @@ const difficulty = {
 	"hard": {}
 }
 
-#var difficultySelection: OptionButton
-#var meleeSelection: CheckBox
-#var rangedSelection: CheckBox
-#var healthPointsSelection: SpinBox
-#var attackPointsSelection: SpinBox
-#var enemySpeedSetter: HSlider
-#var enemyAttackSpeedSetter: HSlider
-#var enemyCooldownSetter: HSlider
 
 
 const roomPositions = {
@@ -45,19 +37,28 @@ const roomPositions = {
 }
 
 
-var enemy_values = {
+const enemy_values = {
 	"easy": 10,
 	"medium": 20,
 	"hard": 50
 }
 
-var map_values = {
-	"easy" : 50,
-	"medium": 100,
-	"hard": 150
+const map_values = {
+	"easy" : {
+		"add": 50,
+		"deduct": 10
+	},
+	"medium": {
+		"add": 100,
+		"deduct": 50
+	},
+	"hard":{
+		"add": 150,
+		"deduct": 80
+	}
 }
 
-var minigame_values = {
+const minigame_values = {
 	"easy": 10,
 	"medium": 20,
 	"hard": 50

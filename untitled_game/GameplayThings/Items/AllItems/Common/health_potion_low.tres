@@ -9,3 +9,5 @@ HEALTH_RESTORED = 10
 ITEM_NAME = "Health Potion"
 ITEM_TEXT = ExtResource("1_87ji0")
 SHOW_STATS = ""
+RARITY_INTERVAL = []
+RARITY = "Common"

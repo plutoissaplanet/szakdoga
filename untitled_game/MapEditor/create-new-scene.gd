@@ -12,7 +12,7 @@ func create_new_scene(mapName: String):
 	if script:
 		rootNode.set_script(script)
 	else:
-		print("failed to load script ")
+		print("failed to load script")
 	var newScene = PackedScene.new()
 	newScene.pack(rootNode)
 	ResourceSaver.save(newScene, mapPath)
@@ -20,6 +20,23 @@ func create_new_scene(mapName: String):
 	SelectedMap.FILE_PATH = mapFilePath
 	SelectedMap.FILE_NAME = mapName
 	load_scene(mapPath)
+	
+func create_public_map(mapName: String, data):
+	var mapFilePath = "res://OtherMaps/Downloaded/"+mapName+".tscn"
+	var jsonFilePath = "res://OtherMaps/Downloaded/"+mapName+".json"
+	
+	var rootNode = Node2D.new()
+	var script = load("res://MapEditor/MapParser/playable_map.gd")
+	if script:
+		rootNode.set_script(script)
+	else:
+		print("failed to load script")
+	
+	var newScene = PackedScene.new()
+	newScene.pack(rootNode)
+	ResourceSaver.save(newScene, mapFilePath)
+	JSON_FILE_FUNCTIONS.save_json_file(jsonFilePath, JSON.stringify(data))
+	
 
 func load_scene(mapFilePath):
 	get_tree().change_scene_to_file(mapFilePath)
@@ -44,8 +61,6 @@ func save_map(node, filePath, optionalScript = null):
 	var newScene = PackedScene.new()
 	var result = newScene.pack(node)
 	
-	
-	
 	if result == OK:
 		var saveResult = ResourceSaver.save(newScene, filePath)
 		if saveResult == OK:
@@ -56,14 +71,6 @@ func save_map(node, filePath, optionalScript = null):
 		print("Error packing the scene.")
 
 
-func save_map_into_database():
-	pass
-	#TODO
-	#transform .tscn file into a type that can be uploaded to firebase
-	#add it to firebase
-	# document properties: username, creation date, difficulty, likes, dislikes, number of users that played
-	# document key: randomly generated
-	# save it to users personal collection, and also into a general map collection
 	
 func delete_map():
 	pass

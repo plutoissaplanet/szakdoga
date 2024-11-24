@@ -9,3 +9,5 @@ SPEED_BONUS = 20
 ITEM_NAME = "Speed Potion"
 ITEM_TEXT = ExtResource("1_f2prh")
 SHOW_STATS = ""
+RARITY_INTERVAL = []
+RARITY = "Common"

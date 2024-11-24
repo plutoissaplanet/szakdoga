@@ -58,7 +58,6 @@ func _ready():
 	if get_meta_list().size() == 0: #Check if the room has any meta, if not, set it 
 		_set_map_information()
 
-	
 	if decorationEditor:
 		floorTileMap = decorationEditor.floorTileMap
 		wallTileMap = decorationEditor.wallTileMap
@@ -251,8 +250,11 @@ func _add_editor_nodes_to_map():
 	
 	
 func _map_is_ready_to_save(violations): #Takes out the editor node, and makes the tileMaps the tscn's children
-	print("save map violations: ", violations)
 	if violations:
+		var file = JSON_FILE_FUNCTIONS.load_json_file("res://PlayerMaps/edited-maps.json")
+		var data = JSON.parse_string(file.get_as_text())
+		data[scene_file_path] = true
+		JSON_FILE_FUNCTIONS.save_json_file("res://PlayerMaps/edited-maps.json", JSON.stringify(data))
 		_save_map()
 	else:
 		var dialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
@@ -264,6 +266,10 @@ func _map_is_ready_to_save(violations): #Takes out the editor node, and makes th
 
 func _violation_button_ok(dialog):
 	remove_child(dialog)
+	var file = JSON_FILE_FUNCTIONS.load_json_file("res://PlayerMaps/edited-maps.json")
+	var data = JSON.parse_string(file.get_as_text())
+	data[scene_file_path] = false
+	JSON_FILE_FUNCTIONS.save_json_file("res://PlayerMaps/edited-maps.json", JSON.stringify(data))
 	_save_map()
 	
 func _violation_button_close(dialog):
@@ -272,22 +278,35 @@ func _violation_button_close(dialog):
 func _save_map():
 	var rootNode = get_tree().current_scene
 	var path = "res://PlayerMaps/EditorMaps/" + scene_file_path.split("/")[4].split(".")[0] + ".json"
+	
+	if decorationEditor.requirementEditor._check_minigames_in_room(ENTITIES_TO_PLACE):
+		var tilemapParser = TILEMAP_TO_JSON.new(floorTileMap, wallTileMap, boundaryTileMap)
+		var TILES_TO_PLACE = tilemapParser.get_tiles_to_place()
+		ENTITIES_TO_PLACE["tiles"] = TILES_TO_PLACE
+		ENTITIES_TO_PLACE["difficulty"] = difficulty
+		
+		for child in rootNode.get_children():
+			if child is TextureButton:
+				remove_child(child)
+		
+		JSON_FILE_FUNCTIONS.save_json_file(path,JSON.stringify(ENTITIES_TO_PLACE))
+		remove_child(decorationEditor)
 
-	var tilemapParser = TILEMAP_TO_JSON.new(floorTileMap, wallTileMap, boundaryTileMap)
-	var TILES_TO_PLACE = tilemapParser.get_tiles_to_place()
-	ENTITIES_TO_PLACE["tiles"] = TILES_TO_PLACE
-	ENTITIES_TO_PLACE["difficulty"] = difficulty
+		createNewScene.map_on_save_button_pressed(rootNode)
+		get_tree().change_scene_to_file("res://MapEditor/map-editor-ui.tscn")
+	else:
+		var dialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
+		dialog.set_label_text("Please place a minigame in every room!")
+		dialog.ok_button_pressed.connect(_dialog_ok_button_pressed.bind(dialog))
+		dialog.confirmation_cancelled.connect(_dialog_ok_button_pressed.bind(dialog))
+		add_child(dialog)
+		
 	
-	for child in rootNode.get_children():
-		if child is TextureButton:
-			remove_child(child)
 	
-	JSON_FILE_FUNCTIONS.save_json_file(path,JSON.stringify(ENTITIES_TO_PLACE))
-	remove_child(decorationEditor)
 
-	createNewScene.map_on_save_button_pressed(rootNode)
-	
-	
+func _dialog_ok_button_pressed(dialog):
+	remove_child(dialog)
+
 func _discard_button_pressed():
 	get_tree().reload_current_scene()
 	

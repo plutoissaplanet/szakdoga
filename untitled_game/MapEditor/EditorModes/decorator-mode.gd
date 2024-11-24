@@ -474,42 +474,36 @@ func _on_eraser_button_pressed(): # The tile placement is eraser
 	editor_mode_changed.emit("Delete")
 
 
-func _violation_counter(publishable, type, diff):
-	print("_____________________________")
-	print("publishable: ", publishable)
-	print("type: ", type)
-	print("diff: ", diff)
+func _violation_counter(publishable, type, diff, initialViolation = 0):
 	var violationCounter: int 
 	if type == "room":
 		violationCounter = violations.get(type)
 	else:
+		print(type)
+		print(violations.get(type))
 		violationCounter = violations.get(type).get(diff)
-		print("violationCounter: ", violationCounter)
+
 	
 	if not publishable:
-		print("not publishable")
-		violationCounter += 1
+		if initialViolation:
+			violationCounter += initialViolation
+		else:
+			violationCounter += 1
 		violations[type][diff] = violationCounter
 	else:
-		print("publishable")
 		violations[type][diff] = 0
 		
-	print("violations[type][diff]: ", violations[type][diff])
-	print("violations: ", violations)
-	print("_____________________________")
-	
+	print(violations)
 	mapOKToPublish = _check_violations(type, diff)
 
 
 func _check_violations(type, diff):
 	for violation in violations.keys():
 		if violation == "room":
-			print("room v counter: ",violations.get(violation) )
 			if violations.get(violation) != 0:
 				return false
 		else:
 			for violationCounters in violations.get(violation):
-				print("other v counter: ", violations.get(violation).get(violationCounters))
 				if violations.get(violation).get(violationCounters) != 0:
 					return false
 	return true
@@ -611,6 +605,7 @@ func _on_room_button_pressed(room: int):
 	$Control.position = roomPositions.get(selectedRoomNumber) 
 	enemyEditor.position = roomPositions.get(selectedRoomNumber)
 	logicEditor.position = roomPositions.get(selectedRoomNumber)
+	requirementEditor.position = roomPositions.get(selectedRoomNumber)
 	$Camera2D.position = roomPositions.get(selectedRoomNumber) + windowSize/2 
 	$Control/ChosenSize.position = chosenSizeLabelPosition + Vector2i(roomPositions.get(selectedRoomNumber))
 	selected_room_changed.emit(selectedRoomNumber)

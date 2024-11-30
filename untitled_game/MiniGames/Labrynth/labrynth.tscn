@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxmj7yplhoo1v"]
+
+[ext_resource type="Script" path="res://MiniGames/Labrynth/labrynth.gd" id="1_ky6cr"]
+[ext_resource type="Texture2D" uid="uid://c7ihulgcsf6k4" path="res://Game Assets/GUI/backdrop.png" id="2_qgkqb"]
+[ext_resource type="Texture2D" uid="uid://dtb6s37s5txub" path="res://MiniGames/Maze/Back2.png" id="3_q6453"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8m3x8"]
+texture = ExtResource("2_qgkqb")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_84qeg"]
+texture = ExtResource("3_q6453")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_g06ct"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_8m3x8")
+sources/1 = SubResource("TileSetAtlasSource_84qeg")
+
+[node name="Labrynth" type="Node2D"]
+script = ExtResource("1_ky6cr")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_g06ct")
+format = 2

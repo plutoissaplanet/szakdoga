@@ -7,3 +7,5 @@ class_name ITEM
 @export var SHOW_STATS: String
 @export var RARITY_INTERVAL: Array = []
 @export var RARITY: String
+
+

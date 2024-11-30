@@ -26,6 +26,7 @@ FileLoader="*res://shared/file-loader.gd"
 SelectedMap="*res://MapEditor/Requirements/selected-map.gd"
 JSON_FILE_FUNCTIONS="*res://shared/create-and-load-json.gd"
 POINTS_MANAGER="*res://shared/leaderboard/points-manager.gd"
+BFS="*res://MiniGames/bfs.gd"
 
 [display]
 

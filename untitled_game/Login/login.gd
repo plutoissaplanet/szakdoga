@@ -78,8 +78,10 @@ func login_succeeded(auth):
 			"points": 0,
 			"leaderboard_place": 0
 		}
-		
 		JSON_FILE_FUNCTIONS.save_json_file(dirPath + userDoc.document.get('username')['stringValue']+"/points.json", JSON.stringify(createPointsJson))
+		DirAccess.make_dir_absolute(dirPath + userDoc.document.get('username')['stringValue'] + "/EditorMaps")
+		DirAccess.make_dir_absolute(dirPath + userDoc.document.get('username')['stringValue'] + "/PlayableMaps")
+		DirAccess.make_dir_absolute(dirPath + userDoc.document.get('username')['stringValue'] + "/DownloadedMaps")
 
 	if userDoc:
 		UserData.username = userDoc.document.get('username')['stringValue']

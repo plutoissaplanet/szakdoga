@@ -99,6 +99,7 @@ func _add_buttons_to_grids():
 		var button = TextureButton.new()
 		button.custom_minimum_size = Vector2(90,90)
 		button.texture_normal = loadedTextures.get(key)
+		print(key)
 		button.stretch_mode = TextureButton.STRETCH_SCALE
 		button.ignore_texture_size = true
 		button.pressed.connect(_on_enemy_selected.bind(key, button.texture_normal))

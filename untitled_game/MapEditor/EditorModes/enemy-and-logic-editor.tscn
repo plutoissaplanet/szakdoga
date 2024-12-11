@@ -550,7 +550,7 @@ anchor_bottom = 3.725
 theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
 theme_override_fonts/font = ExtResource("2_kej3v")
 theme_override_font_sizes/font_size = 18
-text = "Health pounts:"
+text = "Health points:"
 
 [node name="HealthPointsLabel" type="Label" parent="CanvasLayer/EnemyEditor/EnemySetStatistics"]
 layout_mode = 1

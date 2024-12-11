@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ior4tm8x3te0"
-path="res://.godot/imported/death.png-b908e15fbdeac7dd1fec2aca9eb70af6.ctex"
+uid="uid://ckcysn1ucjhmt"
+path="res://.godot/imported/Lich.png-c5125af8e70d6792465aa76e5a1e7d34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Creatures/Monsters/Assets/Mummy/Mummy1/Death/death.png"
-dest_files=["res://.godot/imported/death.png-b908e15fbdeac7dd1fec2aca9eb70af6.ctex"]
+source_file="res://Game Assets/MapEditor/todo/Lich.png"
+dest_files=["res://.godot/imported/Lich.png-c5125af8e70d6792465aa76e5a1e7d34.ctex"]
 
 [params]
 

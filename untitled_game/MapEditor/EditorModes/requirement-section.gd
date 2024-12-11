@@ -68,7 +68,7 @@ func _ready():
 
 	if parent:
 		parent.room_number_changed.connect(_set_room_number)
-		if parent.get_parent():
+		if parent.get_parent() is Node2D:
 			parent.get_parent().ENTITIES_TO_PLACE_CHANGED.connect(_amount_changed)
 	set_entities_to_palce.connect(_set_up_dict)
 			
@@ -236,6 +236,10 @@ func _set_initial_violations():
 			type = "minigame"
 			diff = DIFFICULTY[i]
 			min = REQUIREMENTS.number_of_minigames_to_place.get(difficulty).get(diff).get("min")
+			print("__________________")
+			print("diff: ", diff)
+			print("min: ", min)
+			print("type: ", type)
 			MAP_PUBLISHABLE.emit(false, type, diff, min)
 		
 		
@@ -490,10 +494,11 @@ func _check_minigames_in_room(dict):
 	
 	for minigame in minigames:
 		if minigames.get(minigame).get("reward") == "Key":
-			minigameRooms.append(minigames.get(minigame).get("room"))
-		
+			minigameRooms.append(str(minigames.get(minigame).get("room")))
+	
 	for room in rooms:
 		if not minigameRooms.has(room):
+			print(minigameRooms.has(room))
 			return false
 			
 	return true

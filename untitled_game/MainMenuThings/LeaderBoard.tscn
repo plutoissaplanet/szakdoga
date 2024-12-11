@@ -28,24 +28,26 @@ text = "Leaderboard"
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 self_modulate = Color(1, 1, 1, 0.392157)
-offset_left = 318.0
-offset_top = 236.0
-offset_right = 808.0
-offset_bottom = 606.0
+offset_left = 333.0
+offset_top = 239.0
+offset_right = 787.0
+offset_bottom = 609.0
 texture = ExtResource("4_bpp7g")
 expand_mode = 1
 
 [node name="BackButton" type="TextureButton" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 15.0
+offset_top = 3.0
+offset_right = 55.0
+offset_bottom = 43.0
 texture_normal = ExtResource("5_v8wb3")
 stretch_mode = 0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
-offset_left = 318.0
-offset_top = 382.0
-offset_right = 946.0
-offset_bottom = 602.0
+offset_left = 333.0
+offset_top = 385.0
+offset_right = 831.0
+offset_bottom = 605.0
 horizontal_scroll_mode = 0
 
 [node name="OtherPositions" type="GridContainer" parent="CanvasLayer/ScrollContainer"]
@@ -54,10 +56,10 @@ layout_mode = 2
 columns = 3
 
 [node name="Podium" type="GridContainer" parent="CanvasLayer"]
-offset_left = 318.0
-offset_top = 254.0
-offset_right = 808.0
-offset_bottom = 369.0
+offset_left = 333.0
+offset_top = 257.0
+offset_right = 823.0
+offset_bottom = 372.0
 columns = 3
 
 [connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e31t12xxsdxr"
-path="res://.godot/imported/PumpkinHead.png-2cb578f533e35b229b3975bc919a0ec6.ctex"
+uid="uid://dn6l3klsyv1ds"
+path="res://.godot/imported/dead.png-17b9e569a99e9fef6b3f4594aa789168.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/MapEditor/Enemy/PumpkinHead.png"
-dest_files=["res://.godot/imported/PumpkinHead.png-2cb578f533e35b229b3975bc919a0ec6.ctex"]
+source_file="res://Creatures/Monsters/Assets/Ent/Ent1/Death/dead.png"
+dest_files=["res://.godot/imported/dead.png-17b9e569a99e9fef6b3f4594aa789168.ctex"]
 
 [params]
 

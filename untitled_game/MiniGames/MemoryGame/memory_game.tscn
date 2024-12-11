@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://MiniGames/MemoryGame/memory_game.gd" id="1_uvyhc"]
 
 [node name="MemoryGame" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_uvyhc")
 
 [node name="Timer" type="Timer" parent="."]

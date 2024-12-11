@@ -40,40 +40,38 @@ func bfs(startPoint: Vector2i, finishPoint: Vector2i, matrix, size: Vector2i, ob
 				
 	return false
 	
-func dfs_for_finish_position(currentCell: Vector2i, finishCell: Vector2i, mazeMatrix, size: Vector2i):
-	mazeMatrix[currentCell.x * 2 + 1][currentCell.y * 2 + 1] = 0
-	var directions = fourDirections.duplicate(true)
-	directions.shuffle()
-	
-	if currentCell == finishCell:
-		return true
-	
-	for direction in directions:
-		var neighbor = currentCell + direction
-		if is_in_bounds(neighbor, size) and mazeMatrix[neighbor.x * 2 + 1][neighbor.y * 2 + 1] == 1:
-			var wall = currentCell * 2 + direction + Vector2i(1, 1)
-			mazeMatrix[wall.x][wall.y] = 0
-			if dfs_for_finish_position(neighbor, finishCell, mazeMatrix, size):
-				return true
-	return false
+#func dfs_for_finish_position(currentCell: Vector2i, finishCell: Vector2i, mazeMatrix, size: Vector2i):
+	#mazeMatrix[currentCell.x * 2 + 1][currentCell.y * 2 + 1] = 0
+	#var directions = fourDirections.duplicate(true)
+	#directions.shuffle()
+	#
+	#if currentCell == finishCell:
+		#return true
+	#
+	#for direction in directions:
+		#var neighbor = currentCell + direction
+		#if is_in_bounds(neighbor, size) and mazeMatrix[neighbor.x * 2 + 1][neighbor.y * 2 + 1] == 1:
+			#var wall = currentCell * 2 + direction + Vector2i(1, 1)
+			#mazeMatrix[wall.x][wall.y] = 0
+			#if dfs_for_finish_position(neighbor, finishCell, mazeMatrix, size):
+				#return true
+	#return false
 
-func dfs_without_finish(currentCell: Vector2i, mazeMatrix, size: Vector2i):
+func dfs(currentCell: Vector2i, mazeMatrix, size: Vector2i):
 	mazeMatrix[currentCell.x*2 +1][currentCell.y * 2 + 1] = 0
 	var directions = fourDirections.duplicate(true)
 	directions.shuffle()
 	
 	for direction in directions:
 		var neighbor = currentCell + direction
-		
+
 		if is_in_bounds(neighbor, size) and mazeMatrix[neighbor.x * 2 + 1][neighbor.y * 2 + 1] == 1:
 			var wall = currentCell * 2 + direction + Vector2i(1, 1)
 			mazeMatrix[wall.x][wall.y] = 0
-			dfs_without_finish(neighbor, mazeMatrix, size)
+			dfs(neighbor, mazeMatrix, size)
 
 func generate_maze(mazeMatrix, startCell: Vector2i, finishCell: Vector2i, size):
-	dfs_for_finish_position(startCell, finishCell, mazeMatrix, size)
-	dfs_without_finish(startCell, mazeMatrix, size)
-	
+	dfs(startCell, mazeMatrix, size)
 	return mazeMatrix
 
 func is_in_bounds(pos: Vector2i, size: Vector2) -> bool:

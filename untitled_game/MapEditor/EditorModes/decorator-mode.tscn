@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://wb843brcr06o"]
+[gd_scene load_steps=30 format=3 uid="uid://wb843brcr06o"]
 
 [ext_resource type="Script" path="res://MapEditor/EditorModes/decorator-mode.gd" id="1_exevj"]
 [ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="2_mj8dh"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://tv6xl43fjll0" path="res://MapEditor/EditorModes/enemy-and-logic-editor.tscn" id="17_y8j08"]
 [ext_resource type="PackedScene" uid="uid://bybhdom2ygbhs" path="res://MapEditor/EditorModes/logic-editor.tscn" id="18_v5tbh"]
 [ext_resource type="PackedScene" uid="uid://blo7sfn8jeqyj" path="res://MapEditor/EditorModes/requirement-section.tscn" id="19_n8mhj"]
+[ext_resource type="Texture2D" uid="uid://c1mwqkm3s15ho" path="res://MapEditor/origbig.png" id="20_ya478"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jqvq7"]
 texture = ExtResource("2_mj8dh")
@@ -528,6 +529,13 @@ visible = false
 visible = false
 
 [node name="Requirement-section" parent="." instance=ExtResource("19_n8mhj")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.384314)
+z_index = -1
+scale = Vector2(2, 2)
+texture = ExtResource("20_ya478")
+centered = false
 
 [connection signal="pressed" from="Control/MenuBar/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Control/MenuBar/DiscardButton" to="." method="_on_discard_button_pressed"]

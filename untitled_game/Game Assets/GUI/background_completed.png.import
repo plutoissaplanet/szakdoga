@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://et3j2vp6atgi"
-path="res://.godot/imported/RegularSkeleton3.png-824cca2b9b2345cca5ac7cc49ebeec3d.ctex"
+uid="uid://bnovv670xiexv"
+path="res://.godot/imported/background_completed.png-a3fd6b01c0b3b1440652e82541755bbb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/MapEditor/Enemy/RegularSkeleton3.png"
-dest_files=["res://.godot/imported/RegularSkeleton3.png-824cca2b9b2345cca5ac7cc49ebeec3d.ctex"]
+source_file="res://Game Assets/GUI/background_completed.png"
+dest_files=["res://.godot/imported/background_completed.png-a3fd6b01c0b3b1440652e82541755bbb.ctex"]
 
 [params]
 

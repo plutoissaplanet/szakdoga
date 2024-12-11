@@ -121,7 +121,14 @@ func _set_map_information():
 	set_meta("CREATION_DATE", Time.get_datetime_dict_from_system())
 	
 func _load_json_on_ready():
-	var file = JSON_FILE_FUNCTIONS.load_json_file("res://PlayerMaps/EditorMaps/" + scene_file_path.split("/")[4].split(".")[0] + ".json")
+	var dir = DirAccess.open(UserData.userFolderPath + "/EditorMaps/")
+	var fileSegments = scene_file_path.get_basename().split("/")
+	var file
+
+	if dir.file_exists(scene_file_path):
+	
+		file = JSON_FILE_FUNCTIONS.load_json_file(UserData.userFolderPath + "/EditorMaps/" + fileSegments[fileSegments.size()-1] + ".json")
+	
 	if file:
 		decorationEditor.requirementEditor.set_entities_to_palce.emit(JSON.parse_string(file.get_as_text()))
 		return JSON.parse_string(file.get_as_text())
@@ -215,10 +222,12 @@ func _place_tile(tileToPlace: int, pos: Vector2i, currentTileMap: TileMap) -> vo
 		pos = pos - Vector2i(234, 122)
 	else:
 		pos = pos -Vector2i(234, 186)
-	var localizedPosition = currentTileMap.local_to_map(pos)
-	var sourceID = tiles.get(currentLayer).get(selectedTileName).get(sourceIDString)
-	var atlasCoordinatesOfSelectedTile = tiles.get(currentLayer).get(selectedTileName).get(atlasCoordsString)
-	currentTileMap.set_cell(currentLayer, localizedPosition, sourceID, atlasCoordinatesOfSelectedTile)
+	
+	if tileToPlace != -6:
+		var localizedPosition = currentTileMap.local_to_map(pos)
+		var sourceID = tiles.get(currentLayer).get(selectedTileName).get(sourceIDString)
+		var atlasCoordinatesOfSelectedTile = tiles.get(currentLayer).get(selectedTileName).get(atlasCoordsString)
+		currentTileMap.set_cell(currentLayer, localizedPosition, sourceID, atlasCoordinatesOfSelectedTile)
 
 
 func _delete_tile(pos: Vector2i, currentTileMap: TileMap) -> void:
@@ -243,7 +252,8 @@ func _tile_to_place_changed(tile: String, sourceId: int): #for when another tile
 	selectedTileName = tile
 	if tile != "" and sourceId != -5:
 		selectedTileId = tiles.get(currentLayer).get(selectedTileName).get(sourceIDString)
-	
+	elif tile == "" and sourceId == -6:
+		selectedTileId  = -10
 	
 func _add_editor_nodes_to_map():
 	add_child(decorationEditor)
@@ -277,7 +287,7 @@ func _violation_button_close(dialog):
 	
 func _save_map():
 	var rootNode = get_tree().current_scene
-	var path = "res://PlayerMaps/EditorMaps/" + scene_file_path.split("/")[4].split(".")[0] + ".json"
+	var path = UserData.userFolderPath + "EditorMaps/" + scene_file_path.split("/")[4].split(".")[0]
 	
 	if decorationEditor.requirementEditor._check_minigames_in_room(ENTITIES_TO_PLACE):
 		var tilemapParser = TILEMAP_TO_JSON.new(floorTileMap, wallTileMap, boundaryTileMap)
@@ -289,10 +299,10 @@ func _save_map():
 			if child is TextureButton:
 				remove_child(child)
 		
-		JSON_FILE_FUNCTIONS.save_json_file(path,JSON.stringify(ENTITIES_TO_PLACE))
+		JSON_FILE_FUNCTIONS.save_json_file(path+'.json',JSON.stringify(ENTITIES_TO_PLACE))
 		remove_child(decorationEditor)
 
-		createNewScene.map_on_save_button_pressed(rootNode)
+		createNewScene.map_on_save_button_pressed(rootNode, path+".tscn")
 		get_tree().change_scene_to_file("res://MapEditor/map-editor-ui.tscn")
 	else:
 		var dialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()

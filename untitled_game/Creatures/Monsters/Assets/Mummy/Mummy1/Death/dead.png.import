@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs7y737hqdfli"
-path="res://.godot/imported/SkeletonKnight1.png-61d40148c654afb6c954d20824e74aaf.ctex"
+uid="uid://ior4tm8x3te0"
+path="res://.godot/imported/dead.png-ad38b17bca0d2b915985e1cb8c6b09d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/MapEditor/Enemy/SkeletonKnight1.png"
-dest_files=["res://.godot/imported/SkeletonKnight1.png-61d40148c654afb6c954d20824e74aaf.ctex"]
+source_file="res://Creatures/Monsters/Assets/Mummy/Mummy1/Death/dead.png"
+dest_files=["res://.godot/imported/dead.png-ad38b17bca0d2b915985e1cb8c6b09d6.ctex"]
 
 [params]
 

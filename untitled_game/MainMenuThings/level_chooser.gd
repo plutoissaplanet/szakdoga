@@ -137,7 +137,7 @@ func _download_map(mapName: String, data, cont, downloadButton: TextureButton):
 
 func _load_downloaded_maps():
 	var downloadedMapNames = []
-	for file in FileLoader.get_directory_filenames("res://OtherMaps/Downloaded/"):
+	for file in FileLoader.get_directory_filenames(UserData.userFolderPath + "/DownloadedMaps/"):
 		if file.ends_with(".tscn"):
 			downloadedMapNames.append(file.get_basename())
 	for map in downloadedMapNames:
@@ -179,12 +179,12 @@ func _load_downloaded_maps():
 	
 
 func _on_play_clicked(mapName):
-	var mapPath = "res://OtherMaps/Downloaded/" + mapName + ".tscn"
+	var mapPath = UserData.userFolderPath + "/DownloadedMaps/" + mapName + ".tscn"
 	get_tree().change_scene_to_file(mapPath)
 	
 func _on_delete_map(mapName, container):
-	var mapPath = "res://OtherMaps/Downloaded/" + mapName + ".tscn"
-	var jsonPath = "res://OtherMaps/Downloaded/" + mapName + ".json"
+	var mapPath = UserData.userFolderPath + "/DownloadedMaps/" + mapName + ".tscn"
+	var jsonPath = UserData.userFolderPath + "/DownloadedMaps/" + mapName + ".json"
 	var dir = DirAccess.open(mapPath.get_base_dir())
 	if dir:
 		dir.remove(mapPath)

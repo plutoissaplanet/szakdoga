@@ -31,20 +31,22 @@ var notOwnMap
 
 
 var minigamesPaths = {
-	"Lights out": "res://MiniGames/LightsOff/lightsoff.tscn",
 	"Memory Game": "res://MiniGames/MemoryGame/memory_game.tscn",
 	"Nanogram": "res://MiniGames/Nanogram/nanogram_cells.tscn",
 	"Puzzle": "res://MiniGames/Puzzle/puzzle.tscn",
 	"Simon Says": "res://MiniGames/SimonSays/simon-says.tscn",
-	"Wiring": "res://MiniGames/Wiring/wiring2.tscn"
+	"Wiring": "res://MiniGames/Wiring/wiring2.tscn",
+	"Maze": "res://MiniGames/Maze/maze.tscn",
+	"Diamond Maze": "res://MiniGames/Labrynth/labrynth.tscn"
 }
 
 var minigameAndFurniturePositions = []
 
 func _ready():
+	var fileSegments = scene_file_path.get_basename().split("/")
 	jsonFilePath = scene_file_path.split(".")[0] +".json"
 	mapFilePath = scene_file_path
-	mapName = scene_file_path.split("/")[4].split(".")[0]
+	mapName = fileSegments[fileSegments.size()-1]
 	if mapName and mapFilePath and jsonFilePath:
 		start_game(mapName, mapFilePath, jsonFilePath)
 

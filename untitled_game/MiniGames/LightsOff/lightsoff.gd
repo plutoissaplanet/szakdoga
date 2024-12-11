@@ -11,7 +11,8 @@ var difficulty: String
 
 
 func _ready():
-	rect_array = node.get_children()
+	for child in $GridContainer.get_children():
+		pass
 	random_on_lights(rect_array)
 	connect_rect(rect_array)
 
@@ -44,48 +45,48 @@ func on_click(event, rect):
 
 func gameplay(rect_array, rect):
 	var clicked_index=rect_array.find(rect)
-	if clicked_index==0:
-		clicked_rect(rect_array,clicked_index)
-		clicked_rect(rect_array,1)
-		clicked_rect(rect_array,3)
-	elif clicked_index==1:
-		clicked_rect(rect_array,clicked_index)
-		clicked_rect(rect_array,0)
-		clicked_rect(rect_array,2)
-		clicked_rect(rect_array,4)
-	elif clicked_index==2:
-		clicked_rect(rect_array,clicked_index)
-		clicked_rect(rect_array, 1)
-		clicked_rect(rect_array, 5)
-	elif clicked_index==3:
-		clicked_rect(rect_array, clicked_index)
-		clicked_rect(rect_array,0)
-		clicked_rect(rect_array,4)
-		clicked_rect(rect_array,6)
-	elif clicked_index==4:
-		clicked_rect(rect_array, clicked_index)
-		clicked_rect(rect_array, 1)
-		clicked_rect(rect_array,3)
-		clicked_rect(rect_array, 5)
-		clicked_rect(rect_array, 7)
-	elif clicked_index==5:
-		clicked_rect(rect_array, clicked_index)
-		clicked_rect(rect_array,2)
-		clicked_rect(rect_array,4)
-		clicked_rect(rect_array,8)
-	elif clicked_index==6:
-		clicked_rect(rect_array, clicked_index)
-		clicked_rect(rect_array,3)
-		clicked_rect(rect_array, 7)
-	elif clicked_index==7:
-		clicked_rect(rect_array, clicked_index)
-		clicked_rect(rect_array,4)
-		clicked_rect(rect_array, 8)
-		clicked_rect(rect_array,6)
-	elif clicked_index==8:
-		clicked_rect(rect_array, clicked_index)
-		clicked_rect(rect_array, 7)
-		clicked_rect(rect_array, 5)
+	#if clicked_index==0:
+		#clicked_rect(rect_array,clicked_index)
+		#clicked_rect(rect_array,1)
+		#clicked_rect(rect_array,3)
+	#elif clicked_index==1:
+		#clicked_rect(rect_array,clicked_index)
+		#clicked_rect(rect_array,0)
+		#clicked_rect(rect_array,2)
+		#clicked_rect(rect_array,4)
+	#elif clicked_index==2:
+		#clicked_rect(rect_array,clicked_index)
+		#clicked_rect(rect_array, 1)
+		#clicked_rect(rect_array, 5)
+	#elif clicked_index==3:
+		#clicked_rect(rect_array, clicked_index)
+		#clicked_rect(rect_array,0)
+		#clicked_rect(rect_array,4)
+		#clicked_rect(rect_array,6)
+	#elif clicked_index==4:
+		#clicked_rect(rect_array, clicked_index)
+		#clicked_rect(rect_array, 1)
+		#clicked_rect(rect_array,3)
+		#clicked_rect(rect_array, 5)
+		#clicked_rect(rect_array, 7)
+	#elif clicked_index==5:
+		#clicked_rect(rect_array, clicked_index)
+		#clicked_rect(rect_array,2)
+		#clicked_rect(rect_array,4)
+		#clicked_rect(rect_array,8)
+	#elif clicked_index==6:
+		#clicked_rect(rect_array, clicked_index)
+		#clicked_rect(rect_array,3)
+		#clicked_rect(rect_array, 7)
+	#elif clicked_index==7:
+		#clicked_rect(rect_array, clicked_index)
+		#clicked_rect(rect_array,4)
+		#clicked_rect(rect_array, 8)
+		#clicked_rect(rect_array,6)
+	#elif clicked_index==8:
+		#clicked_rect(rect_array, clicked_index)
+		#clicked_rect(rect_array, 7)
+		#clicked_rect(rect_array, 5)
 		
 func clicked_rect(rect_array,i):
 	if rect_array[i].texture==lightsoff_texture:

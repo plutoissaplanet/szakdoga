@@ -16,8 +16,10 @@ func _ready():
 	for slots in armoryInventorySlots:
 		slots.gui_input.connect(clicked_on_slot.bind(slots))
 		slots.child_entered_tree.connect(apply_armor_states_to_player.bind(slots))
+		slots.child_exiting_tree.connect(_deduct_armor_state_from_player.bind(slots))
 	swordSlot.gui_input.connect(clicked_on_slot.bind(swordSlot))
 	swordSlot.child_entered_tree.connect(apply_armor_states_to_player.bind(swordSlot))
+	swordSlot.child_exiting_tree.connect(_deduct_armor_state_from_player.bind(swordSlot))
 		
 func _process(delta):
 	if heldItem:
@@ -62,6 +64,14 @@ func apply_armor_states_to_player(child, slot):
 		player.stats.AttackPoints += armorInSlot.finalItem.ATTACK_POINTS
 	else:
 		player.totalHealth += armorInSlot.ARMOR
+		player.healthBar.update_total_health(player.totalHealth)
+		
+func _deduct_armor_state_from_player(child, slot):
+	var armorInSlot = child
+	if slot.is_in_group("Sword") and armorInSlot.finalItem.ITEM_NAME == "Sword":
+		player.stats.AttackPoints -= armorInSlot.finalItem.ATTACK_POINTS
+	else:
+		player.totalHealth -= armorInSlot.ARMOR
 		player.healthBar.update_total_health(player.totalHealth)
 		
 

@@ -93,7 +93,8 @@ func _add_items_to_selector():
 	minigameSelector.add_item("Wiring", 0)
 	minigameSelector.add_item("Puzzle", 1)
 	minigameSelector.add_item("Memory Game", 2)
-	minigameSelector.add_item("Lights out", 3)
+	minigameSelector.add_item("Maze", 3)
+	minigameSelector.add_item("Diamond Maze", 3)
 	minigameSelector.add_item("Nanogram", 4)
 	minigameSelector.add_item("Simon Says", 5)
 
@@ -165,6 +166,9 @@ func _create_minigame_sprite():
 
 func _on_difficulty_selected(index):
 	selectedDifficulty = difficultySelector.get_item_text(index)
+	print("_____________")
+	print("selectedDifficulty: ",selectedDifficulty)
+	print("_____________")
 
 
 func _on_key_check_box_checked():

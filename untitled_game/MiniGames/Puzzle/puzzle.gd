@@ -12,7 +12,11 @@ var outOfOrderPuzzlePieces2 = {}
 var pictureFrame = TextureRect.new()
 var scaling = Vector2(0.6, 0.6)
 var pieceSizes: Vector2
-var outOfOrderPiecesNumber = 4
+var outOfOrderPiecesNumber = {
+	'easy': 4,
+	'medium': 10,
+	'hard': 15
+}
 var pieceInHand = false
 var pieceParent = null
 var placeParent = null
@@ -31,7 +35,7 @@ var difficulty: String
 signal minigame_completed
 
 func _ready():
-	difficulty = 'easy'
+	difficulty = 'hard'
 	_load_pictures()
 	pictureLoaded = load(selectedPicturePath)
 	pictureFrame.texture = pictureLoaded
@@ -146,8 +150,8 @@ func _puzzle_piece_place_on_click(event, place):
 		
 	
 func _select_random_puzzle_pieces():
-	var alreadyGenerated = [Vector2(-1,-1)]
-	while alreadyGenerated.size() <= outOfOrderPiecesNumber:
+	var alreadyGenerated = []
+	while alreadyGenerated.size() <= outOfOrderPiecesNumber.get(difficulty):
 		var randomIndexX = randi_range(0,numberOfPieces.x-1)
 		var randomIndexY = randi_range(0,numberOfPieces.y-1)
 		var vector = Vector2(randomIndexX, randomIndexY)
@@ -159,15 +163,21 @@ func _select_random_puzzle_pieces():
 			outOfOrderPuzzlePieces2[puzzlePieces.get(key)] =  puzzlePieces.get(key).texture
 			puzzlePieces.get(key).texture = null
 			puzzlePieces.get(key).gui_input.connect(_puzzle_piece_place_on_click.bind(puzzlePieces.get(key)))
+			
 	_make_out_of_order_puzzle_pieces()
 
 func _make_out_of_order_puzzle_pieces():
+	print("puzzlePieces: ", puzzlePieces)
 	for i in range(outOfOrderPieces.size()):
 		var key = outOfOrderPieces.keys()[i]
 		var outOfOrderPuzzlePiecesTextureRect = TextureRect.new()
 		var texture = untouchedPuzzlePieces.get(key).texture
 		outOfOrderPuzzlePiecesTextureRect.texture = texture
-		outOfOrderPuzzlePiecesTextureRect.position = Vector2(pictureFrame.size.x + 80, (pieceSizes.y +20)*i)
+		var row = i % 4
+		var column = i / 4 
+		var xOffset = pictureFrame.size.x + column * (pieceSizes.x + 20)
+		var yOffset = row * (pieceSizes.y) - 40
+		outOfOrderPuzzlePiecesTextureRect.position = Vector2(xOffset, yOffset)
 		outOfOrderPuzzlePiecesTextureRect.pivot_offset=Vector2(pieceSizes.x/2, pieceSizes.y/2)
 		outOfOrderPuzzlePiecesTextureRect.rotation = i*60
 		outOfOrderPuzzlePiecesTextureRect.scale = scaling
@@ -178,8 +188,16 @@ func _make_out_of_order_puzzle_pieces():
 		area1.area_exited.connect(_puzzle_piece_on_area_exited)
 		puzzlePieces.get(key).add_child(area1)
 		outOfOrderPuzzlePiecesTextureRect.add_child(area2)
+		$OutOfOrderPuzzlePieces.size = Vector2(pieceSizes.y * column, pictureLoaded.get_height()+50)
 		$OutOfOrderPuzzlePieces.add_child(outOfOrderPuzzlePiecesTextureRect)
+	_resize_background()
 
+func _resize_background():
+	$Bakcground/TextureRect.size = $OutOfOrderPuzzlePieces.size * scaling + Vector2(pictureLoaded.get_width(),0)
+	$Bakcground/TextureRect.position = $OutOfOrderPuzzlePieces.position - Vector2(80,60)
+	$SubmitSequenceButton.position = Vector2($Bakcground/TextureRect.size.x/2 + 150,$Bakcground/TextureRect.size.y - 80)
+	
+	
 func _make_piece_after_pickup(positionOfThePiece, texture):
 	var newPiece = TextureRect.new()
 	newPiece.texture = texture
@@ -208,7 +226,6 @@ func _deep_copy_puzzle_piece_dictionary():
 		newPiece.texture = oldPiece.texture
 		untouchedPuzzlePieces[key] = newPiece
 		
-		
 
 func _verify_player_sequence():
 	if(playerSequence == outOfOrderPuzzlePieces2):
@@ -220,8 +237,10 @@ func _verify_player_sequence():
 func _sizing_and_positioning():
 	if pictureFrame.size.y > 400:
 		pictureFrame.scale = scaling
+		
 	$MainPuzzlePieces.custom_minimum_size = pictureFrame.size * scaling
 	$MainPuzzlePieces.size = pictureFrame.size * scaling
 	$MainPuzzlePieces.scale= scaling
 	$OutOfOrderPuzzlePieces.scale = scaling
+	
 

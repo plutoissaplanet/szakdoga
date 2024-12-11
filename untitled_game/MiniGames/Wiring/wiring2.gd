@@ -31,6 +31,8 @@ func _ready():
 	vbox1.position.x=window_sizing.x/4
 	load_colors()
 	load_text_rects()
+	$Background/TextureRect.position = vbox1.position - Vector2(70,80)
+	$Background/TextureRect.size = Vector2(500, 650)
 
 func load_colors():
 	var blue_circle = load("res://Game Assets/Minigames/Wiring/circle_blue_png.png")
@@ -70,7 +72,8 @@ func load_text_rects():
 	color_circles(vbox2_rects)
 	add_color_meta(vbox1_rects)
 	add_color_meta(vbox2_rects)
-	
+
+
 func add_color_meta(rects):
 	for rect in rects:
 		if rect.texture == colors[0]:
@@ -170,8 +173,6 @@ func gameplay(rect):
 		rect.mouse_entered.disconnect(_on_texture_rect_mouse_entered)
 		if pair_count == 6:
 			minigame_completed.emit()
-	else:
-		print("not the same color")
 		
 
 

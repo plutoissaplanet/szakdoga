@@ -92,7 +92,6 @@ func _process(event):
 					deathScreenInstance.z_index=100
 					deathScreenInstance.position.y-=100
 					if notOwnMap:
-						print("player in if notOwnMap")
 						deathScreenInstance.display_points(REQUIREMENTS.map_values.get(mapDifficulty).get("deduct"), UserData.totalPoints - REQUIREMENTS.map_values.get(mapDifficulty).get("deduct"))
 						POINTS_MANAGER.deduct_points(REQUIREMENTS.map_values.get(mapDifficulty).get("deduct"))
 					self.add_child(deathScreenInstance)
@@ -123,15 +122,13 @@ func _process(event):
 				body.set_meta("timer_started", true)
 				body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, true)
 				body.animationTree.set(ENEMY_CONDITIONS.enemyWalking, false)
-	#for body in get_tree().get_nodes_in_group("Ranged"):
-		#if not overlappingBodiesRangedAttacker.has(body) and body.state_machine.state != body.state_machine.ATTACK:
-			#body.timer.stop()
-			#body.set_meta("timer_started", false)
-			#body.state_machine.SPEED=30.0;
-			#body.state_machine.state=body.state_machine.MOVE
-			#body.animationTree.set(ENEMY_CONDITIONS.enemyIsIdle, false)
-			#body.animationTree.set(ENEMY_CONDITIONS.enemyHurt, false)
-			#body.animationTree.set(ENEMY_CONDITIONS.enemyWalking, true)
+	for body in overlappingBodiesAttack:
+		if body.is_in_group("Ranged") or body.is_in_group("Enemy"):
+			if body.position > position:
+				body.z_index = 100
+			else:
+				body.z_index = 9
+
 
 func _set_up_animations():
 	var animationMaker = ANIMATION_MAKER.new()
@@ -150,17 +147,13 @@ func _set_state(newState: String, condition: String):
 	state = newState
 
 func _physics_process(_delta):
-	var move_right = Input.is_action_pressed("move_right")
-	var move_left = Input.is_action_pressed("move_left")
-	var move_up = Input.is_action_pressed("move_up")
-	var move_down = Input.is_action_pressed("move_down")
+	
 
 	var move_w = Input.is_action_pressed("w_up")
 	var move_a = Input.is_action_pressed("a_left")
 	var move_s= Input.is_action_pressed("s_down")
 	var move_d = Input.is_action_pressed("d_right")
 	
-	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var input_direction_wasd = Input.get_vector("a_left", "d_right", "w_up","s_down")
 	var direction_wasd = Input.get_axis("a_left", "d_right")
 	var direction = Input.get_axis("move_left", "move_right")
@@ -170,10 +163,7 @@ func _physics_process(_delta):
 	elif direction == 1 || direction_wasd == 1:
 		character.flip_h= false
 	#Jobbra balra futás megvalósítása
-	if move_right || move_left || move_up || move_down :
-		velocity = input_direction * SPEED
-		state=WALK
-	elif move_a || move_d || move_s || move_w:
+	if move_a || move_d || move_s || move_w:
 		velocity = input_direction_wasd * SPEED
 		state=WALK
 	else:

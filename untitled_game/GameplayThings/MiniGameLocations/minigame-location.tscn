@@ -3,23 +3,29 @@
 [ext_resource type="Script" path="res://GameplayThings/MiniGameLocations/minigame-location.gd" id="1_ah121"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lhw01"]
-radius = 41.1096
+radius = 42.7084
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mpu2k"]
-size = Vector2(20, 8.5)
+size = Vector2(24, 12.25)
 
 [node name="NonogramLocation" type="Node2D"]
+process_mode = 3
+process_priority = 1
 script = ExtResource("1_ah121")
 
 [node name="MinigameButton" type="TextureButton" parent="."]
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+process_mode = 3
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 25.0
 
 [node name="Area2D" type="Area2D" parent="."]
+process_mode = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+process_mode = 3
+scale = Vector2(0.959999, 1)
 shape = SubResource("CircleShape2D_lhw01")
 
 [node name="Minigame" type="Control" parent="."]
@@ -33,6 +39,7 @@ offset_bottom = 400.0
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(1.2082, 1.16854)
 shape = SubResource("RectangleShape2D_mpu2k")
 
 [connection signal="pressed" from="MinigameButton" to="." method="_on_minigame_button_pressed"]

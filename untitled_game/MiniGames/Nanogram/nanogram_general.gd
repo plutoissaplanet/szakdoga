@@ -97,6 +97,7 @@ func _ready():
 		
 	connect_cells()
 	size_and_position()
+	print(solutions[riddle_index])
 	
 func _process(_delta):
 	gameplay()
@@ -125,7 +126,6 @@ func onClick(_event,i,j):
 
 func gameplay():
 	if  problem == solutions[riddle_index]:
-		print("success")
 		solved=true
 		minigame_completed.emit()
 
@@ -144,17 +144,15 @@ func size_and_position():
 	
 	vbox.position=Vector2(cont2_pos.x-70, cont2_pos.y-5)
 	hbox.position=Vector2(cont2_pos.x, cont2_pos.y-100)
+	$Background/TextureRect.position = $Container.position + Vector2(15,10)
+	$Background/TextureRect.size = $Container.size+ Vector2(90,90)
 	
-	print("cont1 pos: ", container1.position)
-	print("cont2 pos: ", container2.position)
 	
 	
 func text():
 	var temp = solutions_unsliced[riddle_index]
-	
 	var temp_pop
 	var max_arr_size = 0
-	#print("temp", temp)
 	
 	for i in range(temp[0].size()/2):
 		var arr_size = temp[0][i].size()
@@ -162,7 +160,6 @@ func text():
 			max_arr_size = arr_size
 	
 	print(temp[0].size())
-	#print(" ")
 	
 	for i in range(temp[0].size()):
 		

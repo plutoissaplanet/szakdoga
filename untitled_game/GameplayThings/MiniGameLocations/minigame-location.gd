@@ -28,12 +28,8 @@ func initialize(_difficulty: String, _texturePath: String, _minigamePath: String
 	reward = _reward
 	initialized.emit()
 
-
-
 func _ready():
 	initialized.connect(_on_ready)
-
-
 
 func _on_ready():
 	_load_and_add_minigame()
@@ -65,9 +61,12 @@ func _load_texture():
 
 func _process(delta):
 	var overlappingBodies = $Area2D.get_overlapping_bodies()
+
 	if overlappingBodies.size() > 0:
 		for body in overlappingBodies:
 			if body.is_in_group("Enemy") || body.is_in_group("Player"):
+				if body.is_in_group("Player"):
+					player = body
 				if body.position.y > self.get_global_position().y + texture.get_height()/2 - 10:
 					body.z_index = 100
 					self.z_index = 99
@@ -91,16 +90,27 @@ func _on_area_2d_body_exited(body):
 	if body.is_in_group("Player"):
 		entered = false
 		player = body
+		
+		get_tree().paused = false
 		if player.get_node("Camera2D/MinigameLayer").visible:
 			player.get_node("Camera2D/MinigameLayer").visible = false
 			player.get_node("Camera2D/MinigameLayer").remove_child(game)
-
+		
 
 func _on_minigame_button_pressed():
-	if entered and not alreadySolved and player:
+	print("pressing")
+	print(get_tree().paused)
+	if entered and not alreadySolved and player and not get_tree().paused:
 		if player.get_node("Camera2D/MinigameLayer"):
 			player.get_node("Camera2D/MinigameLayer").visible = true
 			player.get_node("Camera2D/MinigameLayer").add_child(game)
+			if difficulty == "medium" or difficulty == "hard" or minigamePath == "res://MiniGames/Labrynth/labrynth.tscn" or "res://MiniGames/Maze/maze.tscn":
+				get_tree().paused = true
+				
+	elif get_tree().paused:
+		get_tree().paused = false
+		player.get_node("Camera2D/MinigameLayer").visible = false
+		player.get_node("Camera2D/MinigameLayer").remove_child(game)
 		
 
 func on_minigame_solved():
@@ -109,6 +119,7 @@ func on_minigame_solved():
 		player.get_node("Camera2D/MinigameLayer").remove_child(game)
 		minigame_solved.emit(self)
 		alreadySolved = true
+		get_tree().paused = false
 		_make_reward()
 
 

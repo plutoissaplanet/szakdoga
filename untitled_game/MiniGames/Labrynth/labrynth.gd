@@ -19,7 +19,7 @@ var positions = {
 var character
 
 func _ready():
-	difficulty = 'easy'
+	difficulty = 'medium'
 	size = mazeSizes.get(difficulty)
 	positions['finish'] = Vector2(size.x * 2 , size.y * 2 )
 	_generate_labyrinth_matrix()
@@ -29,13 +29,13 @@ func _ready():
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed('w_up'):
+	if Input.is_action_just_pressed("move_up"):
 		_character_movement('up')
-	elif Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed('d_right'):
+	elif Input.is_action_just_pressed("move_right"):
 		_character_movement('right')
-	elif Input.is_action_just_pressed("move_down") or Input.is_action_just_pressed('s_down'):
+	elif Input.is_action_just_pressed("move_down"):
 		_character_movement('down')
-	elif Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed('a_left'):
+	elif Input.is_action_just_pressed("move_left"):
 		_character_movement('left')
 
 
@@ -48,7 +48,6 @@ func _generate_labyrinth_matrix():
 
 func _place_cells():
 	var tilePosition = Vector2i(0,0)
-	
 	for row in mazeMatrix:
 		for col in row:
 			$TileMap.set_cell(0, $TileMap.local_to_map(tilePosition), col, Vector2i(0, 0))
@@ -90,7 +89,6 @@ func _character_movement(direction: String):
 		mazeMatrix[charPos.x][charPos.y] = 0
 		mazeMatrix[newPos.x][newPos.y] = 2
 		_check_win(character.position)
-		
 		
 
 func _check_win(charPos):

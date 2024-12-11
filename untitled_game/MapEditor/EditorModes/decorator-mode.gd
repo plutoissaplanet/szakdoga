@@ -239,7 +239,8 @@ var violations = {
 		"spawnpoint": {
 			"easy": 0,
 			"medium": 0,
-			"hard": 0},
+			"hard": 0
+		},
 		"minigame": {
 			"easy": 0,
 			"medium": 0,
@@ -474,26 +475,25 @@ func _on_eraser_button_pressed(): # The tile placement is eraser
 	editor_mode_changed.emit("Delete")
 
 
-func _violation_counter(publishable, type, diff, initialViolation = 0):
-	var violationCounter: int 
+func _violation_counter(publishable, type, diff, initialViolation = -1):
+	var violationCounter: int
 	if type == "room":
 		violationCounter = violations.get(type)
+		
 	else:
-		print(type)
-		print(violations.get(type))
 		violationCounter = violations.get(type).get(diff)
 
 	
 	if not publishable:
 		if initialViolation:
 			violationCounter += initialViolation
-		else:
+		elif initialViolation == -1:
 			violationCounter += 1
 		violations[type][diff] = violationCounter
+		
 	else:
 		violations[type][diff] = 0
 		
-	print(violations)
 	mapOKToPublish = _check_violations(type, diff)
 
 
@@ -536,12 +536,14 @@ func _on_decorator_mode_pressed():
 	$Control/DecoratorSelection.visible = true 
 	$Control/MenuBar/TilePlacementModifiers.visible = true
 	enemyEditor.get_children()[0].visible = false
+	tile_to_place_changed.emit('',-6)
 	logicEditor.visible = false
 
 func _on_enemy_mode_pressed():
 	$Control/DecoratorSelection.visible = false 
 	$Control/MenuBar/TilePlacementModifiers.visible = false
 	enemyEditor.get_children()[0].visible = true
+	tile_to_place_changed.emit('',-6)
 	logicEditor.visible = false
 
 	
@@ -549,6 +551,7 @@ func _on_logic_mode_pressed():
 	$Control/DecoratorSelection.visible = false 
 	$Control/MenuBar/TilePlacementModifiers.visible = false
 	logicEditor.visible = true
+	tile_to_place_changed.emit('',-6)
 	enemyEditor.get_children()[0].visible = false
 	
 func _on_ok_button_pressed():
@@ -607,6 +610,7 @@ func _on_room_button_pressed(room: int):
 	logicEditor.position = roomPositions.get(selectedRoomNumber)
 	requirementEditor.position = roomPositions.get(selectedRoomNumber)
 	$Camera2D.position = roomPositions.get(selectedRoomNumber) + windowSize/2 
+	$Sprite2D.position = roomPositions.get(selectedRoomNumber)
 	$Control/ChosenSize.position = chosenSizeLabelPosition + Vector2i(roomPositions.get(selectedRoomNumber))
 	selected_room_changed.emit(selectedRoomNumber)
 	

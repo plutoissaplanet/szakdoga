@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqvuar2ogetvf"
-path="res://.godot/imported/SkeletonKnight2.png-ef31ccac0f994c2608d39b66c05883ea.ctex"
+uid="uid://bnv52uxx6kprt"
+path="res://.godot/imported/walk.png-da88c475923760b4b351d195603ddbf3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/MapEditor/Enemy/SkeletonKnight2.png"
-dest_files=["res://.godot/imported/SkeletonKnight2.png-ef31ccac0f994c2608d39b66c05883ea.ctex"]
+source_file="res://Creatures/Monsters/Assets/SkeletonKnight/SkeletonKnight1/Move/walk.png"
+dest_files=["res://.godot/imported/walk.png-da88c475923760b4b351d195603ddbf3.ctex"]
 
 [params]
 

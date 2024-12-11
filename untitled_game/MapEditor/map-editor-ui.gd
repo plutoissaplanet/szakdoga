@@ -7,8 +7,8 @@ var privateScrollContainer: ScrollContainer
 var privateGridContainer: GridContainer
 var publicScrollContainer: ScrollContainer
 var publicGridContainer: GridContainer
-var editorMapDirectory = "res://PlayerMaps/EditorMaps/"
-var publicMapdirectory = "res://PlayerMaps/PlayableMaps/"
+var editorMapDirectory = UserData.userFolderPath + "EditorMaps/"
+var publicMapdirectory = UserData.userFolderPath + "PlayableMaps/"
 var editorMapNames = []
 var publicMapNames = []
 
@@ -172,19 +172,18 @@ func _on_edit_button_pressed(mapFilePath: String, mapName: String):
 
 func _on_start_map_button_pressed(mapName: String, filePath: String):
 	var playableMapScript = load("res://MapEditor/MapParser/playable_map.gd")
+	print(filePath)
 	await createNewScene.save_map(load(filePath).instantiate(), filePath, playableMapScript)
 	get_tree().change_scene_to_file(filePath)
 
 
 func _on_unshare_map_button_pressed(mapName: String, filePath: String, container: Container):
-	var publishedDir = "res://PlayerMaps/PlayableMaps/"
-	var editorDir = "res://PlayerMaps/EditorMaps/"
-	
+
 	var sourceDir = DirAccess.open(filePath.get_base_dir())
-	var targetDir = editorDir + mapName + ".tscn"
+	var targetDir = editorMapDirectory + mapName + ".tscn"
 	
-	var jsonSourceDirPath = publishedDir + mapName + ".json"
-	var jsonTargetDirPath = editorDir + mapName + ".json"
+	var jsonSourceDirPath = publicMapdirectory + mapName + ".json"
+	var jsonTargetDirPath = editorMapDirectory + mapName + ".json"
 	
 	if sourceDir.file_exists(filePath):
 		sourceDir.rename(filePath, targetDir)
@@ -224,8 +223,10 @@ func _confirm_delete_map(mapName: String, filePath: String, container: Container
 		
 
 func _on_share_map(mapName: String, filePath: String, container: Container):
-	var editorDir = "res://PlayerMaps/EditorMaps/"
-	if EDITED_MAP_DATA.get(editorDir+mapName+".tscn"):
+	print(EDITED_MAP_DATA)
+	print(editorMapDirectory+mapName+".tscn")
+	print("EDITED_MAP_DATA.get(editorMapDirectory+mapName", EDITED_MAP_DATA.get(editorMapDirectory+mapName+".tscn"))
+	if EDITED_MAP_DATA.get(editorMapDirectory+mapName+".tscn"):
 		var dialog = load("res://shared/dialogs/confirmation-dialog.tscn").instantiate()
 		dialog.set_label_text("Share map with others?")
 		add_child(dialog)
@@ -235,15 +236,13 @@ func _on_share_map(mapName: String, filePath: String, container: Container):
 
 func _confirm_share_map(dialog, mapName, filePath: String, container):
 	privateGridContainer.remove_child(container)
-	
-	var publishedDir = "res://PlayerMaps/PlayableMaps/"
-	var editorDir = "res://PlayerMaps/EditorMaps/"
-	
+
+
 	var sourceDir = DirAccess.open(filePath.get_base_dir())
-	var targetDir = publishedDir + mapName + ".tscn"
+	var targetDir = publicMapdirectory + mapName + ".tscn"
 	
-	var jsonSourceDirPath = editorDir + mapName + ".json"
-	var jsonTargetDirPath = publishedDir + mapName + ".json"
+	var jsonSourceDirPath = editorMapDirectory + mapName + ".json"
+	var jsonTargetDirPath = publicMapdirectory + mapName + ".json"
 	
 	if sourceDir.file_exists(filePath):
 		sourceDir.rename(filePath, targetDir)
@@ -264,8 +263,7 @@ func _confirm_share_map(dialog, mapName, filePath: String, container):
 				firestore_data["map_data"][key] = {}
 				firestore_data["map_data"][key] = {"stringValue": str(json.get(key))}
 			
-			print(mapName)
-			print(firestore_data)
+			
 			await Firebase.Firestore.collection("maps").add(mapName,{"mapData": str(firestore_data), "user": UserData.username})
 			
 func _abort_share(dialog):
@@ -289,7 +287,23 @@ func _create_new_map(mapName: String, dialog)->void:
 		dialog.error_message("Map name is already used.")
 	else:
 		get_tree().paused = false
-		createNewScene.create_new_scene(mapName)
+		var mapFilePath = UserData.userFolderPath + "EditorMaps/" + mapName + ".tscn"
+		
+		print("map file path: ",mapFilePath)
+		var rootNode = Node2D.new()
+		var script = load("res://MapEditor/map-editor.gd")
+		var mapPath = mapFilePath
+		if script:
+			rootNode.set_script(script)
+		else:
+			print("failed to load script")
+		var newScene = PackedScene.new()
+		newScene.pack(rootNode)
+		ResourceSaver.save(newScene, mapPath)
+		
+		SelectedMap.FILE_PATH = mapFilePath
+		SelectedMap.FILE_NAME = mapName
+		createNewScene.load_scene(mapPath)
 	
 	
 	#createNewScene.create_new_scene()

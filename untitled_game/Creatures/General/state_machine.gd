@@ -75,15 +75,14 @@ func move(target, delta, node, dir):
 	var target_pos=target.position
 	var direction=(target_pos-node.position).normalized()
 	if dir == 'To':
-		var new_pos = node.position + direction * SPEED * delta
-		node.position= new_pos
+		node.velocity = direction * SPEED
 	else:
-		var new_pos = node.position - direction * SPEED * delta
-		node.position= new_pos
+		enemy.velocity = -direction * SPEED
 	if direction.x < 0:
 		enemySprite.flip_h=true
 	else:
 		enemySprite.flip_h=false
+	enemy.move_and_slide()
 	
 func attack(target, delta):
 	if enemyObject.enemyAttackType == 'Melee':

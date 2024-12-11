@@ -54,6 +54,7 @@ func get_random_rarity():
 	return selectedRarity
 
 func get_random_item() -> Resource:
+	items.shuffle()
 	var randomIndex=randi_range(0, items.size()-1)
 	return items[randomIndex]
 	

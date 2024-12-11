@@ -20,6 +20,7 @@ sources/0 = SubResource("TileSetAtlasSource_lhivj")
 sources/1 = SubResource("TileSetAtlasSource_0lqmp")
 
 [node name="Maze" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_y6xk7")
 
 [node name="TileMap" type="TileMap" parent="."]

@@ -20,6 +20,7 @@ sources/0 = SubResource("TileSetAtlasSource_8m3x8")
 sources/1 = SubResource("TileSetAtlasSource_84qeg")
 
 [node name="Labrynth" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_ky6cr")
 
 [node name="TileMap" type="TileMap" parent="."]

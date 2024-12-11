@@ -16,6 +16,7 @@ var animation_files = AnimationLibrary.new()
 var libraryName: String
 var rangedAndIdleEnemyArea: Area2D
 var rangedAndIdleEnemyCollision: CollisionShape2D
+var zIndexArea 
 
 enum {
 	SKELETON_1
@@ -23,6 +24,7 @@ enum {
 
 
 func _ready():
+	zIndexArea = $Area2D
 	if player != null:
 		state_machine.player = player 
 		rangedAndIdleEnemyArea = player.overlappingProjectileHitArea
@@ -33,6 +35,11 @@ func _ready():
 	state_machine.enemySprite=enemy
 	state_machine.enemy = self
 	state_machine.animationTree = animationTree
+	
+	print(enemyObject.enemyType," " ,enemyObject.enemyVariant)
+	
+	if enemyObject.enemyAttackType == "Ranged":
+		player = null
 	
 	
 	self.add_to_group(enemyObject.enemyAttackType)
@@ -68,6 +75,13 @@ func _process(delta):
 				timer.start()
 		#if enemyDistanceFromPlayer > rangedAndIdleEnemyCollision.shape.radius+10:
 			#state_machine.state = state_machine.MOVE
+			
+	for body in zIndexArea.get_overlapping_bodies():
+		if body.is_in_group("Enemy"):
+			if body.position > position:
+				body.z_index = 100
+			else:
+				body.z_index = 9
 
 func _on_timer_timeout():
 	state_machine.state=state_machine.ATTACK
@@ -77,3 +91,8 @@ func _on_timer_timeout():
 func _projectile_hit(projectileToErase: Area2D):
 	projectileArray.erase(projectileToErase)
 	projectileToErase.queue_free()
+
+
+func _on_player_entered(body):
+	if body.is_in_group("Player"):
+		player=body

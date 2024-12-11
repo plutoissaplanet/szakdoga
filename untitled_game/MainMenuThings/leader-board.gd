@@ -7,12 +7,8 @@ func _ready():
 	$CanvasLayer/ScrollContainer/OtherPositions.add_theme_constant_override("h_separation", 50)
 	$CanvasLayer/Podium.add_theme_constant_override("h_separation", 50)
 	var result = await POINTS_MANAGER.load_points_from_database()
-
-	
-	#for place in result:
-		#invertedResult[int(place.document.get("points").get("integerValue"))] = place.doc_name
-		#
-	#print(invertedResult)
+	var parallax = PARALLAX.new()
+	add_child(parallax)
 	
 	var pointsArray = {}
 	var combinedArray = []

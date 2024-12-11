@@ -7,6 +7,11 @@ var difficulty: String
 	'medium': 6,
 	'hard': 8
 }
+var numberOfLightsDict = {
+	'easy': 3,
+	'medium': 4,
+	'hard': 6
+}
 
 @onready var lightOffTexture = preload("res://Game Assets/Minigames/Wiring/lights_off.png")
 var lightsOnTextures = {}
@@ -23,8 +28,9 @@ var currentSequenceLightIndex = 0
 signal minigame_completed
 
 func _ready():
+	difficulty = 'hard'
 	_load_all_lights_on_textures()
-	numberOfLights = 3
+	numberOfLights = numberOfLightsDict.get(difficulty)
 	_add_texture_rects_to_scene()
 	_generate_sequence(difficulty)
 	currentSequence = solution[currentSequenceIndex]
@@ -48,16 +54,17 @@ func _load_all_lights_on_textures():
 func _add_texture_rects_to_scene():
 	var gridSizing = _get_grid_sizes()
 	for i in range(numberOfLights):
-		print(i)
 		var row = i / int(gridSizing.x)
 		var col = int(i % int(gridSizing.x))
 		var textureRect = TextureRect.new()
-		print(lightOffTexture)
 		textureRect.texture = lightOffTexture
 		textureRect.gui_input.connect(clicked_on_a_light.bind(i))
 		textureRect.position = Vector2(col * 100, row * 100)
 		rects.append(textureRect)
-		add_child(textureRect)
+		$Lights.add_child(textureRect)
+		$Background/TextureRect.size = Vector2(col*200, row*300)
+		$Lights.position = Vector2i(60,40)
+		$Background/Label.position = Vector2($Background/TextureRect.size.x/2-60, $Background/TextureRect.size.y - 50)
 
 func _generate_sequence(difficulty: String):
 	for i in range(difficultySettings.get(difficulty)):
@@ -105,7 +112,17 @@ func _validate_player_input():
 			$Timer.stop()
 			minigame_completed.emit()
 	else:
-		print("wrong sequence")
+		$Background/ErrorTimer.start()
+		$Background/Label.visible = true
+		solution.clear()
+		currentSequence.clear()
+		playerSequence.clear()
+		currentSequenceLightIndex = 0
+		currentSequenceIndex = 0
+		patternPhase = true
+		_generate_sequence(difficulty)
+		currentSequence = solution[currentSequenceIndex]
+		$Timer.start()
 	
 func _get_grid_sizes():
 	match numberOfLights:
@@ -119,6 +136,7 @@ func _get_grid_sizes():
 
 func _on_timer_timeout():
 	$Timer2.start()
+	print("first timer out")
 	if currentSequenceLightIndex < currentSequence.size():
 		_light_up_pattern_sequence(currentSequence, currentSequenceLightIndex)
 		currentSequenceLightIndex += 1
@@ -130,5 +148,10 @@ func _on_timer_timeout():
 
 
 func _on_timer_2_timeout():
+	print("second timer out")
 	for rect in rects:
 		rect.texture = lightOffTexture
+
+
+func _on_error_timer_timeout():
+	$Background/Label.visible = false

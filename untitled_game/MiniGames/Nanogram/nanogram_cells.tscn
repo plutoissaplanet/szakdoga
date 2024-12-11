@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cy28sqbmrn3yv"]
+[gd_scene load_steps=3 format=3 uid="uid://cy28sqbmrn3yv"]
 
 [ext_resource type="Script" path="res://MiniGames/Nanogram/nanogram_general.gd" id="1_x07r2"]
+[ext_resource type="Texture2D" uid="uid://bnovv670xiexv" path="res://Game Assets/GUI/background_completed.png" id="2_x2a81"]
 
 [node name="nanogram_cells" type="Node2D"]
 script = ExtResource("1_x07r2")
@@ -24,3 +25,19 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 15
+
+[node name="Background" type="Control" parent="."]
+z_index = -1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("2_x2a81")
+expand_mode = 1

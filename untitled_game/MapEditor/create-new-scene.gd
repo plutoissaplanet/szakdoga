@@ -41,13 +41,15 @@ func create_public_map(mapName: String, data):
 func load_scene(mapFilePath):
 	get_tree().change_scene_to_file(mapFilePath)
 
-func map_on_save_button_pressed(node: Node2D):
-	var mapPath = SelectedMap.FILE_PATH
+func map_on_save_button_pressed(node: Node2D, path):
 	var newScene = PackedScene.new()
 	var result = newScene.pack(node)
+	print('_____________')
+	print("create new scene: ",path)
+	print('_____________')
 	
 	if result == OK:
-		var saveResult = ResourceSaver.save(newScene, mapPath)
+		var saveResult = ResourceSaver.save(newScene,path)
 		if saveResult == OK:
 			print("Save was successful!")
 		else:

@@ -34,13 +34,13 @@ func _ready():
 	_place_tiles()
 
 func _process(delta):
-	if Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed('w_up'):
+	if Input.is_action_just_pressed("move_up"):
 		_character_movement('up')
-	elif Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed('d_right'):
+	elif Input.is_action_just_pressed("move_right"):
 		_character_movement('right')
-	elif Input.is_action_just_pressed("move_down") or Input.is_action_just_pressed('s_down'):
+	elif Input.is_action_just_pressed("move_down"):
 		_character_movement('down')
-	elif Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed('a_left'):
+	elif Input.is_action_just_pressed("move_left"):
 		_character_movement('left')
 
 func _generate_matrix():
@@ -67,8 +67,6 @@ func _special_places(isObject = false):
 		while mazeMatrix[randomRow][randomCol] != 0:
 			randomCol = randi_range(0, mazeSizes.get(difficulty).x-1)
 		
-	
-			
 	return Vector2i(randomRow, randomCol)
 
 func _select_special_positions():

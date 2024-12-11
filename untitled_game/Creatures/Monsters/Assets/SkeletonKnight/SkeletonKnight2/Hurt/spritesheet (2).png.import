@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsrpfhamquqnp"
-path="res://.godot/imported/RegularSkeleton1.png-7ca6cced2dfc62638a0a75df4c935a29.ctex"
+uid="uid://bo55tw2cfo235"
+path="res://.godot/imported/spritesheet (2).png-34b8272a04a0109d9af360a41a64ebd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/MapEditor/Enemy/RegularSkeleton1.png"
-dest_files=["res://.godot/imported/RegularSkeleton1.png-7ca6cced2dfc62638a0a75df4c935a29.ctex"]
+source_file="res://Creatures/Monsters/Assets/SkeletonKnight/SkeletonKnight2/Hurt/spritesheet (2).png"
+dest_files=["res://.godot/imported/spritesheet (2).png-34b8272a04a0109d9af360a41a64ebd4.ctex"]
 
 [params]
 

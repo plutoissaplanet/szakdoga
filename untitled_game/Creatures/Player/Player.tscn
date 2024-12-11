@@ -1,0 +1,269 @@
+[gd_scene load_steps=35 format=3 uid="uid://by0flqyrw3k6e"]
+
+[ext_resource type="Script" path="res://Creatures/Player/PlayerScript.gd" id="1_ghq8m"]
+[ext_resource type="Resource" uid="uid://b5ut1sfqskntw" path="res://Creatures/stats.tres" id="3_2i1sq"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="5_ihw4t"]
+[ext_resource type="PackedScene" uid="uid://0123bfmqcti6" path="res://GameplayThings/HealthBar/HealthBar.tscn" id="7_m3gb3"]
+[ext_resource type="PackedScene" uid="uid://cp8bsrcb5uhhu" path="res://GameplayThings/Inventory/Inventory.tscn" id="61_7s2nq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hvkcs"]
+radius = 4.99997
+height = 14.0065
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i55r2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_excjj"]
+radius = 16.0312
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f5h34"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xxna4"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_j1ygg"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_cr70l"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_20v7o"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_boqi8"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_qnnlf"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mhpdc"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qargs"]
+advance_mode = 2
+advance_condition = &"playerWalk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q070f"]
+advance_mode = 2
+advance_condition = &"playerIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4m080"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerWalk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0rx82"]
+advance_mode = 2
+advance_condition = &"playerAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ou02o"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fl4ma"]
+advance_mode = 2
+advance_condition = &"playerHurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hhpnf"]
+advance_mode = 2
+advance_condition = &"playerHurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nl0cc"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerWalk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v2dn0"]
+advance_mode = 2
+advance_condition = &"playerHurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_luml1"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7h7g2"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerDead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1wj2a"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n04na"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"playerIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fqc6v"]
+advance_mode = 2
+advance_condition = &"playerAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sw12v"]
+advance_mode = 2
+advance_condition = &"playerDead"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ykmuj"]
+states/End/position = Vector2(840, 35)
+states/Start/position = Vector2(315, 456)
+states/attack/node = SubResource("AnimationNodeBlendSpace1D_j1ygg")
+states/attack/position = Vector2(840, 230)
+states/death/node = SubResource("AnimationNodeBlendSpace1D_cr70l")
+states/death/position = Vector2(529, 35)
+states/hurt/node = SubResource("AnimationNodeBlendSpace1D_20v7o")
+states/hurt/position = Vector2(529, 230)
+states/idle/node = SubResource("AnimationNodeBlendSpace1D_boqi8")
+states/idle/position = Vector2(529, 456)
+states/move/node = SubResource("AnimationNodeBlendSpace1D_qnnlf")
+states/move/position = Vector2(840, 456)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_mhpdc"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_qargs"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_q070f"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_4m080"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_0rx82"), "hurt", "attack", SubResource("AnimationNodeStateMachineTransition_ou02o"), "attack", "hurt", SubResource("AnimationNodeStateMachineTransition_fl4ma"), "move", "hurt", SubResource("AnimationNodeStateMachineTransition_hhpnf"), "hurt", "move", SubResource("AnimationNodeStateMachineTransition_nl0cc"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_v2dn0"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_luml1"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_7h7g2"), "death", "End", SubResource("AnimationNodeStateMachineTransition_1wj2a"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_n04na"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_fqc6v"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_sw12v")]
+graph_offset = Vector2(69, -43.8386)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6i0mc"]
+radius = 41.0122
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_utdi7"]
+radius = 7.07107
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+process_mode = 3
+z_index = 10
+rotation = -0.00330515
+script = ExtResource("1_ghq8m")
+stats = ExtResource("3_2i1sq")
+metadata/_edit_vertical_guides_ = [-107.0]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_hvkcs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -6)
+scale = Vector2(0.1, 0.1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="MinigameLayer" type="CanvasLayer" parent="Camera2D"]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 1
+libraries = {
+"": SubResource("AnimationLibrary_i55r2")
+}
+
+[node name="EnemyAttackArea" type="Area2D" parent="." groups=["Player"]]
+position = Vector2(3.8147e-06, 9.53674e-07)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAttackArea"]
+shape = SubResource("CircleShape2D_excjj")
+
+[node name="AttackTheEnemyArea" type="Area2D" parent="."]
+scale = Vector2(1.04296, 0.987132)
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackTheEnemyArea"]
+scale = Vector2(2.30524, 2.37772)
+shape = SubResource("CircleShape2D_f5h34")
+
+[node name="HealthBar" parent="." instance=ExtResource("7_m3gb3")]
+offset_left = -87.4722
+offset_top = 142.712
+offset_right = 88.5278
+offset_bottom = 158.712
+
+[node name="Inventory" parent="." instance=ExtResource("61_7s2nq")]
+visible = false
+z_index = 100
+position = Vector2(-39.282, -87.284)
+scale = Vector2(0.5, 0.5)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xxna4")
+}
+tree_root = SubResource("AnimationNodeStateMachine_ykmuj")
+parameters/conditions/playerAttack = false
+parameters/conditions/playerDead = false
+parameters/conditions/playerHurt = false
+parameters/conditions/playerIdle = false
+parameters/conditions/playerWalk = false
+parameters/attack/blend_position = 0
+parameters/death/blend_position = 0
+parameters/hurt/blend_position = 0
+parameters/idle/blend_position = 0
+parameters/move/blend_position = 0
+
+[node name="IdleAndRangedEnemyDetectArea" type="Area2D" parent="."]
+rotation = 0.021614
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IdleAndRangedEnemyDetectArea"]
+shape = SubResource("CircleShape2D_6i0mc")
+
+[node name="ProjectileHitArea" type="Area2D" parent="." groups=["Player"]]
+scale = Vector2(0.839868, 0.919741)
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileHitArea"]
+shape = SubResource("CircleShape2D_utdi7")
+
+[node name="SpecialInventory" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -274.0
+offset_top = 129.0
+offset_right = -98.0
+offset_bottom = 159.0
+
+[node name="GridContainer" type="GridContainer" parent="SpecialInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.467
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.0100002
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 20
+columns = 6
+
+[node name="Timer2Container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpeedTimer" type="Timer" parent="Timer2Container"]
+wait_time = 60.0
+
+[node name="AttackTimer" type="Timer" parent="Timer2Container"]
+wait_time = 60.0
+one_shot = true
+
+[node name="GridContainer" type="GridContainer" parent="Timer2Container"]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 129.0
+offset_right = 169.0
+offset_bottom = 161.0
+columns = 2
+
+[node name="AttackTimer" type="Label" parent="Timer2Container/GridContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.556863, 0.937255, 0.592157, 1)
+theme_override_fonts/font = ExtResource("5_ihw4t")
+text = "0"
+
+[node name="SpeedTimer" type="Label" parent="Timer2Container/GridContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.556863, 0.937255, 0.592157, 1)
+theme_override_fonts/font = ExtResource("5_ihw4t")
+text = "0"
+
+[connection signal="body_exited" from="EnemyAttackArea" to="." method="_on_enemy_attack_area_body_exited"]
+[connection signal="body_entered" from="AttackTheEnemyArea" to="." method="attack_enemy"]
+[connection signal="body_exited" from="IdleAndRangedEnemyDetectArea" to="." method="_on_enemy_attack_area_body_exited"]
+[connection signal="timeout" from="Timer2Container/SpeedTimer" to="." method="_on_speed_timer_timeout"]
+[connection signal="timeout" from="Timer2Container/AttackTimer" to="." method="_on_attack_timer_timeout"]

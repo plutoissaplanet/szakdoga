@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://dme8u1f8d6iii"]
+
+[ext_resource type="Script" path="res://MiniGames/SimonSays/simon-says.gd" id="1_f2qbc"]
+[ext_resource type="Texture2D" uid="uid://bnovv670xiexv" path="res://Game Assets/GUI/background_completed.png" id="2_6msv0"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_htjv6"]
+
+[node name="Simon-says" type="Node2D"]
+script = ExtResource("1_f2qbc")
+metadata/_edit_vertical_guides_ = [-97.0]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_6msv0")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Background"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.709804, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_htjv6")
+text = "Wrong sequence!"
+
+[node name="ErrorTimer" type="Timer" parent="Background"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Lights" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="timeout" from="Background/ErrorTimer" to="." method="_on_error_timer_timeout"]

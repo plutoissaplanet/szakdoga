@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ARMOR_PLATE" load_steps=3 format=3 uid="uid://mrd2t0k278gx"]
+
+[ext_resource type="Script" path="res://GameplayThings/Items/General/Armor Script/armor_plate.gd" id="1_jvwr3"]
+[ext_resource type="Texture2D" uid="uid://blnfbu4whcbsd" path="res://GameplayThings/Items/Armor/Plate/Assets/icons_14_64.png" id="1_vh2im"]
+
+[resource]
+script = ExtResource("1_jvwr3")
+ARMOR = 14
+SPECIAL_ABILITY = ""
+SPECIAL_ABILITY_POINTS = 0
+ITEM_NAME = "Chestplate"
+ITEM_TEXT = ExtResource("1_vh2im")
+SHOW_STATS = ""
+RARITY_INTERVAL = []
+RARITY = "Common"

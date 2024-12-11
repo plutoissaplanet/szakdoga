@@ -1,39 +1,104 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdysesl382wpi"]
+[gd_scene load_steps=4 format=3 uid="uid://cdysesl382wpi"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_c44fo"]
+[ext_resource type="Texture2D" uid="uid://bur3bt8rfugup" path="res://Game Assets/Font/Button1.png" id="3_rmdku"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="4_qgjkn"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D"]
+z_index = 10
 script = ExtResource("1_c44fo")
 
-[node name="StartButton" type="Button" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StartButton" type="TextureButton" parent="CanvasLayer"]
 offset_left = 47.0
 offset_top = 142.0
 offset_right = 250.0
 offset_bottom = 233.0
+texture_normal = ExtResource("3_rmdku")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/StartButton"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 18.0
+offset_right = 156.0
+offset_bottom = 64.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/normal_font = ExtResource("4_qgjkn")
+theme_override_font_sizes/normal_font_size = 40
 text = "Start"
 
-[node name="CharMaker" type="Button" parent="."]
+[node name="MapEditor" type="TextureButton" parent="CanvasLayer"]
 offset_left = 46.0
 offset_top = 262.0
 offset_right = 249.0
 offset_bottom = 353.0
-text = "Karakter készítő"
+texture_normal = ExtResource("3_rmdku")
+stretch_mode = 0
 
-[node name="LeaderB" type="Button" parent="."]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MapEditor"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.079
+anchor_top = 0.198
+anchor_right = 0.931
+anchor_bottom = 0.714
+offset_left = -0.0370007
+offset_top = -0.0180016
+offset_right = 0.00698853
+offset_bottom = 0.0259933
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/normal_font = ExtResource("4_qgjkn")
+theme_override_font_sizes/normal_font_size = 35
+text = "Map Editor"
+text_direction = 1
+
+[node name="LeaderB" type="TextureButton" parent="CanvasLayer"]
 offset_left = 49.0
 offset_top = 375.0
 offset_right = 252.0
 offset_bottom = 466.0
+texture_normal = ExtResource("3_rmdku")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/LeaderB"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 19.0
+offset_right = 195.0
+offset_bottom = 59.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/normal_font = ExtResource("4_qgjkn")
+theme_override_font_sizes/normal_font_size = 30
 text = "Leaderboard"
 
-[node name="Exit" type="Button" parent="."]
+[node name="Exit" type="TextureButton" parent="CanvasLayer"]
 offset_left = 48.0
 offset_top = 499.0
 offset_right = 251.0
 offset_bottom = 590.0
-text = "Kilépés"
+texture_normal = ExtResource("3_rmdku")
+stretch_mode = 0
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CharMaker" to="." method="_on_char_maker_pressed"]
-[connection signal="pressed" from="LeaderB" to="." method="_on_leader_b_pressed"]
-[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Exit"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 15.0
+offset_right = 162.0
+offset_bottom = 60.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/normal_font = ExtResource("4_qgjkn")
+theme_override_font_sizes/normal_font_size = 40
+text = "Exit"
+
+[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MapEditor" to="." method="_on_map_editor_pressed"]
+[connection signal="pressed" from="CanvasLayer/LeaderB" to="." method="_on_leader_b_pressed"]
+[connection signal="pressed" from="CanvasLayer/Exit" to="." method="_on_exit_pressed"]

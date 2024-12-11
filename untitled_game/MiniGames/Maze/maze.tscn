@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjmupqe00oxkn"]
+
+[ext_resource type="Script" path="res://MiniGames/Maze/maze.gd" id="1_y6xk7"]
+[ext_resource type="Texture2D" uid="uid://dentiv7kcjumv" path="res://Game Assets/GUI/backdrop3.png" id="2_6i3dt"]
+[ext_resource type="Texture2D" uid="uid://dtb6s37s5txub" path="res://MiniGames/Maze/Back2.png" id="3_jcg8m"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhivj"]
+texture = ExtResource("2_6i3dt")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0lqmp"]
+texture = ExtResource("3_jcg8m")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_fpv81"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_lhivj")
+sources/1 = SubResource("TileSetAtlasSource_0lqmp")
+
+[node name="Maze" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_y6xk7")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_fpv81")
+format = 2

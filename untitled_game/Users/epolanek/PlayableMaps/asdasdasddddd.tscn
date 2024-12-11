@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://MapEditor/map-editor.gd" id="1_6ammd"]
+
+[node name="@Node2D@29" type="Node2D"]
+script = ExtResource("1_6ammd")
+metadata/MAP_NAME = "epolanek"
+metadata/MAP_DIFFICULTY = "easy"
+metadata/NUMBER_OF_ROOMS = 2
+metadata/CREATION_DATE = {
+"day": 12,
+"dst": false,
+"hour": 14,
+"minute": 41,
+"month": 12,
+"second": 0,
+"weekday": 4,
+"year": 2024
+}

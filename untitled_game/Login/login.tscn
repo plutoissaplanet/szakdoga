@@ -1,0 +1,142 @@
+[gd_scene load_steps=10 format=3 uid="uid://0kn2svy35ncy"]
+
+[ext_resource type="Script" path="res://Login/login.gd" id="1_fugnr"]
+[ext_resource type="Texture2D" uid="uid://dqvxa8eadmub5" path="res://GameplayThings/Death Screen/Logo.png" id="2_x72nm"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_yjo1v"]
+[ext_resource type="Texture2D" uid="uid://bckjurq5yr6w" path="res://Game Assets/GUI/Buttons/Button1.png" id="4_wte3t"]
+[ext_resource type="Texture2D" uid="uid://qtp5jl15i4wo" path="res://Game Assets/GUI/Buttons/Button2.png" id="5_5ksmj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vivsd"]
+texture = ExtResource("4_wte3t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qksd8"]
+texture = ExtResource("5_5ksmj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c5y2j"]
+texture = ExtResource("5_5ksmj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pmc7o"]
+texture = ExtResource("5_5ksmj")
+
+[node name="Login" type="Node2D"]
+script = ExtResource("1_fugnr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Logo" type="Sprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(607, 135.815)
+scale = Vector2(1.3, 1.351)
+texture = ExtResource("2_x72nm")
+
+[node name="Password" type="LineEdit" parent="CanvasLayer"]
+texture_filter = 3
+offset_left = 478.55
+offset_top = 318.315
+offset_right = 675.55
+offset_bottom = 351.315
+scale = Vector2(1.3, 1.351)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yjo1v")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vivsd")
+placeholder_text = "password..."
+alignment = 1
+
+[node name="Email" type="LineEdit" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 478.55
+offset_top = 246.315
+offset_right = 675.55
+offset_bottom = 279.315
+scale = Vector2(1.3, 1.351)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yjo1v")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vivsd")
+placeholder_text = "email..."
+alignment = 1
+
+[node name="Login" type="Button" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 509.55
+offset_top = 400.315
+offset_right = 706.55
+offset_bottom = 450.315
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yjo1v")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qksd8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_c5y2j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pmc7o")
+action_mode = 0
+text = "Log in"
+
+[node name="SignUp" type="Button" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 510.55
+offset_top = 457.315
+offset_right = 707.55
+offset_bottom = 507.315
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yjo1v")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qksd8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_c5y2j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pmc7o")
+action_mode = 0
+text = "Sign up"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 549.55
+offset_top = 102.315
+offset_right = 660.55
+offset_bottom = 150.315
+theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
+theme_override_fonts/font = ExtResource("3_yjo1v")
+theme_override_font_sizes/font_size = 40
+text = "Log in"
+
+[node name="Back" type="Button" parent="CanvasLayer"]
+visible = false
+texture_filter = 1
+offset_left = 510.0
+offset_top = 457.0
+offset_right = 707.0
+offset_bottom = 507.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yjo1v")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qksd8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_c5y2j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pmc7o")
+action_mode = 0
+text = "Go back"
+
+[node name="Username" type="LineEdit" parent="CanvasLayer"]
+visible = false
+texture_filter = 3
+offset_left = 480.0
+offset_top = 392.0
+offset_right = 677.0
+offset_bottom = 425.0
+scale = Vector2(1.3, 1.351)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yjo1v")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vivsd")
+placeholder_text = "username..."
+alignment = 1
+
+[connection signal="pressed" from="CanvasLayer/Login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="CanvasLayer/SignUp" to="." method="_on_sign_up_pressed"]
+[connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_button_pressed"]

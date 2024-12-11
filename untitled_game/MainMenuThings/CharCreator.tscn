@@ -1,3 +1,93 @@
-[gd_scene format=3 uid="uid://jf8grmb7fshj"]
+[gd_scene load_steps=8 format=3 uid="uid://jf8grmb7fshj"]
+
+[ext_resource type="Script" path="res://MainMenuThings/character-creator.gd" id="1_0ca8p"]
+[ext_resource type="Texture2D" uid="uid://ds0n657rkoxfs" path="res://Game Assets/GUI/Buttons/Icons_14.png" id="2_dmxd4"]
+[ext_resource type="Texture2D" uid="uid://dqvxa8eadmub5" path="res://GameplayThings/Death Screen/Logo.png" id="2_og2ke"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_1erps"]
+[ext_resource type="Texture2D" uid="uid://cs7ygiw6k5ppm" path="res://Game Assets/GUI/Buttons/Icons_15.png" id="3_xbth4"]
+[ext_resource type="Texture2D" uid="uid://bur3bt8rfugup" path="res://Game Assets/Font/Button1.png" id="5_gyche"]
+[ext_resource type="Texture2D" uid="uid://0bpb05fiart0" path="res://Game Assets/GUI/Tiles/Button2.png" id="7_s78ec"]
 
 [node name="CharCreator" type="Node2D"]
+script = ExtResource("1_0ca8p")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(1.3, 1.3)
+transform = Transform2D(1.3, 0, 0, 1.3, 0, 0)
+
+[node name="Back" type="TextureButton" parent="CanvasLayer"]
+z_index = 2
+offset_left = 380.0
+offset_top = 206.154
+offset_right = 404.0
+offset_bottom = 230.154
+texture_normal = ExtResource("2_dmxd4")
+
+[node name="Next" type="TextureButton" parent="CanvasLayer"]
+z_index = 2
+offset_left = 561.538
+offset_top = 206.154
+offset_right = 585.538
+offset_bottom = 231.154
+texture_normal = ExtResource("3_xbth4")
+
+[node name="Logo" type="Sprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(486.923, 83.0769)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_og2ke")
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+offset_left = 394.615
+offset_top = 60.7692
+offset_right = 569.615
+offset_bottom = 83.7692
+scale = Vector2(1.2, 1.351)
+theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
+theme_override_fonts/font = ExtResource("3_1erps")
+text = "Choose your character"
+
+[node name="Save" type="TextureButton" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 400.769
+offset_top = 396.154
+offset_right = 448.769
+offset_bottom = 436.154
+scale = Vector2(3.5124, 1)
+texture_normal = ExtResource("5_gyche")
+texture_pressed = ExtResource("7_s78ec")
+
+[node name="SaveLabel" type="Label" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 459.231
+offset_top = 396.154
+offset_right = 499.231
+offset_bottom = 419.154
+scale = Vector2(1.5, 1.5)
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.545098, 0.282353, 0.215686, 1)
+theme_override_fonts/font = ExtResource("3_1erps")
+text = "Save"
+
+[node name="CharacterName" type="Label" parent="CanvasLayer"]
+offset_left = 422.308
+offset_top = 209.231
+offset_right = 548.308
+offset_bottom = 232.231
+theme_override_colors/font_color = Color(0.815686, 0.0980392, 0.27451, 1)
+theme_override_fonts/font = ExtResource("3_1erps")
+theme_override_font_sizes/font_size = 20
+text = "TESTER NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterContainer" type="Container" parent="CanvasLayer"]
+offset_left = 403.846
+offset_top = 233.077
+offset_right = 443.846
+offset_bottom = 273.077
+scale = Vector2(4.12096, 3.86405)
+
+[connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="CanvasLayer/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="CanvasLayer/Save" to="." method="_on_save_pressed"]

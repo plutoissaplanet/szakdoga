@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://134ltnbuh8ia"]
+
+[ext_resource type="Script" path="res://MiniGames/Puzzle/puzzle.gd" id="1_t1nmi"]
+[ext_resource type="Texture2D" uid="uid://bckjurq5yr6w" path="res://Game Assets/GUI/Buttons/Button1.png" id="2_7ae2t"]
+[ext_resource type="Texture2D" uid="uid://qtp5jl15i4wo" path="res://Game Assets/GUI/Buttons/Button2.png" id="3_7whib"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="4_a6aax"]
+[ext_resource type="Texture2D" uid="uid://bnovv670xiexv" path="res://Game Assets/GUI/background_completed.png" id="5_r20o0"]
+
+[node name="Puzzle" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_t1nmi")
+
+[node name="MainPuzzlePieces" type="Container" parent="."]
+offset_left = 256.0
+offset_top = 64.0
+offset_right = 296.0
+offset_bottom = 104.0
+mouse_filter = 2
+
+[node name="OutOfOrderPuzzlePieces" type="Container" parent="."]
+offset_left = 256.0
+offset_top = 64.0
+offset_right = 296.0
+offset_bottom = 104.0
+mouse_filter = 2
+
+[node name="SubmitSequenceButton" type="TextureButton" parent="."]
+offset_left = 331.0
+offset_top = 462.0
+offset_right = 379.0
+offset_bottom = 502.0
+texture_normal = ExtResource("2_7ae2t")
+texture_pressed = ExtResource("3_7whib")
+
+[node name="SubmitLabel" type="Label" parent="SubmitSequenceButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 45.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("4_a6aax")
+theme_override_font_sizes/font_size = 13
+text = "Submit"
+
+[node name="Bakcground" type="Control" parent="."]
+z_index = -1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 39.0
+offset_bottom = 32.0
+
+[node name="TextureRect" type="TextureRect" parent="Bakcground"]
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("5_r20o0")
+expand_mode = 1
+
+[connection signal="pressed" from="SubmitSequenceButton" to="." method="_verify_player_sequence"]

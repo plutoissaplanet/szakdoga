@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dejhurgjkbgyb"]
+
+[sub_resource type="GDScript" id="GDScript_fn5rw"]
+script/source = "extends Node2D
+
+signal mouse_in_area(event: InputEvent)
+
+#	WILL NOT BE USING!!!!!
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i72s2"]
+size = Vector2(708, 415)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_077ic"]
+size = Vector2(708, 43)
+
+[node name="AreaDetector" type="Area2D"]
+script = SubResource("GDScript_fn5rw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(582, 372.5)
+shape = SubResource("RectangleShape2D_i72s2")
+
+[node name="WallArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallArea"]
+position = Vector2(581, 139.5)
+shape = SubResource("RectangleShape2D_077ic")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

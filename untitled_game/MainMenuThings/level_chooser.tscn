@@ -1,0 +1,125 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcte1tiel5mwj"]
+
+[ext_resource type="Script" path="res://MainMenuThings/level_chooser.gd" id="1_hn7od"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="2_28dee"]
+[ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="3_djh67"]
+[ext_resource type="Texture2D" uid="uid://ds0n657rkoxfs" path="res://Game Assets/GUI/Buttons/Icons_14.png" id="4_ur0dt"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_deo25"]
+texture = ExtResource("3_djh67")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gji2e"]
+texture = ExtResource("3_djh67")
+modulate_color = Color(1, 1, 1, 0.392157)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4cc6"]
+texture = ExtResource("3_djh67")
+modulate_color = Color(1, 1, 1, 0.392157)
+
+[node name="LevelChooser" type="Node2D"]
+script = ExtResource("1_hn7od")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EasyButton" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 492.0
+offset_top = 182.0
+offset_right = 652.0
+offset_bottom = 240.0
+text = "Könnyű"
+
+[node name="MediumButton" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 493.0
+offset_top = 287.0
+offset_right = 653.0
+offset_bottom = 345.0
+text = "Közepes"
+
+[node name="HardButton" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 492.0
+offset_top = 390.0
+offset_right = 652.0
+offset_bottom = 448.0
+text = "Nehéz"
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer"]
+offset_left = 352.0
+offset_top = 128.0
+offset_right = 792.0
+offset_bottom = 538.0
+theme_override_fonts/font = ExtResource("2_28dee")
+theme_override_font_sizes/font_size = 0
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_deo25")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_gji2e")
+theme_override_styles/panel = SubResource("StyleBoxTexture_i4cc6")
+
+[node name="Tutorial maps" type="TabBar" parent="CanvasLayer/TabContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/TabContainer/Tutorial maps"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 21.0
+offset_right = 399.0
+offset_bottom = 66.0
+text = "map 1"
+
+[node name="Button2" type="Button" parent="CanvasLayer/TabContainer/Tutorial maps"]
+visible = false
+layout_mode = 0
+offset_left = -303.0
+offset_top = 314.0
+offset_right = -147.0
+offset_bottom = 368.0
+text = "map 2"
+
+[node name="Public maps" type="TabBar" parent="CanvasLayer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/TabContainer/Public maps"]
+custom_minimum_size = Vector2(420, 360)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 438.0
+offset_bottom = 370.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/TabContainer/Public maps/ScrollContainer"]
+custom_minimum_size = Vector2(420, 360)
+layout_mode = 2
+
+[node name="Downloaded maps" type="TabBar" parent="CanvasLayer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/TabContainer/Downloaded maps"]
+custom_minimum_size = Vector2(420, 360)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 438.0
+offset_bottom = 370.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/TabContainer/Downloaded maps/ScrollContainer"]
+custom_minimum_size = Vector2(420, 360)
+layout_mode = 2
+
+[node name="BackButton" type="TextureButton" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("4_ur0dt")
+stretch_mode = 0
+
+[connection signal="pressed" from="CanvasLayer/EasyButton" to="." method="_on_EasyButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/MediumButton" to="." method="_on_MediumButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HardButton" to="." method="_on_HardButton_pressed"]
+[connection signal="tab_selected" from="CanvasLayer/TabContainer" to="." method="_on_tab_container_tab_selected"]
+[connection signal="pressed" from="CanvasLayer/TabContainer/Tutorial maps/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/TabContainer/Tutorial maps/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]

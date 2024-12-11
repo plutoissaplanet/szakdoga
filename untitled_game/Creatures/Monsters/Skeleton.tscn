@@ -1,0 +1,152 @@
+[gd_scene load_steps=25 format=3 uid="uid://cbovdars7xkt8"]
+
+[ext_resource type="Script" path="res://Creatures/Monsters/Skeleton.gd" id="1_4pvud"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4e2v"]
+radius = 34.4272
+height = 71.4282
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_yb5k5"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_on5py"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_fkcp0"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_13pnw"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_2tw6e"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3gvl0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kw8mx"]
+advance_mode = 2
+advance_condition = &"enemyIsAttacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_twpcv"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"enemyWalking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iu0pn"]
+advance_mode = 2
+advance_condition = &"enemyIsAttacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ffuuw"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"enemyIsIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0cgyj"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"enemyIsDead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ld2bu"]
+advance_mode = 2
+advance_condition = &"enemyIsDead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nfqag"]
+advance_mode = 2
+advance_condition = &"enemyHurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5et0f"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"enemyWalking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v3u7o"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w7kin"]
+advance_mode = 2
+advance_condition = &"enemyHurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_karri"]
+advance_mode = 2
+advance_condition = &"enemyIsIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yexxg"]
+advance_mode = 2
+advance_condition = &"enemyWalking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_try0x"]
+states/End/position = Vector2(947, -118)
+states/Start/position = Vector2(261, 200)
+states/attack/node = SubResource("AnimationNodeBlendSpace1D_yb5k5")
+states/attack/position = Vector2(753, 200)
+states/death/node = SubResource("AnimationNodeBlendSpace1D_on5py")
+states/death/position = Vector2(497, -118)
+states/hurt/node = SubResource("AnimationNodeBlendSpace1D_fkcp0")
+states/hurt/position = Vector2(497, 13.4672)
+states/idle/node = SubResource("AnimationNodeBlendSpace1D_13pnw")
+states/idle/position = Vector2(753, 18.4672)
+states/move/node = SubResource("AnimationNodeBlendSpace1D_2tw6e")
+states/move/position = Vector2(497, 200)
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_3gvl0"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_kw8mx"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_twpcv"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_iu0pn"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ffuuw"), "death", "End", SubResource("AnimationNodeStateMachineTransition_0cgyj"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_ld2bu"), "move", "hurt", SubResource("AnimationNodeStateMachineTransition_nfqag"), "hurt", "move", SubResource("AnimationNodeStateMachineTransition_5et0f"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_v3u7o"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_w7kin"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_karri"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_yexxg")]
+graph_offset = Vector2(179, -250.346)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bi8yv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lxikl"]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tbykn"]
+radius = 48.0
+
+[node name="Skeleton" type="CharacterBody2D" groups=["Enemy"]]
+light_mask = 35
+visibility_layer = 33
+collision_layer = 2
+collision_mask = 256
+script = ExtResource("1_4pvud")
+metadata/timer_started = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemy"]]
+light_mask = 2
+visibility_layer = 256
+scale = Vector2(0.900452, 0.926588)
+shape = SubResource("CapsuleShape2D_i4e2v")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_try0x")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/enemyHurt = false
+parameters/conditions/enemyIsAttacking = false
+parameters/conditions/enemyIsDead = false
+parameters/conditions/enemyIsIdle = false
+parameters/conditions/enemyWalking = false
+parameters/attack/blend_position = 0
+parameters/death/blend_position = -0.000914931
+parameters/hurt/blend_position = 0
+parameters/idle/blend_position = 0
+parameters/move/blend_position = -0.000836849
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Enemy"]]
+position = Vector2(1, 0)
+animation = &""
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+light_mask = 34
+visibility_layer = 273
+shape = SubResource("CircleShape2D_bi8yv")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_lxikl")
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("CircleShape2D_tbykn")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_player_entered"]

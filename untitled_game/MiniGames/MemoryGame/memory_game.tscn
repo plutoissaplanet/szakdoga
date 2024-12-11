@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2o4ha4eryu5"]
+
+[ext_resource type="Script" path="res://MiniGames/MemoryGame/memory_game.gd" id="1_uvyhc"]
+
+[node name="MemoryGame" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_uvyhc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Container" type="Container" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Timer2" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

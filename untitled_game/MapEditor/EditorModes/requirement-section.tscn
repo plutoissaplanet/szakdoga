@@ -1,0 +1,653 @@
+[gd_scene load_steps=5 format=3 uid="uid://blo7sfn8jeqyj"]
+
+[ext_resource type="Script" path="res://MapEditor/EditorModes/requirement-section.gd" id="1_qilgf"]
+[ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="2_x32gc"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_25m7v"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_lfwr5"]
+color = Color(1, 1, 1, 1)
+
+[node name="Requirement-section" type="Node2D"]
+script = ExtResource("1_qilgf")
+
+[node name="Requirements" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.239216)
+offset_left = 880.0
+offset_top = 95.0
+offset_right = 1150.0
+offset_bottom = 440.0
+texture = ExtResource("2_x32gc")
+expand_mode = 1
+
+[node name="RequirementsTitle" type="Label" parent="."]
+offset_left = 923.0
+offset_top = 104.0
+offset_right = 1099.0
+offset_bottom = 134.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 28
+text = "Requirements
+"
+
+[node name="RequirementLabel" type="GridContainer" parent="."]
+offset_left = 891.0
+offset_top = 148.0
+offset_right = 1011.0
+offset_bottom = 387.0
+theme_override_constants/v_separation = 15
+
+[node name="NumberOfRoomsLabel" type="Label" parent="RequirementLabel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Nr. of rooms:"
+
+[node name="Control" type="Control" parent="RequirementLabel"]
+custom_minimum_size = Vector2(0, 17)
+layout_mode = 2
+
+[node name="NumberOfEnemiesLabel" type="Label" parent="RequirementLabel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Nr. of enemies:"
+
+[node name="GridContainer" type="GridContainer" parent="RequirementLabel"]
+layout_mode = 2
+
+[node name="NumberOfEnemies2" type="Control" parent="RequirementLabel/GridContainer"]
+custom_minimum_size = Vector2(110, 25)
+layout_mode = 2
+
+[node name="PlacedNumberOfEnemies" type="Label" parent="RequirementLabel/GridContainer/NumberOfEnemies2"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0
+"
+
+[node name="TotalNumberOfEnemies" type="Label" parent="RequirementLabel/GridContainer/NumberOfEnemies2"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0
+"
+
+[node name="SEPARATOR" type="Label" parent="RequirementLabel/GridContainer/NumberOfEnemies2"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="MultipleEnemy" type="Label" parent="RequirementLabel/GridContainer/NumberOfEnemies2"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Multiple"
+
+[node name="NumberOfMinigamesEasy" type="Control" parent="RequirementLabel/GridContainer"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfEasyMinigames" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfEasyMinigames" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Easy" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Easy"
+
+[node name="NumberOfMinigamesMedium" type="Control" parent="RequirementLabel/GridContainer"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfMediumMinigames" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfMediumMinigames" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Medium" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Medium"
+
+[node name="NumberOfMinigamesHard" type="Control" parent="RequirementLabel/GridContainer"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfHardMinigames" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfHardMinigames" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Hard" type="Label" parent="RequirementLabel/GridContainer/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Hard"
+
+[node name="NumberOfMinigamesLabel" type="Label" parent="RequirementLabel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Nr. of games:"
+
+[node name="RequirementValues" type="GridContainer" parent="."]
+offset_left = 1015.0
+offset_top = 149.0
+offset_right = 1125.0
+offset_bottom = 387.0
+theme_override_constants/v_separation = 15
+
+[node name="NumberOfRooms" type="Label" parent="RequirementValues"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.239216, 0.12549, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "1"
+
+[node name="MinMaxRoom" type="Control" parent="RequirementValues"]
+layout_mode = 2
+
+[node name="MinNumberOfRooms" type="Label" parent="RequirementValues/MinMaxRoom"]
+layout_mode = 0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Min.:"
+
+[node name="MaxNumberOfRooms" type="Label" parent="RequirementValues/MinMaxRoom"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = -1.0
+offset_right = 103.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Max.:"
+
+[node name="Control" type="Control" parent="RequirementValues"]
+layout_mode = 2
+
+[node name="NumberOfEnemies" type="Control" parent="RequirementValues"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfEnemies" type="Label" parent="RequirementValues/NumberOfEnemies"]
+layout_mode = 2
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfEnemies" type="Label" parent="RequirementValues/NumberOfEnemies"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementValues/NumberOfEnemies"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="SingleEnemy" type="Label" parent="RequirementValues/NumberOfEnemies"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "(Total/Max)"
+
+[node name="GridContainer" type="GridContainer" parent="RequirementValues"]
+layout_mode = 2
+
+[node name="NumberOfEnemies2" type="Control" parent="RequirementValues/GridContainer"]
+custom_minimum_size = Vector2(110, 25)
+layout_mode = 2
+
+[node name="PlacedNumberOfEnemies" type="Label" parent="RequirementValues/GridContainer/NumberOfEnemies2"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0
+"
+
+[node name="TotalNumberOfEnemies" type="Label" parent="RequirementValues/GridContainer/NumberOfEnemies2"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0
+"
+
+[node name="SEPARATOR" type="Label" parent="RequirementValues/GridContainer/NumberOfEnemies2"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="MultipleEnemy" type="Label" parent="RequirementValues/GridContainer/NumberOfEnemies2"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Single"
+
+[node name="NumberOfMinigamesEasy" type="Control" parent="RequirementValues/GridContainer"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfEasyMinigames" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfEasyMinigames" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Easy" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Easy"
+
+[node name="NumberOfMinigamesMedium" type="Control" parent="RequirementValues/GridContainer"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfMediumMinigames" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfMediumMinigames" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Medium" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Medium"
+
+[node name="NumberOfMinigamesHard" type="Control" parent="RequirementValues/GridContainer"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfHardMinigames" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfHardMinigames" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Hard" type="Label" parent="RequirementValues/GridContainer/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Hard"
+
+[node name="NumberOfMinigamesEasy" type="Control" parent="RequirementValues"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfEasyMinigames" type="Label" parent="RequirementValues/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfEasyMinigames" type="Label" parent="RequirementValues/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementValues/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Easy" type="Label" parent="RequirementValues/NumberOfMinigamesEasy"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Easy"
+
+[node name="NumberOfMinigamesMedium" type="Control" parent="RequirementValues"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfMediumMinigames" type="Label" parent="RequirementValues/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfMediumMinigames" type="Label" parent="RequirementValues/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementValues/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Medium" type="Label" parent="RequirementValues/NumberOfMinigamesMedium"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Medium"
+
+[node name="NumberOfMinigamesHard" type="Control" parent="RequirementValues"]
+custom_minimum_size = Vector2(110, 17)
+layout_mode = 2
+
+[node name="PlacedNumberOfHardMinigames" type="Label" parent="RequirementValues/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="TotalNumberOfHardMinigames" type="Label" parent="RequirementValues/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 22.0
+offset_right = 29.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "0"
+
+[node name="SEPARATOR" type="Label" parent="RequirementValues/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "/"
+
+[node name="Hard" type="Label" parent="RequirementValues/NumberOfMinigamesHard"]
+layout_mode = 0
+offset_left = 41.0
+offset_right = 101.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_25m7v")
+theme_override_font_sizes/font_size = 17
+text = "Hard"
+
+[node name="HSeparator2" type="HSeparator" parent="."]
+offset_left = 891.0
+offset_top = 207.0
+offset_right = 1125.0
+offset_bottom = 211.0
+theme_override_styles/separator = SubResource("StyleBoxLine_lfwr5")
+
+[node name="HSeparator3" type="HSeparator" parent="."]
+offset_left = 893.0
+offset_top = 342.0
+offset_right = 1127.0
+offset_bottom = 346.0
+theme_override_styles/separator = SubResource("StyleBoxLine_lfwr5")

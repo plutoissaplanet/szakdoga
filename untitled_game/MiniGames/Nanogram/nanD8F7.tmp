@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx3kxysb5tui6"]
+
+[ext_resource type="Script" path="res://MiniGames/Nanogram/NanoGame.gd" id="1_q6o6n"]
+[ext_resource type="PackedScene" uid="uid://cy28sqbmrn3yv" path="res://MiniGames/Nanogram/nanogram_cells.tscn" id="1_uhu8q"]
+
+[node name="Nano1" type="Node2D"]
+script = ExtResource("1_q6o6n")
+
+[node name="nanogram_cells" parent="." instance=ExtResource("1_uhu8q")]

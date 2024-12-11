@@ -1,0 +1,185 @@
+[gd_scene load_steps=8 format=3 uid="uid://cp8bsrcb5uhhu"]
+
+[ext_resource type="Texture2D" uid="uid://bds2775s61a47" path="res://GameplayThings/Inventory/background.png" id="1_ixoaq"]
+[ext_resource type="Script" path="res://GameplayThings/Inventory/Inventory.gd" id="1_tgjov"]
+[ext_resource type="Texture2D" uid="uid://cmdfgn6gbgh1a" path="res://GameplayThings/Inventory/Button1.png" id="2_bc6hf"]
+[ext_resource type="Script" path="res://GameplayThings/Inventory/Panel.gd" id="3_8evum"]
+[ext_resource type="Script" path="res://GameplayThings/Inventory/armory_slots.gd" id="5_23hqp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fa3fe"]
+texture = ExtResource("2_bc6hf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_opp1r"]
+texture = ExtResource("2_bc6hf")
+
+[node name="Inventory" type="Node2D"]
+script = ExtResource("1_tgjov")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+offset_right = 347.0
+offset_bottom = 339.0
+texture = ExtResource("1_ixoaq")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = 24.0
+offset_top = 19.0
+offset_right = 326.0
+offset_bottom = 319.0
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 4
+
+[node name="Panel" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel2" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel3" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel4" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel5" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel6" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel7" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel8" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel9" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel10" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel11" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel12" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel13" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel14" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel15" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="Panel16" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fa3fe")
+script = ExtResource("3_8evum")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -90.0
+offset_right = -10.0
+offset_bottom = 339.0
+texture = ExtResource("1_ixoaq")
+
+[node name="GridContainer2" type="GridContainer" parent="."]
+offset_left = -79.0
+offset_top = 20.0
+offset_right = -19.0
+offset_bottom = 320.0
+theme_override_constants/v_separation = 20
+
+[node name="HelmetSlot" type="Panel" parent="GridContainer2" groups=["Helmet"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
+script = ExtResource("5_23hqp")
+
+[node name="PlateSlot" type="Panel" parent="GridContainer2" groups=["Plate"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
+script = ExtResource("5_23hqp")
+
+[node name="LeggingSlot" type="Panel" parent="GridContainer2" groups=["Legging"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
+script = ExtResource("5_23hqp")
+
+[node name="BootSlot" type="Panel" parent="GridContainer2" groups=["Boot"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
+script = ExtResource("5_23hqp")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = 360.0
+offset_right = 444.0
+offset_bottom = 85.0
+texture = ExtResource("1_ixoaq")
+
+[node name="SwordSlot" type="Panel" parent="TextureRect3" groups=["Sword"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.119
+anchor_top = 0.151
+anchor_right = 0.833
+anchor_bottom = 0.849
+offset_left = 2.004
+offset_top = 3.165
+offset_right = 2.02799
+offset_bottom = 3.835
+theme_override_styles/panel = SubResource("StyleBoxTexture_opp1r")
+script = ExtResource("5_23hqp")

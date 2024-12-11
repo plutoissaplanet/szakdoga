@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ATTACK_POTION" load_steps=3 format=3 uid="uid://du1n5m1i0mub5"]
+
+[ext_resource type="Script" path="res://GameplayThings/Items/General/Potion Script/item_attack_potion.gd" id="1_aeqjt"]
+[ext_resource type="Texture2D" uid="uid://cels40h2mumhu" path="res://GameplayThings/Items/Potions/Assets/Icons_12_3_65.png" id="1_manun"]
+
+[resource]
+script = ExtResource("1_aeqjt")
+ATTACK_BONUS = 15
+ITEM_NAME = "Attack Potion"
+ITEM_TEXT = ExtResource("1_manun")
+SHOW_STATS = ""
+RARITY_INTERVAL = []
+RARITY = "Common"

@@ -1,3 +1,65 @@
-[gd_scene format=3 uid="uid://c8klx83m3ftds"]
+[gd_scene load_steps=6 format=3 uid="uid://c8klx83m3ftds"]
+
+[ext_resource type="Script" path="res://MainMenuThings/leader-board.gd" id="1_ly2v4"]
+[ext_resource type="Texture2D" uid="uid://dqvxa8eadmub5" path="res://GameplayThings/Death Screen/Logo.png" id="2_3jh7v"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_sbrk8"]
+[ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="4_bpp7g"]
+[ext_resource type="Texture2D" uid="uid://ds0n657rkoxfs" path="res://Game Assets/GUI/Buttons/Icons_14.png" id="5_v8wb3"]
 
 [node name="LeaderBoard" type="Node2D"]
+script = ExtResource("1_ly2v4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(561, 133)
+scale = Vector2(1.51333, 1.57692)
+texture = ExtResource("2_3jh7v")
+
+[node name="Label" type="Label" parent="CanvasLayer/Sprite2D"]
+offset_left = -84.5815
+offset_top = -24.7317
+offset_right = 92.4185
+offset_bottom = 9.26829
+theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
+theme_override_fonts/font = ExtResource("3_sbrk8")
+theme_override_font_sizes/font_size = 32
+text = "Leaderboard"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0.392157)
+offset_left = 333.0
+offset_top = 239.0
+offset_right = 787.0
+offset_bottom = 609.0
+texture = ExtResource("4_bpp7g")
+expand_mode = 1
+
+[node name="BackButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 15.0
+offset_top = 3.0
+offset_right = 55.0
+offset_bottom = 43.0
+texture_normal = ExtResource("5_v8wb3")
+stretch_mode = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
+offset_left = 333.0
+offset_top = 385.0
+offset_right = 831.0
+offset_bottom = 605.0
+horizontal_scroll_mode = 0
+
+[node name="OtherPositions" type="GridContainer" parent="CanvasLayer/ScrollContainer"]
+custom_minimum_size = Vector2(490, 220)
+layout_mode = 2
+columns = 3
+
+[node name="Podium" type="GridContainer" parent="CanvasLayer"]
+offset_left = 333.0
+offset_top = 257.0
+offset_right = 823.0
+offset_bottom = 372.0
+columns = 3
+
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]

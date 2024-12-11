@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyreos48cvyjc"]
+
+[ext_resource type="Script" path="res://GameplayThings/MiniGameLocations/minigame-location.gd" id="1_ah121"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lhw01"]
+radius = 42.7084
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mpu2k"]
+size = Vector2(24, 12.25)
+
+[node name="NonogramLocation" type="Node2D"]
+process_mode = 3
+process_priority = 1
+script = ExtResource("1_ah121")
+
+[node name="MinigameButton" type="TextureButton" parent="."]
+process_mode = 3
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 25.0
+
+[node name="Area2D" type="Area2D" parent="."]
+process_mode = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+process_mode = 3
+scale = Vector2(0.959999, 1)
+shape = SubResource("CircleShape2D_lhw01")
+
+[node name="Minigame" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 400.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(1.2082, 1.16854)
+shape = SubResource("RectangleShape2D_mpu2k")
+
+[connection signal="pressed" from="MinigameButton" to="." method="_on_minigame_button_pressed"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

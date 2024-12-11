@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Statistics" load_steps=2 format=3 uid="uid://b5ut1sfqskntw"]
+
+[ext_resource type="Script" path="res://Creatures/stats.gd" id="1_tuk0s"]
+
+[resource]
+script = ExtResource("1_tuk0s")
+HealthPoints = 100
+AttackPoints = 10

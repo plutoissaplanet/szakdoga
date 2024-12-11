@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://134ltnbuh8ia"]
+
+[ext_resource type="Script" path="res://MiniGames/Puzzle/puzzle.gd" id="1_t1nmi"]
+
+[node name="Puzzle" type="Node2D"]
+script = ExtResource("1_t1nmi")
+
+[node name="MainPuzzlePieces" type="Container" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OutOfOrderPuzzlePieces" type="Container" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0

@@ -1,0 +1,552 @@
+[gd_scene load_steps=30 format=3 uid="uid://wb843brcr06o"]
+
+[ext_resource type="Script" path="res://MapEditor/EditorModes/decorator-mode.gd" id="1_exevj"]
+[ext_resource type="Texture2D" uid="uid://bmgiot7r73eq5" path="res://Game Assets/GUI/backdrop2.png" id="2_mj8dh"]
+[ext_resource type="TileSet" uid="uid://dv8jnbvavtrqt" path="res://MapEditor/Requirements/wall_tile_set.tres" id="2_wrwp1"]
+[ext_resource type="FontFile" uid="uid://c85eap4ne5fj8" path="res://Game Assets/Font/CraftPixNet Survival Kit.otf" id="3_0c21j"]
+[ext_resource type="TileSet" uid="uid://dq6smg8duygmt" path="res://MapEditor/Requirements/floor-tile-set.tres" id="3_3fm5y"]
+[ext_resource type="TileSet" uid="uid://b7ugw6a6tsnfm" path="res://MapEditor/Requirements/boundary-tile-set.tres" id="4_0sdb1"]
+[ext_resource type="Texture2D" uid="uid://c7ihulgcsf6k4" path="res://Game Assets/GUI/backdrop.png" id="8_wklju"]
+[ext_resource type="Texture2D" uid="uid://bckjurq5yr6w" path="res://Game Assets/GUI/Buttons/Button1.png" id="9_0ft5m"]
+[ext_resource type="Texture2D" uid="uid://wu7wcjl8r41l" path="res://Game Assets/MapEditor/Icons/eraser.png" id="9_0oamb"]
+[ext_resource type="Texture2D" uid="uid://dt0c6o6ydkhp3" path="res://Game Assets/MapEditor/Icons/diskette.png" id="10_lrb6j"]
+[ext_resource type="Texture2D" uid="uid://brl0x1rvwinsi" path="res://Game Assets/MapEditor/Icons/Icons_03.png" id="11_osipf"]
+[ext_resource type="Texture2D" uid="uid://d10qqjrcrne6b" path="res://Game Assets/MapEditor/Icons/pencil.png" id="12_xo4ih"]
+[ext_resource type="Texture2D" uid="uid://dcwymmsue8gi1" path="res://Game Assets/MapEditor/Icons/rectangular-shape-outline.png" id="13_fkctm"]
+[ext_resource type="Texture2D" uid="uid://ds0n657rkoxfs" path="res://Game Assets/GUI/Buttons/Icons_14.png" id="14_02e3f"]
+[ext_resource type="Texture2D" uid="uid://0bpb05fiart0" path="res://Game Assets/GUI/Tiles/Button2.png" id="14_pk42w"]
+[ext_resource type="Texture2D" uid="uid://qtp5jl15i4wo" path="res://Game Assets/GUI/Buttons/Button2.png" id="15_u5h8u"]
+[ext_resource type="PackedScene" uid="uid://tv6xl43fjll0" path="res://MapEditor/EditorModes/enemy-and-logic-editor.tscn" id="17_y8j08"]
+[ext_resource type="PackedScene" uid="uid://bybhdom2ygbhs" path="res://MapEditor/EditorModes/logic-editor.tscn" id="18_v5tbh"]
+[ext_resource type="PackedScene" uid="uid://blo7sfn8jeqyj" path="res://MapEditor/EditorModes/requirement-section.tscn" id="19_n8mhj"]
+[ext_resource type="Texture2D" uid="uid://c1mwqkm3s15ho" path="res://MapEditor/origbig.png" id="20_ya478"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jqvq7"]
+texture = ExtResource("2_mj8dh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5csac"]
+texture = ExtResource("8_wklju")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_37g1s"]
+texture = ExtResource("2_mj8dh")
+modulate_color = Color(1, 1, 1, 0.239216)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3vl0u"]
+texture = ExtResource("2_mj8dh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2kegg"]
+texture = ExtResource("2_mj8dh")
+modulate_color = Color(1, 1, 1, 0.207843)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u0eoh"]
+texture = ExtResource("15_u5h8u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bwdja"]
+texture = ExtResource("15_u5h8u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_df8fq"]
+texture = ExtResource("15_u5h8u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bwptm"]
+texture = ExtResource("15_u5h8u")
+
+[node name="Decorator-mode" type="Node2D"]
+show_behind_parent = true
+script = ExtResource("1_exevj")
+
+[node name="WallTileMap" type="TileMap" parent="."]
+position = Vector2(234, 122)
+tile_set = ExtResource("2_wrwp1")
+format = 2
+layer_1/tile_data = PackedInt32Array()
+
+[node name="FloorTileMap" type="TileMap" parent="."]
+position = Vector2(234, 186)
+tile_set = ExtResource("3_3fm5y")
+navigation_visibility_mode = 1
+format = 2
+layer_0/name = "Floor"
+layer_1/name = "Wall"
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Furniture"
+layer_2/tile_data = PackedInt32Array()
+
+[node name="MapBoundary" type="TileMap" parent="."]
+position = Vector2(234, 186)
+tile_set = ExtResource("4_0sdb1")
+format = 2
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+
+[node name="MapData" type="TextureRect" parent="Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.239216)
+layout_mode = 0
+offset_left = 899.0
+offset_top = 300.0
+offset_right = 1136.0
+offset_bottom = 562.0
+texture = ExtResource("2_mj8dh")
+expand_mode = 1
+
+[node name="MenuBar" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 98.0
+
+[node name="IconBackgrounds" type="TextureRect" parent="Control/MenuBar"]
+modulate = Color(1, 1, 1, 0.239216)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 11.0
+offset_right = 1134.0
+offset_bottom = 83.0
+texture = ExtResource("2_mj8dh")
+expand_mode = 1
+
+[node name="SaveButton" type="TextureButton" parent="Control/MenuBar"]
+texture_filter = 6
+layout_direction = 1
+layout_mode = 0
+offset_left = 1023.0
+offset_top = 21.0
+offset_right = 1047.0
+offset_bottom = 45.0
+texture_normal = ExtResource("10_lrb6j")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/SaveButton"]
+layout_mode = 0
+offset_left = -9.0
+offset_top = 30.0
+offset_right = 31.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Save"
+
+[node name="DiscardButton" type="TextureButton" parent="Control/MenuBar"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1085.0
+offset_top = 21.0
+offset_right = 1109.0
+offset_bottom = 45.0
+texture_normal = ExtResource("11_osipf")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/DiscardButton"]
+layout_mode = 0
+offset_left = -15.0
+offset_top = 30.0
+offset_right = 39.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Discard"
+
+[node name="LogicMode" type="TextureButton" parent="Control/MenuBar"]
+layout_mode = 0
+offset_left = 696.0
+offset_top = 28.0
+offset_right = 836.0
+offset_bottom = 68.0
+texture_normal = ExtResource("9_0ft5m")
+texture_pressed = ExtResource("15_u5h8u")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/LogicMode"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 6.0
+offset_right = 115.0
+offset_bottom = 26.0
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 18
+text = "Logic Mode"
+
+[node name="DecoratorMode" type="TextureButton" parent="Control/MenuBar"]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 28.0
+offset_right = 450.0
+offset_bottom = 68.0
+texture_normal = ExtResource("9_0ft5m")
+texture_pressed = ExtResource("15_u5h8u")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/DecoratorMode"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 134.0
+offset_bottom = 28.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 18
+text = "Decorator Mode"
+
+[node name="EnemyMode" type="TextureButton" parent="Control/MenuBar"]
+layout_mode = 0
+offset_left = 505.0
+offset_top = 28.0
+offset_right = 645.0
+offset_bottom = 68.0
+texture_normal = ExtResource("9_0ft5m")
+texture_pressed = ExtResource("15_u5h8u")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/EnemyMode"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 6.0
+offset_right = 121.0
+offset_bottom = 29.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 18
+text = "Enemy Mode"
+
+[node name="TilePlacementModifiers" type="Control" parent="Control/MenuBar"]
+anchors_preset = 0
+offset_left = 66.0
+offset_right = 106.0
+offset_bottom = 40.0
+
+[node name="EraserButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
+texture_filter = 6
+layout_mode = 1
+anchors_preset = -1
+offset_left = 40.0
+offset_top = 24.0
+offset_right = 64.0
+offset_bottom = 48.0
+texture_normal = ExtResource("9_0oamb")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/TilePlacementModifiers/EraserButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.375
+anchor_top = 1.25
+anchor_right = 1.583
+anchor_bottom = 2.208
+offset_left = -4.48227e-05
+offset_right = 0.00819016
+offset_bottom = 0.00799561
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Eraser"
+
+[node name="DrawButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
+texture_filter = 6
+layout_mode = 0
+offset_left = 98.0
+offset_top = 23.0
+offset_right = 122.0
+offset_bottom = 47.0
+texture_normal = ExtResource("12_xo4ih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/TilePlacementModifiers/DrawButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.333
+anchor_top = 1.333
+anchor_right = 1.417
+anchor_bottom = 2.125
+offset_left = -0.0079999
+offset_top = 0.00799942
+offset_right = -0.00800323
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Draw"
+
+[node name="RectangleDrawButton" type="TextureButton" parent="Control/MenuBar/TilePlacementModifiers"]
+visible = false
+texture_filter = 6
+layout_mode = 0
+offset_left = 155.0
+offset_top = 19.0
+offset_right = 185.0
+offset_bottom = 49.0
+texture_normal = ExtResource("13_fkctm")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/MenuBar/TilePlacementModifiers/RectangleDrawButton"]
+layout_mode = 0
+offset_left = -21.0
+offset_top = 26.0
+offset_right = 51.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Rectangle
+Draw"
+horizontal_alignment = 1
+
+[node name="BackButton" type="TextureButton" parent="Control/MenuBar"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 28.0
+offset_right = 67.0
+offset_bottom = 68.0
+texture_normal = ExtResource("14_02e3f")
+stretch_mode = 0
+
+[node name="DecoratorSelection" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DecorationTabContainer" type="TabContainer" parent="Control/DecoratorSelection"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 192.0
+offset_right = 209.0
+offset_bottom = 639.0
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_jqvq7")
+theme_override_styles/tab_hovered = SubResource("StyleBoxTexture_5csac")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_37g1s")
+theme_override_styles/tab_focus = SubResource("StyleBoxTexture_3vl0u")
+theme_override_styles/panel = SubResource("StyleBoxTexture_2kegg")
+tab_alignment = 1
+tab_focus_mode = 1
+
+[node name="Floors" type="TabBar" parent="Control/DecoratorSelection/DecorationTabContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/DecoratorSelection/DecorationTabContainer/Floors"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 15.0
+offset_right = 190.0
+offset_bottom = 407.0
+
+[node name="GridContainer" type="GridContainer" parent="Control/DecoratorSelection/DecorationTabContainer/Floors/ScrollContainer"]
+custom_minimum_size = Vector2(182, 392)
+layout_mode = 2
+columns = 3
+
+[node name="Walls" type="TabBar" parent="Control/DecoratorSelection/DecorationTabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/h_separation = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/DecoratorSelection/DecorationTabContainer/Walls"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 15.0
+offset_right = 190.0
+offset_bottom = 407.0
+
+[node name="GridContainer" type="GridContainer" parent="Control/DecoratorSelection/DecorationTabContainer/Walls/ScrollContainer"]
+custom_minimum_size = Vector2(182, 392)
+layout_mode = 2
+columns = 3
+
+[node name="Decor" type="TabBar" parent="Control/DecoratorSelection/DecorationTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/DecoratorSelection/DecorationTabContainer/Decor"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 15.0
+offset_right = 200.0
+offset_bottom = 397.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Control/DecoratorSelection/DecorationTabContainer/Decor/ScrollContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Rooms" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NewRoomButton" type="TextureButton" parent="Control/Rooms"]
+layout_mode = 0
+offset_left = 937.0
+offset_top = 592.0
+offset_right = 1017.0
+offset_bottom = 635.0
+texture_normal = ExtResource("9_0ft5m")
+texture_pressed = ExtResource("14_pk42w")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/Rooms/NewRoomButton"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 77.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "New room"
+
+[node name="GridContainer" type="GridContainer" parent="Control/Rooms"]
+layout_mode = 0
+offset_left = 246.0
+offset_top = 585.0
+offset_right = 846.0
+offset_bottom = 628.0
+columns = 6
+
+[node name="Room1" type="TextureButton" parent="Control/Rooms/GridContainer"]
+custom_minimum_size = Vector2(80, 43)
+layout_mode = 2
+texture_normal = ExtResource("9_0ft5m")
+texture_pressed = ExtResource("14_pk42w")
+stretch_mode = 0
+metadata/ROOM_NUMBER = 1
+
+[node name="Label" type="Label" parent="Control/Rooms/GridContainer/Room1"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 8.0
+offset_right = 65.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+text = "Room1"
+
+[node name="RoomSize" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 22.0
+offset_top = 93.0
+offset_right = 22.0
+offset_bottom = 93.0
+
+[node name="IconBackgrounds" type="TextureRect" parent="Control/RoomSize"]
+modulate = Color(1, 1, 1, 0.239216)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.072
+anchor_top = -0.078
+anchor_right = 1.033
+anchor_bottom = 1.843
+offset_left = -13.0
+offset_top = -5.0
+offset_right = 187.0
+offset_bottom = 93.0
+texture = ExtResource("2_mj8dh")
+expand_mode = 1
+
+[node name="OptionButton" type="OptionButton" parent="Control/RoomSize"]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.022
+anchor_top = 0.5
+anchor_right = 0.939
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 24.0
+offset_right = 157.0
+offset_bottom = 53.0
+theme_override_styles/focus = SubResource("StyleBoxTexture_u0eoh")
+theme_override_styles/normal = SubResource("StyleBoxTexture_bwdja")
+theme_override_styles/hover = SubResource("StyleBoxTexture_df8fq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bwptm")
+
+[node name="Label" type="Label" parent="Control/RoomSize"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.044
+anchor_top = -0.059
+anchor_right = 1.067
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -3.059
+offset_right = 172.0
+offset_bottom = 20.941
+theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 22
+text = "Choose room size"
+horizontal_alignment = 1
+
+[node name="OkButton" type="TextureButton" parent="Control/RoomSize"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 61.0
+offset_right = 139.0
+offset_bottom = 89.0
+texture_normal = ExtResource("9_0ft5m")
+texture_pressed = ExtResource("15_u5h8u")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/RoomSize/OkButton"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 2.0
+offset_right = 67.0
+offset_bottom = 24.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.239216, 0.145098, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 18
+text = "Ok"
+
+[node name="ChosenSize" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 512.0
+offset_right = 661.0
+offset_bottom = 553.0
+theme_override_colors/font_color = Color(1, 0.835294, 0.411765, 1)
+theme_override_fonts/font = ExtResource("3_0c21j")
+theme_override_font_sizes/font_size = 32
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="Logic-editor" parent="." instance=ExtResource("18_v5tbh")]
+visible = false
+
+[node name="Enemy-and-logic-editor" parent="." instance=ExtResource("17_y8j08")]
+visible = false
+
+[node name="Requirement-section" parent="." instance=ExtResource("19_n8mhj")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.384314)
+z_index = -1
+scale = Vector2(2, 2)
+texture = ExtResource("20_ya478")
+centered = false
+
+[connection signal="pressed" from="Control/MenuBar/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Control/MenuBar/DiscardButton" to="." method="_on_discard_button_pressed"]
+[connection signal="pressed" from="Control/MenuBar/LogicMode" to="." method="_on_logic_mode_pressed"]
+[connection signal="pressed" from="Control/MenuBar/DecoratorMode" to="." method="_on_decorator_mode_pressed"]
+[connection signal="pressed" from="Control/MenuBar/EnemyMode" to="." method="_on_enemy_mode_pressed"]
+[connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/EraserButton" to="." method="_on_eraser_button_pressed"]
+[connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/DrawButton" to="." method="_on_draw_button_pressed"]
+[connection signal="pressed" from="Control/MenuBar/TilePlacementModifiers/RectangleDrawButton" to="." method="_on_rectangle_draw_button_pressed"]
+[connection signal="pressed" from="Control/MenuBar/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="tab_changed" from="Control/DecoratorSelection/DecorationTabContainer" to="." method="_on_tab_changed"]
+[connection signal="pressed" from="Control/Rooms/NewRoomButton" to="." method="_on_new_room_button_pressed"]
+[connection signal="item_selected" from="Control/RoomSize/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Control/RoomSize/OkButton" to="." method="_on_ok_button_pressed"]

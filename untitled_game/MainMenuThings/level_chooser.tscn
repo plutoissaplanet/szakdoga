@@ -59,21 +59,21 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_i4cc6")
 [node name="Tutorial maps" type="TabBar" parent="CanvasLayer/TabContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/TabContainer/Tutorial maps"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/TabContainer/Tutorial maps"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 0
-offset_left = 28.0
-offset_top = 21.0
-offset_right = 399.0
-offset_bottom = 66.0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 431.0
+offset_bottom = 82.0
+
+[node name="Button" type="Button" parent="CanvasLayer/TabContainer/Tutorial maps/GridContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
 text = "map 1"
 
-[node name="Button2" type="Button" parent="CanvasLayer/TabContainer/Tutorial maps"]
-visible = false
-layout_mode = 0
-offset_left = -303.0
-offset_top = 314.0
-offset_right = -147.0
-offset_bottom = 368.0
+[node name="Button2" type="Button" parent="CanvasLayer/TabContainer/Tutorial maps/GridContainer"]
+layout_mode = 2
 text = "map 2"
 
 [node name="Public maps" type="TabBar" parent="CanvasLayer/TabContainer"]
@@ -120,6 +120,6 @@ stretch_mode = 0
 [connection signal="pressed" from="CanvasLayer/MediumButton" to="." method="_on_MediumButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/HardButton" to="." method="_on_HardButton_pressed"]
 [connection signal="tab_selected" from="CanvasLayer/TabContainer" to="." method="_on_tab_container_tab_selected"]
-[connection signal="pressed" from="CanvasLayer/TabContainer/Tutorial maps/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/TabContainer/Tutorial maps/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/TabContainer/Tutorial maps/GridContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/TabContainer/Tutorial maps/GridContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]

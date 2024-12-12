@@ -7,11 +7,13 @@ var notOwnMap = false
 
 
 func _ready():
-	#door.player_detector.body_entered.connect(_on_player_detector_body_entered)
-	#nanogram.solvedSignal.connect(openChest)
-	$NonogramLocation.initialize( "easy","res://Game Assets/MapEditor/MinigamePlaces/LARGE_BOOKCASE_OAK.png","res://MiniGames/SimonSays/simon-says.tscn",  "asd")
-	#_difficulty: String, _texturePath: String, _minigamePath: String, _reward: String
-	pass
+	#initialize(_difficulty: String, _texturePath: String, _minigamePath: String, _reward: String):
+	
+	$NonogramLocation.initialize( "easy","res://Game Assets/MapEditor/MinigamePlaces/LARGE_BOOKCASE_OAK.png","res://MiniGames/SimonSays/simon-says.tscn", "Key")
+	$NonogramLocation.keyID = "FINAL_DOOR"
+	$Door.ID = "FINAL_DOOR"
+	$Door.FINAL_DOOR = true
+	
 	
 
 

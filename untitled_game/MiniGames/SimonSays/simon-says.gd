@@ -28,7 +28,6 @@ var currentSequenceLightIndex = 0
 signal minigame_completed
 
 func _ready():
-	difficulty = 'hard'
 	_load_all_lights_on_textures()
 	numberOfLights = numberOfLightsDict.get(difficulty)
 	_add_texture_rects_to_scene()

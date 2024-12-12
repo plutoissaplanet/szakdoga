@@ -8,6 +8,7 @@
 
 [node name="Puzzle" type="Node2D"]
 process_mode = 3
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_t1nmi")
 
 [node name="MainPuzzlePieces" type="Container" parent="."]

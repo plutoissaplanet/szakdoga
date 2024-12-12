@@ -31,12 +31,10 @@ func _ready():
 		rangedAndIdleEnemyCollision = rangedAndIdleEnemyArea.get_children()[0]
 	
 	state_machine.projectile_hit.connect(_projectile_hit)
-	state_machine.state=state_machine.MOVE
+	
 	state_machine.enemySprite=enemy
 	state_machine.enemy = self
-	state_machine.animationTree = animationTree
 	
-	print(enemyObject.enemyType," " ,enemyObject.enemyVariant)
 	
 	if enemyObject.enemyAttackType == "Ranged":
 		player = null
@@ -49,8 +47,10 @@ func _ready():
 	
 	animationTree.active=true
 	var animationMaker = ANIMATION_MAKER.new()
-	animationMaker.make_animation('Monsters/Assets', enemyObject.enemyType, enemyObject.enemyVariant, float(enemyObject.speed), '', animPlayer, 'enemyLibrary', enemy)
+	animationMaker.make_animation('Monsters/Assets', enemyObject.enemyType, enemyObject.enemyVariant, float(enemyObject.speed), 'AnimatedSprite2D:texture', animPlayer, 'enemyLibrary', $AnimatedSprite2D)
 	animationMaker.add_points_to_blendspace(animationTree, 'enemyLibrary/', animPlayer )
+	state_machine.state=state_machine.MOVE
+	state_machine.animationTree = animationTree
 
 func set_enemy_data(enemyData: ENEMY_DATA):
 	enemyObject = enemyData

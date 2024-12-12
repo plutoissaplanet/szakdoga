@@ -85,7 +85,7 @@ states/idle/position = Vector2(753, 18.4672)
 states/move/node = SubResource("AnimationNodeBlendSpace1D_2tw6e")
 states/move/position = Vector2(497, 200)
 transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_3gvl0"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_kw8mx"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_twpcv"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_iu0pn"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ffuuw"), "death", "End", SubResource("AnimationNodeStateMachineTransition_0cgyj"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_ld2bu"), "move", "hurt", SubResource("AnimationNodeStateMachineTransition_nfqag"), "hurt", "move", SubResource("AnimationNodeStateMachineTransition_5et0f"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_v3u7o"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_w7kin"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_karri"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_yexxg")]
-graph_offset = Vector2(179, -250.346)
+graph_offset = Vector2(-3, -193.346)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bi8yv"]
 
@@ -117,7 +117,6 @@ wait_time = 2.0
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_try0x")
-anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/enemyHurt = false
 parameters/conditions/enemyIsAttacking = false
 parameters/conditions/enemyIsDead = false
@@ -131,7 +130,6 @@ parameters/move/blend_position = -0.000836849
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Enemy"]]
 position = Vector2(1, 0)
-animation = &""
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 light_mask = 34

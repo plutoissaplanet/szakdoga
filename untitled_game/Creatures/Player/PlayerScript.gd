@@ -133,12 +133,12 @@ func _process(event):
 func _set_up_animations():
 	var animationMaker = ANIMATION_MAKER.new()
 	
-	print("UserData.characterType: ", UserData.characterType)
 	if UserData.characterType != null:
 		await animationMaker.make_animation('Player/Assets', UserData.characterType, UserData.character, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
 	else:
 		await animationMaker.make_animation('Player/Assets', UserData.fallbackCharacterType, UserData.fallbackCharacter, 0.07, 'AnimatedSprite2D:texture', animationPlayer, 'playerLibrary', $AnimatedSprite2D)
 	animationMaker.add_points_to_blendspace(animationTree, 'playerLibrary/', animationPlayer )
+
 
 func _set_state(newState: String, condition: String):
 	for key in PLAYER_CONDITIONS.keys():

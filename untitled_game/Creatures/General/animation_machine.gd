@@ -7,7 +7,7 @@ const ENEMY_CONDITIONS =  {
 	"enemyWalking": "parameters/conditions/enemyWalking",
 	"enemyHurt": "parameters/conditions/enemyHurt",
 	"enemyIsAttacking": "parameters/conditions/enemyIsAttacking",
-	"enemyIsDead": "parameters/conditions/enemyIsDead"
+	#"enemyIsDead": "parameters/conditions/enemyIsDead"
 }
 
 const PLAYER_CONDITIONS = {

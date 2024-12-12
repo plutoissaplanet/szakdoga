@@ -22,6 +22,7 @@ signal projectile_hit(projectile: Area2D)
 
 enum {
 	ATTACK,
+	DEATH,
 	MOVE,
 	HIT,
 	IDLE,
@@ -38,7 +39,8 @@ var stateMap = {
 	"move": MOVE,
 	"attack": ATTACK,
 	"idle": IDLE,
-	"hurt": HURT
+	"hurt": HURT,
+	"death": DEATH
 }
 
 
@@ -93,12 +95,10 @@ func attack(target, delta):
 func enemy_hit(damage, obj):
 	stats.HealthPoints-=damage
 	if stats.HealthPoints <=0:
-		animationTree.set("parameters/conditions/enemyIsDead", false)
 		enemy_death(obj)
 	state=IDLE
 
 func enemy_death(enemy):
-	animationTree.set("parameters/conditions/enemyIsDead", true)
 	if animationTree.animation_finished:
 		enemy.queue_free()
 	

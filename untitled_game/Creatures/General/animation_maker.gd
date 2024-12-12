@@ -22,8 +22,6 @@ func make_animation(entityType: String, entityName: String, variant: String, spe
 	var animationLibrary = AnimationLibrary.new()
 	var spriteFrame = SpriteFrames.new()
 	
-	print("sprites: ", sprites)
-
 	var frameWidth: int = 382
 	var frameHeight: int 
 
@@ -66,8 +64,8 @@ func make_animation(entityType: String, entityName: String, variant: String, spe
 		animationLibrary.add_animation(key, animation)
 
 	animatedSprite.sprite_frames = spriteFrame
-	print("spriteFrame: ", animatedSprite.sprite_frames)
 	animPlayer.add_animation_library(libraryName, animationLibrary )
+	
 
 func add_points_to_blendspace(animationTree: AnimationTree, libraryName: String, animPlayer: AnimationPlayer):
 	animationTree.anim_player = animPlayer.get_path()

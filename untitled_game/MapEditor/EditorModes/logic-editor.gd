@@ -10,7 +10,7 @@ var MINIGAMES_TO_PALCE = {}
 var selectedTexture
 
 var selectedMinigame: String = "Wiring"
-var selectedDifficulty: String
+var selectedDifficulty: String = "easy"
 var selectedReward: String
 var selectedTexturePath: String
 
